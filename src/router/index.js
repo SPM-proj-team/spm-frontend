@@ -1,27 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import StaffHome from '../views/StaffHome.vue'
+import JobRoleDetails from '../views/JobRoleDetails.vue'
+import CreateLearningJourney from '../views/CreateLearningJourney.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Staff Home',
+    name: 'Home',
     component: StaffHome
   },
   {
     path: '/JobRoles',
     name: 'Job Roles',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/JobRoles.vue')
+    component: () => import( '../views/JobRoles.vue')
+  },
+  {
+    path: '/JobRoles/:id',
+    name: 'JobRoleDetails',
+    component: JobRoleDetails,
+    props: true
   },
   {
     path: '/CreateLearningJourney',
     name: 'Create Learning Journey',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/CreateLearningJourney.vue')
+    component: CreateLearningJourney
   }
 ]
 

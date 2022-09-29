@@ -16,7 +16,7 @@
                             </form>
                             <div class="text-center mx-md-4 fw-semibold">Welcome, Faisal</div>
                             <div class="d-grid">
-                                <button type="button" class="btn bg-danger bg-opacity-75 fw-semibold">Logout</button>
+                                <button type="button" class="btn bg-danger bg-opacity-75 fw-semibold text-white">Logout</button>
                             </div>
                         </div>
                     </nav>
