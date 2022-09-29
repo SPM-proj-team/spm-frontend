@@ -7,22 +7,32 @@
 
 <script>
 
+import { assertExpressionStatement } from '@babel/types';
 import JobRolesCard from '../components/JobRolesCard.vue'
+import axios from 'axios'
 
 export default {
   components: {
     JobRolesCard
   },
+  mounted(){
+    this.getJobRoles()
+  },
   data () {
     return {
-      jobRoles: [
-        {id:1, role: 'Analytics Executive', position: 'Executive'},
-        {id:2, role: 'Business Development Manager', position: 'Manager'},
-        {id:1, role: 'Analytics Executive', position: 'Executive'},
-        {id:4, role: 'Business Development Manager', position: 'Manager'},
-        {id:1, role: 'Analytics Executive', position: 'Executive'},
-        {id:6, role: 'Business Development Manager', position: 'Manager'}
-      ]
+      jobRoles: []
+    }
+  },
+  methods : {
+    getJobRoles(){
+      const path = 'http://localhost:5000';
+      axios.get(path)
+      .then((res) => {
+        this.jobRoles = res.data;
+      })
+      .catch ((err) => {
+        console.error(error);
+      })
     }
   }
 }

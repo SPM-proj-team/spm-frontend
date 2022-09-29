@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row row-cols-md-3 g-2 g-lg-3 justify-content-center">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2 g-lg-3 justify-content-center">
             <div v-for="jobRole in jobRoles" :key="jobRole.id" class="col ">
                 <button class="btn btn-light card w-100 h-100">
                     <div class="card-body w-100">
@@ -17,7 +17,11 @@
 <script>
 
 export default {
-    props: ['jobRoles']
+    props: {
+        jobRoles: {
+            type: Array
+        }
+    } 
     
 }
 
