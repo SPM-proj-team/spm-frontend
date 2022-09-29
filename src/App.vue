@@ -1,26 +1,24 @@
 <template>
   <mainNavbar/>
-  <div class="container m-auto py-5">
-    <HelloWorld />
-    <h1 class="text-green-400 text-center py-3">Green 500</h1>
-  </div>
-  
+  <router-view/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import mainNavbar from './components/mainNavbar.vue'
+
+import MainNavbar from './components/MainNavbar.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-    mainNavbar
+  components:{
+    MainNavbar
+  },
+  
 }
-}
+
 </script>
 
 <style>
+
+
 
 
 </style>
