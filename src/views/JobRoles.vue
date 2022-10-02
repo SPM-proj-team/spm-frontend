@@ -22,7 +22,14 @@ export default {
     return {
       jobRoles: [
         {Job_ID: 1, Job_Role: "CEO", Job_Title: 'The big boss'},
-        {Job_ID: 2, Job_Role: "Operations Manager", Job_Title: 'Manager', Skills:[]},
+        {Job_ID: 2, Job_Role: "Operations Manager", Job_Title: 'Manager', Skills:[{
+                    "Skill_ID": "S001",
+                    "name": "Critical Thinking"
+                },
+                {
+                    "Skill_id": "S002",
+                    "name": "People Management"
+                }]},
         {Job_ID: 3, Job_Role: "Operations Slave", Job_Title: 'Executive', Skills:[]},
       ]
     }

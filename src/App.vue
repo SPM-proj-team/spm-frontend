@@ -8,6 +8,7 @@
 import MainNavbar from './components/MainNavbar.vue'
 
 export default {
+  
   components:{
     MainNavbar
   },
@@ -18,7 +19,10 @@ export default {
 
 <style>
 
-
+.router-link {
+  text-decoration: none;
+  color: inherit
+}
 
 
 </style>

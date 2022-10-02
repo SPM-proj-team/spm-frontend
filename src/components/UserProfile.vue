@@ -3,10 +3,10 @@
         <div class="row g-0">
             <div class="col">
                 <div class="card-body">
-                    <h5 class="card-title">{{ store.name }}</h5>
+                    <h5 class="card-title">{{ userName }}</h5>
                     <p class="card-text">
-                        <b>Role:</b> {{ store.userJobRole }}<br>
-                        <b>Department:</b> {{ store.department }}
+                        <b>Role:</b> {{ userJobRole }}<br>
+                        <b>Department:</b> {{ userDepartment }}
                     </p>
                 </div>
             </div>
@@ -15,15 +15,9 @@
 </template>
 
 <script>
-    import { userStore } from '@/store';
-
 
     export default {
-        setup() {
-            const store = userStore()
-            return { store }
-        }
-
+        props: [ "userName", "userJobRole", "userDepartment" ]
     }
 
 </script>
