@@ -3,10 +3,11 @@
     <div class="container">
       <UserProfile :userName="store.name" :userJobRole="store.userJobRole" :userDepartment="store.department" />
       <h2 class="text-secondary fw-bold mt-4 mb-3">My Learning Journey </h2>
-      <div class="d-grid">
+      <div class="d-grid mb-4">
         <router-link to="/CreateLearningJourney" class="btn btn-primary btn-lg fw-bold shadow ">+ Start New Learning
           Journey</router-link>
       </div>
+      <MyLearningJourneys/>
     </div>
   </div>
 </template>
@@ -14,6 +15,9 @@
 <script>
 import UserProfile from '@/components/UserProfile.vue';
 import { userStore } from '@/store';
+import MyLearningJourneys from '../components/MyLearningJourneys.vue';
+
+
 
 export default {
   setup() {
@@ -21,8 +25,10 @@ export default {
     return { store }
   },
   components: {
-    UserProfile
-  },
+    UserProfile,
+    MyLearningJourneys
+}
+  
 
 }
 

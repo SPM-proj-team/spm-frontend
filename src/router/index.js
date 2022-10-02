@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import StaffHome from '../views/StaffHome.vue'
 import JobRoleDetails from '../views/JobRoleDetails.vue'
 import CreateLearningJourney from '../views/CreateLearningJourney.vue'
+import NotFound404 from '../views/NotFound404.vue'
 
 const routes = [
   {
@@ -15,7 +16,7 @@ const routes = [
     component: () => import( '../views/JobRoles.vue')
   },
   {
-    path: '/JobRoles',
+    path: '/JobRoles/:JobRoleID',
     name: 'JobRoleDetails',
     component: JobRoleDetails,
     props: true
@@ -24,6 +25,12 @@ const routes = [
     path: '/CreateLearningJourney',
     name: 'Create Learning Journey',
     component: CreateLearningJourney
+  },
+
+  // catchall 404
+  {
+    path: '/:catchAll(.*)',
+    component: NotFound404
   }
 ]
 

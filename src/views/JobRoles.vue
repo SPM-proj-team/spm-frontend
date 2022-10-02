@@ -24,6 +24,7 @@ export default {
     }
   },
   methods : {
+    // Get all available job roles
     getJobRoles(){
       const path = 'http://127.0.0.1:5000/roles';
       axios.get(path)
@@ -32,7 +33,8 @@ export default {
         console.log(res.data.data)
       })
       .catch ((err) => {
-        console.error(err);
+        console.log(err);
+        this.$router.push({ name: 'NotFound404'});
       })
     }
   }
