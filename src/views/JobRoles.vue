@@ -8,44 +8,34 @@
 <script>
 
 import JobRolesCard from '../components/JobRolesCard.vue'
-// import axios from 'axios'
+import axios from 'axios'
 
 
 export default {
   components: {
     JobRolesCard
   },
-  // mounted(){
-  //   this.getJobRoles()
-  // },
+  mounted(){
+    this.getJobRoles()
+  },
   data () {
     return {
-      jobRoles: [
-        {Job_ID: 1, Job_Role: "CEO", Job_Title: 'The big boss'},
-        {Job_ID: 2, Job_Role: "Operations Manager", Job_Title: 'Manager', Skills:[{
-                    "Skill_ID": "S001",
-                    "name": "Critical Thinking"
-                },
-                {
-                    "Skill_id": "S002",
-                    "name": "People Management"
-                }]},
-        {Job_ID: 3, Job_Role: "Operations Slave", Job_Title: 'Executive', Skills:[]},
-      ]
+      jobRoles: []
     }
   },
-  // methods : {
-  //   getJobRoles(){
-  //     const path = 'http://localhost:5000';
-  //     axios.get(path)
-  //     .then((res) => {
-  //       this.jobRoles = res.data;
-  //     })
-  //     .catch ((err) => {
-  //       console.error(err);
-  //     })
-  //   }
-  // }
+  methods : {
+    getJobRoles(){
+      const path = 'http://127.0.0.1:5000/roles';
+      axios.get(path)
+      .then((res) => {
+        this.jobRoles = res.data.data;
+        console.log(res.data.data)
+      })
+      .catch ((err) => {
+        console.error(err);
+      })
+    }
+  }
 }
 
 </script>

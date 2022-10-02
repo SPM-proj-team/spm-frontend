@@ -6,13 +6,16 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         :data-bs-target="'#panelsStayOpen-collapse'+Skill.Skill_ID" aria-expanded="false"
                         :aria-controls="'panelsStayOpen-collapse'+Skill.Skill_ID">
-                        {{Skill.name}}
+                        {{Skill.Name}}
                     </button>
                 </h2>
                 <div :id="'panelsStayOpen-collapse'+Skill.Skill_ID" class="accordion-collapse collapse"
                     :aria-labelledby="'panelsStayOpen-heading'+Skill.Skill_ID">
                     <div class="accordion-body">
-                        courses
+                        <div v-for="Course in Skill.Courses" :key="Course.ID">
+                            {{Course.Course_Name}}
+                        </div>
+                        
                     </div>
                 </div>
                 <!-- <h2 class="accordion-header" :id="'panelsStayOpen-heading' + Skill.Skill_ID">

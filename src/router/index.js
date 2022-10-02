@@ -15,7 +15,7 @@ const routes = [
     component: () => import( '../views/JobRoles.vue')
   },
   {
-    path: '/JobRoles/:id',
+    path: '/JobRoles',
     name: 'JobRoleDetails',
     component: JobRoleDetails,
     props: true
