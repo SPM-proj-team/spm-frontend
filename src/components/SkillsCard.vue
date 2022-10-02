@@ -9,7 +9,7 @@
                         {{Skill.Name}}
                     </button>
                 </h2>
-                <div :id="'panelsStayOpen-collapse'+Skill.Skill_ID" class="accordion-collapse collapse"
+                <div :id="'panelsStayOpen-collapse'+Skill.Skill_ID" class="accordion-collapse collapse text-left"
                     :aria-labelledby="'panelsStayOpen-heading'+Skill.Skill_ID">
                     <div class="accordion-body">
                         <div v-for="Course in Skill.Courses" :key="Course.ID">
