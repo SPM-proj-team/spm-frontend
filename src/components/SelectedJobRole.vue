@@ -5,8 +5,8 @@
                 Selected Job Role
             </div>
             <div class="card-body">
-                <h5 class="card-title">{{ SelectedJobRole.Job_Role }}</h5>
-                <p class="card-text">{{ SelectedJobRole.Job_Title }}</p>
+                <h5 class="card-title text-center">{{ SelectedJobRole.Job_Role }}</h5>
+                <p class="card-text  text-center">{{ SelectedJobRole.Job_Title }}</p>
             </div>
         </div>
     </div>
