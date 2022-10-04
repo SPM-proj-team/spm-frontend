@@ -3,12 +3,12 @@
         <h1 class="my-5 text-center text-gray-500">Job Roles Details</h1>
         <div class="container my-3">
             <SelectedJobRole :SelectedJobRole="jobRoleDetails"></SelectedJobRole>
-            <div class="row justify-content-center g-2">
-                <div class="col-4">
-                    <SkillsRequirements :Skills="jobRoleDetails.Skills" />
+            <div class="row justify-content-center align-content-center g-lg-4 g-0">
+                <div class="col-12 col-lg-4">
+                    <SkillsRequirements :Skills="jobRoleSkills" :MappedCourses="this.mappedCourses" :SelectedCourses="this.selectedCourses"/>
                 </div>
-                <div class="col">
-                    <SkillsCard :Skills="jobRoleDetails.Skills" />
+                <div class="col-12 col-lg-8">
+                    <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses" />
                 </div>
             </div>
 
@@ -18,7 +18,7 @@
 
 <script>
 import SelectedJobRole from '@/components/SelectedJobRole.vue';
-import SkillsRequirements from '@/components/SkillRequirements.vue'
+import SkillsRequirements from '@/components/SkillFulfillment.vue'
 import SkillsCard from '@/components/SkillsCard.vue';
 import { userStore } from '@/store';
 import axios from 'axios'
@@ -31,7 +31,10 @@ export default {
     },
     data() {
         return {
-            jobRoleDetails: []
+            jobRoleDetails: [],
+            jobRoleSkills: [],
+            selectedCourses: [],
+            mappedCourses: [],
         }
     },
     mounted() {
@@ -41,18 +44,71 @@ export default {
         // Get individual job details based on route params (JobRole_ID)
         getJobDetails() {
             const path = 'http://127.0.0.1:5000/roles/' + this.JobRoleID;
-            console.log(path)
+            console.log("Retrieving role detail from " + path)
             axios.get(path)
                 .then((res) => {
-                    // console.log(res.data.data);
+
+                    // get full details
                     this.jobRoleDetails = res.data.data[0];
+                    console.log("Job Role Details: ")
                     console.log(this.jobRoleDetails)
+
+                    // process
+                    this.getSkills()
                 })
                 .catch((err) => {
                     console.log(err);
                     // this.$router.push({ name: 'NotFound404' });
                 })
+        },
+
+        // process selected courses and map it accordingly
+        mapCourses(selectedCourses) {
+
+            // Log selected courses
+            this.selectedCourses = selectedCourses;
+            console.log("User has selected the following courses;");
+            console.log(this.selectedCourses);
+
+
+            // Map selected courses to all relevant skills
+            var temp_mappedCourses = [];
+            console.log("Mapping selected courses to all relevant skills...");
+
+            for (var Skill of this.jobRoleDetails.Skills) {
+                // temp_mappedCourses[Skill.Skill_ID] = []
+                for (var Course of Skill.Courses) {
+                    if (this.selectedCourses.includes(Course.Course_ID)) {
+                        temp_mappedCourses.push({
+                            'Skill_ID': Skill.Skill_ID,
+                            'Course_ID': Course.Course_ID,
+                            'Course_Name': Course.Course_Name,
+                        })
+                    }
+                }
+            }
+
+            this.mappedCourses = temp_mappedCourses;
+            console.log("Course(s) has been mapped to relevant skill(s). Details:")
+            console.log(temp_mappedCourses)
+
+        },
+
+        // process skill from all details to reduce UI load
+        getSkills() {
+            var skills = []
+            for (let skill of this.jobRoleDetails.Skills) {
+                skills.push(skill);
+            }
+
+            // log
+            console.log("All Skills:");
+            console.log(skills)
+
+            this.jobRoleSkills = skills
         }
+
+
     },
     props: ['JobRoleID'],
 
