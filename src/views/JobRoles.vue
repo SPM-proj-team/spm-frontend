@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="my-5 text-center text-gray-500">Job Roles</h1>
+    <h1 class="my-5 text-center text-gray-500 fw-bold">Job Roles</h1>
     <JobRolesCard :jobRoles="jobRoles"/>
   </div>
 </template>

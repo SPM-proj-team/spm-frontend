@@ -1,7 +1,7 @@
 <template>
     <div class="form-check p-0">
-        <div v-for="Skill in Skills" :key="Skill.Skill_ID" class="container my-3">
-            <div class="accordion" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
+        <template v-for="Skill in Skills" :key="Skill.Skill_ID" >
+            <div class="accordion mb-3 my-lg-3" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
                 <div class="accordion-item">
                     <h2 class="accordion-header" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

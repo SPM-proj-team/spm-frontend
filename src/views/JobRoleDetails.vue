@@ -1,7 +1,11 @@
 <template>
     <div class="container">
+<<<<<<< HEAD
         <h1 class="my-5 text-center text-gray-500">Job Roles Details</h1>
         <p class="text-center">The job id is {{ JobRoleID }}</p>
+=======
+        <h1 class="my-5 text-center text-gray-500 fw-bold">Job Roles Details</h1>
+>>>>>>> 5e13e41 (Updated ui components)
         <div class="container my-3">
             <SelectedJobRole :SelectedJobRole="jobRoleDetails"></SelectedJobRole>
         </div>
