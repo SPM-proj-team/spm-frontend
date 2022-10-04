@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1 class="my-5 text-center text-gray-500">Job Roles Details</h1>
+        <h1 class="my-5 text-center text-gray-500 fw-bold">Job Roles Details</h1>
         <div class="container my-3">
             <SelectedJobRole :SelectedJobRole="jobRoleDetails"></SelectedJobRole>
             <div class="row justify-content-center align-content-center g-lg-4 g-0">

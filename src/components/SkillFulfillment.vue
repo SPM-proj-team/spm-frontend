@@ -20,10 +20,11 @@
                         </div>
                     </template>
                 </div>
-                <span class="badge bg-success rounded-pill fs-9"> {{ countCoursesPerSkill(Skill.Skill_ID) }}
+                <span class="badge bg-success fs-9"> {{ countCoursesPerSkill(Skill.Skill_ID) }}
                     Courses</span>
             </li>
         </ul>
+        <button class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button" >Create Learning Journey</button>
     </div>
 </template>
 
