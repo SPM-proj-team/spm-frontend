@@ -37,7 +37,7 @@ export default {
 
   name: "MyLearningJourneys",
   props: {
-    learningJourneys: Object,
+    learningJourneys: Object
   },
 };
 </script>
