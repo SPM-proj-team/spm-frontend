@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid border-bottom border-warning border-5 bg-white">
+    <div class="container-fluid border-bottom border-warning border-5 bg-yellow-500">
         <div class="container container-md-fluid">
             <div class="row">
                 <div class="col">
@@ -61,6 +61,9 @@
 
 <style scoped>
 
+* {
+    font-family: 'Poppins', sans-serif;
+}
 
 .logo {
     font-size: 24px;
