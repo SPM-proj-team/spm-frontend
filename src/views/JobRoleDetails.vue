@@ -5,7 +5,7 @@
         <div class="container my-3">
             <SelectedJobRole :SelectedJobRole="jobRoleDetails"></SelectedJobRole>
         </div>
-        <div class="conatiner my-3">
+        <div class="container my-3">
             <SkillsCard :Skills="jobRoleDetails.Skills" />
         </div>
     </div>
