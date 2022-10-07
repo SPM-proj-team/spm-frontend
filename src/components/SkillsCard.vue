@@ -14,13 +14,12 @@
                         :aria-labelledby="'panelsStayOpen-heading'+Skill.Skill_ID">
                         <div class="accordion-body p-0">
                             <ul class="list-group list-group-flush ">
-                                <li class="list-group-item" v-for="Course in Skill.Courses" :key="Course.ID">
+                                <li class="list-group-item" v-for="Course in Skill.Courses" :key="Course.Course_ID">
                                     <div class="container ms-3 my-3">
-                                        <input class="form-check-input " type="checkbox" :value="Course.Course_ID"
+                                        <input @change="mapCourses(this.checkedCourses)" class="form-check-input " type="checkbox" :value='Course.Course_ID'
                                             :id="'check'+Skill.Skill_ID+Course.Course_ID" v-model="checkedCourses">
                                         <label class="form-check-label" :for="'check'+Skill.Skill_ID+Course.Course_ID">{{Course.Course_ID}} - {{Course.Course_Name}}</label>
                                     </div>
-
                                 </li>
                             </ul>
                         </div>
@@ -28,7 +27,7 @@
                 </div>
 
             </div>
-        </div>
+        </template>
     </div>
 
 </template>
@@ -42,7 +41,8 @@ export default {
         }
     },
     props: {
-        Skills: Object
+        Skills: Object,
+        mapCourses: Function
     }
 }
 
