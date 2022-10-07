@@ -1,5 +1,5 @@
 <template>
-  <MainNavbar/>
+  <mainNavbar/>
   <router-view/>
 </template>
 
@@ -8,21 +8,30 @@
 import MainNavbar from './components/MainNavbar.vue'
 
 export default {
-  
-  components:{
+
+  components: {
     MainNavbar
   },
-  
+  mounted(){
+    document.body.classList.add('bg-light')
+  }
+
 }
 
 </script>
 
 <style>
 
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
 .router-link {
   text-decoration: none;
   color: inherit
 }
+
 
 
 </style>
