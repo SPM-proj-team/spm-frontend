@@ -5,7 +5,7 @@
             <SelectedJobRole :SelectedJobRole="jobRoleDetails"></SelectedJobRole>
             <div class="row justify-content-center align-content-center g-lg-4 g-0">
                 <div class="col-12 col-lg-4">
-                    <SkillsRequirements :Skills="jobRoleSkills" :MappedCourses="this.mappedCourses" :SelectedCourses="this.selectedCourses"/>
+                    <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="this.mappedCourses" :SelectedCourses="this.selectedCourses"/>
                 </div>
                 <div class="col-12 col-lg-8">
                     <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses" />
@@ -18,7 +18,7 @@
 
 <script>
 import SelectedJobRole from '@/components/SelectedJobRole.vue';
-import SkillsRequirements from '@/components/SkillFulfillment.vue'
+import SkillsFulfillment from '@/components/SkillFulfillment.vue'
 import SkillsCard from '@/components/SkillsCard.vue';
 import { userStore } from '@/store';
 import axios from 'axios'
@@ -122,7 +122,7 @@ export default {
     components: {
         SelectedJobRole,
         SkillsCard,
-        SkillsRequirements
+        SkillsFulfillment
     }
 }
 

@@ -4,7 +4,7 @@
             <div class="accordion mb-3 my-lg-3" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
                 <div class="accordion-item">
                     <h2 class="accordion-header" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                             :data-bs-target="'#panelsStayOpen-collapse'+Skill.Skill_ID" aria-expanded="false"
                             :aria-controls="'panelsStayOpen-collapse'+Skill.Skill_ID">
                             {{Skill.Name}}
@@ -37,12 +37,22 @@
 export default {
     data() {
         return {
-            checkedCourses:[]
+            checkedCourses:[],
+            skillCourseCounter:{}
         }
+    },
+    mounted(){
+        this.getSkillsCourseCounter()
     },
     props: {
         Skills: Object,
         mapCourses: Function
+    },
+    methods: {
+        getSkillsCourseCounter(){
+           
+            console.log(this.Skills)
+        }
     }
 }
 
