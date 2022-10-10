@@ -1,15 +1,9 @@
 // Set Up Vue
-
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { createPinia } from "pinia"
 
-// import Prime Vue and Prime Flex
-import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/lara-light-indigo/theme.css';
-import 'primevue/resources/primevue.min.css';
-import 'primeflex/primeflex.css';
 
 // Import Font Awesome Icons
 
@@ -25,10 +19,16 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 // add icons to the library 
 library.add(faUserSecret);
 
-createApp(App)
-    .use(createPinia())
-    .use(router)
-    .use(createPinia())
-    .use(PrimeVue)
-    .component('font-awesome-icon', FontAwesomeIcon)
-    .mount('#app');
+const app = createApp(App);
+
+app.use(createPinia())
+app.use(router)
+
+// mount font awesome to Vue App
+app.component('font-awesome-icon', FontAwesomeIcon)
+
+
+app.mount('#app');
+
+
+    

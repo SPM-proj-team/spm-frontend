@@ -1,28 +1,19 @@
 <template>
 
-    <Navbar/>
+    <Topbar/>
     <router-view/>
-
-  
-  <!-- <MainNavbar /> -->
-  
-
-
- 
-
-
 
 
 </template>
 
 <script>
 
-import Navbar from './components/Navbar.vue';
+import Topbar from './components/Topbar.vue';
 
 export default {
 
   components: {
-    Navbar
+    Topbar
 },
   mounted(){
     document.body.classList.add('bg-light')
@@ -43,7 +34,6 @@ export default {
   text-decoration: none;
   color: inherit
 }
-
 
 
 </style>
