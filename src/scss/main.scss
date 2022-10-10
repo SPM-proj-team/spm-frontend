@@ -1,8 +1,7 @@
 // Custom.scss
-$primary: #F59E0B;
+// $primary: #F59E0B;
 
-// import bootstrap
-@import 'bootstrap/scss/bootstrap';
+
 
 // Include any default variable overrides here 
 @import "bootstrap/scss/functions";
@@ -12,7 +11,19 @@ $primary: #F59E0B;
 @import "bootstrap/scss/utilities";
 
 // Then add additional custom code here
-$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
+$grays: (
+  "100": $gray-100,
+  "200": $gray-200,
+  "300": $gray-300,
+  "400": $gray-400,
+  "500": $gray-500,
+  "600": $gray-600,
+  "700": $gray-700,
+  "800": $gray-800,
+  "900": $gray-900
+);
+
+$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans, $grays);
 
 $utilities: map-merge(
   $utilities,
@@ -32,3 +43,6 @@ $utilities: map-merge(
 );
 
 @import "bootstrap/scss/utilities/api";
+
+// import bootstrap
+@import 'bootstrap/scss/bootstrap';

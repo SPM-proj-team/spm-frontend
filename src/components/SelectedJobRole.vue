@@ -9,8 +9,8 @@
             </div>
 
             <div class="card-body">
-                <h5 class="card-title text-center ">{{ SelectedJobRole.Job_Role }}</h5>
-                <p class="card-text  text-center">{{ SelectedJobRole.Job_Title }}</p>
+                <h5 class="card-title text-center fw-semibold">{{ SelectedJobRole.Job_Role }}</h5>
+                <div class="card-text text-center">Department: {{ SelectedJobRole.Department }} | Position: {{ SelectedJobRole.Job_Title }}</div>
             </div>
         </div>
     </div>

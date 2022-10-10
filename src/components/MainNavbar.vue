@@ -14,7 +14,7 @@
                             <form class="d-flex flex-fill py-3" role="search">
                                 <input class="form-control me-2 border-dark" type="search" placeholder="Search anything" aria-label="Search">
                             </form>
-                            <div class="text-center m-lg-4 mb-sm-3 fw-semibold">Welcome, {{ store.name }}</div>
+                            <div class="text-center m-lg-4 mb-sm-3 fw-semibold">Welcome, {{ store.staff_FName }} {{ store.staff_LName }}</div>
                             <div class="d-grid">
                                 <button type="button" class="btn bg-danger bg-opacity-75 fw-semibold text-white">Logout</button>
                             </div>

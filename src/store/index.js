@@ -4,9 +4,12 @@ import { ref } from 'vue'
 export const userStore = defineStore('userStore', () => {
 
   // state
-  const name = ref('Mukmin Pitoyo');
-  const userJobRole = ref('Analytics Executive');
-  const department = ref('Operations');
+  const staff_FName = ref('Oliver');
+  const staff_LName = ref('Tan');
+  const email = ref('Oliver.Tan@allinone.com.sg');
+  const role = ref('User')
+  const staff_id = ref('150165')
+  const department = ref('Ops');
   const selectedJobRole = ref([]);
 
   // getter function
@@ -18,5 +21,13 @@ export const userStore = defineStore('userStore', () => {
       selectedJobRole.value = jobRole
   }
 
-  return { name, userJobRole, selectedJobRole, department, selectJobRole }
+  return { 
+    staff_FName, 
+    staff_LName, 
+    email,  
+    role, 
+    staff_id, 
+    selectedJobRole, 
+    department, 
+    selectJobRole }
 })

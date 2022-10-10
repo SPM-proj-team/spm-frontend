@@ -1,14 +1,13 @@
 <template>
-    <div class="container">
-        <h1 class="my-5 text-center text-gray-500 fw-bold">Job Roles Details</h1>
-        <div class="container">
-            <div class="row justify-content-center align-content-center g-0 g-xl-4">
+    <div class="container mt-5">
+            <Breadcrumbs :navObjects="navObjects"/>
+            <div class="row justify-content-center align-content-center g-1 g-xl-4">
                 <div class="col-12 col-xl-4 order-2 order-xl-1">
                     <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="this.mappedCourses" :SelectedCourses="this.selectedCourses"/>
                 </div>
                 <div class="col-12 col-xl-8 order-1 order-xl-2">
                     <div class="row justify-content-center align-items-center g-1 g-xl-0">
-                        <div class="col-12"> <SelectedJobRole :SelectedJobRole="jobRoleDetails"/></div>
+                        <div class="col-12 mb-3 mb-lg-0"> <SelectedJobRole :SelectedJobRole="jobRoleDetails"/></div>
                         <div class="col-12"><SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses" />
 </div>
                     </div>
@@ -17,7 +16,7 @@
                 
             </div>
 
-        </div>
+        
     </div>
 </template>
 
@@ -27,6 +26,7 @@ import SkillsFulfillment from '@/components/SkillFulfillment.vue'
 import SkillsCard from '@/components/SkillsCard.vue';
 import { userStore } from '@/store';
 import axios from 'axios'
+import Breadcrumbs from '@/components/Breadcrumbs.vue';
 
 
 export default {
@@ -40,6 +40,10 @@ export default {
             jobRoleSkills: [],
             selectedCourses: [],
             mappedCourses: [],
+            navObjects: [
+                {navLabel: "View Roles", path: "/JobRoles", isActive: false},
+                {navLabel: "Job Details", path: "", isActive: true}
+            ]
         }
     },
     mounted() {
@@ -127,10 +131,11 @@ export default {
     // }
 
     components: {
-        SelectedJobRole,
-        SkillsCard,
-        SkillsFulfillment
-    }
+    SelectedJobRole,
+    SkillsCard,
+    SkillsFulfillment,
+    Breadcrumbs
+}
 }
 
 
