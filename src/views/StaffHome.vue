@@ -1,7 +1,14 @@
 <template>
   <UserProfile :userInfo="userInfo" />
   <div class="container mt-3">
-    <h2 class="text-gray-500 display-5 fw-bold mt-5 mb-2"><font-awesome-icon icon="fa-solid fa-list-check" /> My Learning Journey </h2>
+    <h2 class="text-gray-500 display-5 fw-bold mt-5 mb-2">
+      <font-awesome-icon icon="fa-solid fa-list-check" /> My Learning Journey
+    </h2>
+    <div class="d-lg-none d-grid mt-3">
+      <router-link to="/CreateLearningJourney" class="btn btn-warning btn-lg fw-bold shadow ">
+        + Start New Learning
+        Journey</router-link>
+    </div>
     <div class="d-grid mb-4">
     </div>
     <div class="container p-0">
