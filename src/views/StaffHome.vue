@@ -29,8 +29,9 @@ export default {
   },
   components: {
     UserProfile,
-    MyLearningJourneys
-  },  
+    MyLearningJourneys,
+    
+},  
   data(){
     return{
       learningJourneys: []

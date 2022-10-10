@@ -1,9 +1,19 @@
-// Custom.scss
-$primary: #F59E0B;
+// Import Custom LJPS variables
+@import "variables.scss";
 
-// Include any default variable overrides here (though functions won't be available)
+// Import Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
-@import "../../node_modules/bootstrap/scss/bootstrap";
+// Import LJPS Custom Mixins and components
+@import "global.scss";
+@import "utilities.scss";
+
+// Custom components
+@import "navs/global.scss";
+@import "navs/topbar.scss";
+@import "navs/sidebar.scss";
+@import "dropdowns.scss";
+@import "buttons.scss";
 
 // Then add additional custom code here
 
