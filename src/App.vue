@@ -1,6 +1,6 @@
 <template>
 
-    <MainNavbar/>
+    <Navbar/>
     <router-view/>
 
   
@@ -17,13 +17,12 @@
 
 <script>
 
-// import MainNavbar from './components/MainNavbar.vue'
-import MainNavbar from './components/MainNavbar.vue';
+import Navbar from './components/Navbar.vue';
 
 export default {
 
   components: {
-    MainNavbar
+    Navbar
 },
   mounted(){
     document.body.classList.add('bg-light')
