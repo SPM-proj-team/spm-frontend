@@ -38,11 +38,11 @@
                                 <div class="card-body">
                                     <h6 class="card-title fw-semibold">{{ course.Course_ID }} - {{ course.Course_Name }}
                                     </h6>
-                                    <div class="card-subtitle"> Course Status: {{ course.Course_Status }} | <button
-                                            class="p-0 btn btn-sm btn-link" type="button" data-bs-toggle="collapse"
+                                    <div class="card-subtitle small"> Registration Status: {{ course.Course_Status }} <button
+                                            class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse"
                                             :data-bs-target="'#collapse' + course.Course_ID +'_'+Skill.Skill_ID"
                                             aria-expanded="false" aria-controls="collapseExample">
-                                            <font-awesome-icon icon="fa-solid fa-chevron-down" />
+                                            | <font-awesome-icon icon="fa-solid fa-chevron-down" class ="ms-2"/>
                                             Description
                                         </button>
                                         <div class="collapse" :id="'collapse' + course.Course_ID +'_'+Skill.Skill_ID">
@@ -117,5 +117,10 @@ export default {
 </script>
 
 <style scoped>
+
+.btn-link{
+    color: black;
+    text-decoration: none;
+}
 
 </style>

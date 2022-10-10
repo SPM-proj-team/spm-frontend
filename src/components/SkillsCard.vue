@@ -20,7 +20,7 @@
                                             :id="'check'+Skill.Skill_ID+Course.Course_ID" v-model="checkedCourses" >
                                         <label class="form-check-label" :for="'check'+Skill.Skill_ID+Course.Course_ID">
                                             <p class="fw-semibold"> {{Course.Course_ID}} - {{Course.Course_Name}} </p>
-                                            <p class="mt-0">Course Status: <span class="badge bg-secondary">{{ Course.Course_Status}}</span></p>
+                                            <p class="mt-0 small">Registration Status: <span class="badge bg-secondary">{{ Course.Course_Status}}</span></p>
                                             <p class="mb-0"> {{ Course.Course_Desc }} </p>
                                         </label>
                                         
