@@ -4,11 +4,6 @@
   <router-view />
 
 
- 
-
-
-
-
 </template>
 
 <script>

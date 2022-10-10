@@ -6,7 +6,13 @@
                 <h6 class="me-2"> {{ countSkillsMapped()}} / {{Skills.length}} Skills Mapped</h6>
                 <span class="card-subtitle text-muted">|</span>
                 <h6 class="me-auto ms-2">{{ SelectedCourses.length }} courses</h6>
-
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-label="Example with label"
+                    :style="{ width: getSkillProgress() + '%'}" 
+                    :aria-valuenow="getSkillProgress()"
+                    aria-valuemin="0" 
+                    aria-valuemax="100">{{ getSkillProgress() }}%</div>
             </div>
         </div>
         <ul class="list-group list-group-numbered list-group-flush">
@@ -24,7 +30,7 @@
                     Courses</span>
             </li>
         </ul>
-        <button class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button" >Create Learning Journey</button>
+        <button class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button">Create Learning Journey</button>
     </div>
 </template>
 
@@ -52,17 +58,21 @@ export default {
             return courseCounter
         },
 
+        getSkillProgress(){
+            return this.countSkillsMapped() / this.Skills.length * 100
+        },
+
         countSkillsMapped() {
 
             var skillsCounter = {}
-            
+
             for (var Course of this.MappedCourses) {
-                if (Course.Skill_ID in skillsCounter){
+                if (Course.Skill_ID in skillsCounter) {
                     skillsCounter[Course.Skill_ID]++
                 } else {
                     skillsCounter[Course.Skill_ID] = 0
                 }
-               
+
             }
 
             return Object.keys(skillsCounter).length

@@ -18,7 +18,12 @@
                                     <div class="container ms-3 my-3">
                                         <input @change="mapCourses(this.checkedCourses)" class="form-check-input " type="checkbox" :value='Course.Course_ID'
                                             :id="'check'+Skill.Skill_ID+Course.Course_ID" v-model="checkedCourses">
-                                        <label class="form-check-label" :for="'check'+Skill.Skill_ID+Course.Course_ID">{{Course.Course_ID}} - {{Course.Course_Name}}</label>
+                                        <label class="form-check-label" :for="'check'+Skill.Skill_ID+Course.Course_ID">
+                                            <p class="fw-semibold"> {{Course.Course_ID}} - {{Course.Course_Name}} </p>
+                                            <p>Course Status: <span class="badge bg-secondary m-auto">{{ Course.Course_Status}}</span></p>
+                                            <p class="mb-0"> {{ Course.Course_Desc }} </p>
+                                        </label>
+                                        
                                     </div>
                                 </li>
                             </ul>
