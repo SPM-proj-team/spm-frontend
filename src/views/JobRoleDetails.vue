@@ -1,15 +1,20 @@
 <template>
     <div class="container">
         <h1 class="my-5 text-center text-gray-500 fw-bold">Job Roles Details</h1>
-        <div class="container my-3">
-            <SelectedJobRole :SelectedJobRole="jobRoleDetails"></SelectedJobRole>
-            <div class="row justify-content-center align-content-center g-lg-4 g-0">
-                <div class="col-12 col-lg-4">
+        <div class="container">
+            <div class="row justify-content-center align-content-center g-0 g-xl-4">
+                <div class="col-12 col-xl-4 order-2 order-xl-1">
                     <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="this.mappedCourses" :SelectedCourses="this.selectedCourses"/>
                 </div>
-                <div class="col-12 col-lg-8">
-                    <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses" />
+                <div class="col-12 col-xl-8 order-1 order-xl-2">
+                    <div class="row justify-content-center align-items-center g-1 g-xl-0">
+                        <div class="col-12"> <SelectedJobRole :SelectedJobRole="jobRoleDetails"/></div>
+                        <div class="col-12"><SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses" />
+</div>
+                    </div>
+                   
                 </div>
+                
             </div>
 
         </div>
@@ -83,6 +88,8 @@ export default {
                             'Skill_ID': Skill.Skill_ID,
                             'Course_ID': Course.Course_ID,
                             'Course_Name': Course.Course_Name,
+                            'Course_Desc': Course.Course_Desc,
+                            'Course_Status': Course.Course_Status,
                         })
                     }
                 }

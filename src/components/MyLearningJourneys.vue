@@ -5,11 +5,10 @@
     :key="learningJourney.Learning_Journey_ID"
   >
     
-      <div class="row g-0">
-        <div class="col-md-8">
-          <div class="col">
-            <div class="card-body">
-              <h5 class="card-title">
+      <div class="row g-0 w-100 ">
+        <div class="col">
+            <div class="card-body shadow-sm">
+              <h5 class="card-title fw-semibold">
                 {{ learningJourney.Learning_Journey_Name }}
               </h5>
               <p class="card-text">{{ learningJourney.Description }}</p>
@@ -19,7 +18,7 @@
                 >
               </p>
             </div>
-          </div>
+          
         </div>
       </div>
     </button>

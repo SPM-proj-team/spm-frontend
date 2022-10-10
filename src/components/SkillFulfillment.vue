@@ -1,35 +1,66 @@
 <template>
-    <div class="card my-3">
+    <div class="card">
         <div class="card-body">
             <h5 class="card-title fw-bold mb-3">Skills Fulfillment</h5>
             <div class="card-subtitle mb-1 text-muted d-flex justify-content-start align-items-start">
-                <h6 class="me-2"> {{ countSkillsMapped()}} / {{Skills.length}} Skills Mapped</h6>
+                <h6 class="me-2"> 
+                    <font-awesome-icon icon="fa-solid fa-lightbulb" />
+                    {{ countSkillsMapped()}} / {{Skills.length}} Skills Mapped
+                </h6>
                 <span class="card-subtitle text-muted">|</span>
-                <h6 class="me-auto ms-2">{{ SelectedCourses.length }} courses</h6>
+                <h6 class="me-auto ms-2">
+                    <font-awesome-icon icon="fa-solid fa-book" class="mx-1" />
+                    {{ SelectedCourses.length }} Course(s) 
+                </h6>
             </div>
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-label="Example with label"
-                    :style="{ width: getSkillProgress() + '%'}" 
-                    :aria-valuenow="getSkillProgress()"
-                    aria-valuemin="0" 
+                    :style="{ width: getSkillProgress() + '%'}" :aria-valuenow="getSkillProgress()" aria-valuemin="0"
                     aria-valuemax="100">{{ getSkillProgress() }}%</div>
             </div>
         </div>
-        <ul class="list-group list-group-numbered list-group-flush">
+        <ol class="list-group list-group-numbered list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-start" v-for="Skill in Skills"
                 :key="Skill.Skill_ID">
-                <div class="ms-2 me-auto">
-                    <div class="fw-semibold">{{ Skill.Name }}</div>
+                <div class="ms-2 me-auto w-100">
+                    <div class="d-flex justify-content-start">
+                        <div class="fw-semibold me-2">
+                            {{ Skill.Name }}
+                        </div>
+                        <div v-if="countCoursesPerSkill(Skill.Skill_ID)>0" class="badge rounded-pill bg-success align-items-center">
+                            {{ countCoursesPerSkill(Skill.Skill_ID) }} course(s)
+                        </div>
+                    </div>
                     <template v-for="course in MappedCourses" :key="course.Course_ID +'_'+Skill.Skill_ID">
                         <div v-if="course.Skill_ID==Skill.Skill_ID">
-                            • {{ course.Course_ID }} - {{ course.Course_Name }}
+                            <div class="card bg-light border-light b-0 me-3 mb-3 w-100 mt-3">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-semibold">{{ course.Course_ID }} - {{ course.Course_Name }}
+                                    </h6>
+                                    <h6 class="card-subtitle"> {{ course.Course_Status }}</h6>
+                                    <p class="mb-0">
+                                        <button class="p-0 btn btn-sm btn-link" type="button" data-bs-toggle="collapse"
+                                            :data-bs-target="'#collapse' + course.Course_ID +'_'+Skill.Skill_ID"
+                                            aria-expanded="false" aria-controls="collapseExample">
+                                            Description
+                                        </button>
+                                    </p>
+                                    <div class="collapse" :id="'collapse' + course.Course_ID +'_'+Skill.Skill_ID">
+                                        <div class="card card-body w-100 border-0">
+                                            {{ course.Course_Desc }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </template>
+
+
                 </div>
-                <span class="badge bg-success fs-9"> {{ countCoursesPerSkill(Skill.Skill_ID) }}
-                    Courses</span>
+
             </li>
-        </ul>
+        </ol>
         <button class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button">Create Learning Journey</button>
     </div>
 </template>
@@ -58,7 +89,7 @@ export default {
             return courseCounter
         },
 
-        getSkillProgress(){
+        getSkillProgress() {
             return this.countSkillsMapped() / this.Skills.length * 100
         },
 

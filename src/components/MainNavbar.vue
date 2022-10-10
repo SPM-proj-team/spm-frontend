@@ -28,13 +28,22 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item border-end border-2 px-3">
-                                    <router-link to="/" class="nav-link router-link" exact>Home</router-link>
+                                    <router-link to="/" class="nav-link router-link" exact>
+                                        <font-awesome-icon icon="fa-solid fa-house" class="me-2"/>
+                                        Home
+                                    </router-link>
                                 </li>
                                 <li class="nav-item border-end border-2 px-3 ">
-                                    <router-link to="/JobRoles" class="nav-link router-link" exact>View Roles</router-link>
+                                    <router-link to="/JobRoles" class="nav-link router-link" exact>
+                                        <font-awesome-icon icon="fa-solid fa-user" class="me-2"/>
+                                        View Roles
+                                    </router-link>
                                 </li>
                                 <li class="nav-item px-3">
-                                    <router-link to="/CreateLearningJourney" class="nav-link router-link" exact>Create Learning Journey</router-link>
+                                    <router-link to="/CreateLearningJourney" class="nav-link router-link" exact>
+                                        <font-awesome-icon icon="fa-solid fa-plus" class="me-2" />
+                                        Create Learning Journey
+                                    </router-link>
                                 </li>
                             </ul>
                         </div>

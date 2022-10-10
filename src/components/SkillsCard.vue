@@ -16,11 +16,11 @@
                             <ul class="list-group list-group-flush ">
                                 <li class="list-group-item" v-for="Course in Skill.Courses" :key="Course.Course_ID">
                                     <div class="container ms-3 my-3">
-                                        <input @change="mapCourses(this.checkedCourses)" class="form-check-input " type="checkbox" :value='Course.Course_ID'
-                                            :id="'check'+Skill.Skill_ID+Course.Course_ID" v-model="checkedCourses">
+                                        <input @change="mapCourses(this.checkedCourses)" class="form-check-input" type="checkbox" :value='Course.Course_ID'
+                                            :id="'check'+Skill.Skill_ID+Course.Course_ID" v-model="checkedCourses" >
                                         <label class="form-check-label" :for="'check'+Skill.Skill_ID+Course.Course_ID">
                                             <p class="fw-semibold"> {{Course.Course_ID}} - {{Course.Course_Name}} </p>
-                                            <p>Course Status: <span class="badge bg-secondary m-auto">{{ Course.Course_Status}}</span></p>
+                                            <p class="mt-0">Course Status: <span class="badge bg-secondary">{{ Course.Course_Status}}</span></p>
                                             <p class="mb-0"> {{ Course.Course_Desc }} </p>
                                         </label>
                                         
@@ -43,7 +43,8 @@ export default {
     data() {
         return {
             checkedCourses:[],
-            skillCourseCounter:{}
+            skillCourseCounter:{},
+            activeColor: 'bg-gray-100'
         }
     },
     mounted(){

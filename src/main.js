@@ -5,5 +5,21 @@ import "bootstrap/dist/js/bootstrap.js"
 import router from './router'
 import { createPinia } from "pinia"
 
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
 
-createApp(App).use(createPinia()).use(router).mount('#app')
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+import { faHouse, faUser, faPlus, faBook, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+
+/* add icons to the library */
+library.add(faHouse, faUser, faPlus, faBook, faLightbulb)
+
+
+createApp(App)
+.use(createPinia())
+.use(router)
+.component('font-awesome-icon', FontAwesomeIcon)
+.mount('#app')

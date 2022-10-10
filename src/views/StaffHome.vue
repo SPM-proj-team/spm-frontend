@@ -8,7 +8,7 @@
           Journey</router-link>
       </div>
       <div class="container p-0">
-      <MyLearningJourneys :learningJourneys="learningJourneys"/>
+        <MyLearningJourneys :learningJourneys="learningJourneys"/>
       </div>
     </div>
   </div>
