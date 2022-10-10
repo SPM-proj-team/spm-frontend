@@ -4,17 +4,6 @@
 // Import Bootstrap
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
-// Import LJPS Custom Mixins and components
-@import "global.scss";
-@import "utilities.scss";
-
-// Custom components
-@import "navs/global.scss";
-@import "navs/topbar.scss";
-@import "navs/sidebar.scss";
-@import "dropdowns.scss";
-@import "buttons.scss";
-
 // Then add additional custom code here
 
 $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
