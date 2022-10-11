@@ -39,10 +39,16 @@
                                         View Roles
                                     </router-link>
                                 </li>
-                                <li class="nav-item px-3">
+                                <li class="nav-item px-3" :class="{ 'border-end border-2': checkAdmin()}">
                                     <router-link to="/CreateLearningJourney" class="nav-link router-link" exact>
                                         <font-awesome-icon icon="fa-solid fa-plus" class="me-2" />
                                         Create Learning Journey
+                                    </router-link>
+                                </li>
+                                <li v-if="checkAdmin()" class="nav-item px-3">
+                                    <router-link to="/Admin" class="nav-link router-link" exact>
+                                        <font-awesome-icon icon="fa-solid fa-circle-user" class="me-2"/>
+                                        Admin
                                     </router-link>
                                 </li>
                             </ul>
@@ -62,6 +68,14 @@
     setup() {
         const store = userStore()
         return { store }
+    },
+    methods: {
+        checkAdmin(){
+            if (this.store.role == 'Admin'){
+                return true
+            }
+            return false
+        }
     }
 
     }

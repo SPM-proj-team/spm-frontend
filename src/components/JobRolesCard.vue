@@ -44,8 +44,8 @@ export default {
                 this.$router.push({ name: 'NotFound404' });
                 return
             })
+            return
         }
-
 
         return { store, jobRoles }
     },

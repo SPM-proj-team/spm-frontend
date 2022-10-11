@@ -15,14 +15,17 @@
 
 
   <div class="container">
+
     <Suspense>
       <template #default>
         <JobRolesCard />
       </template>
       <template #fallback>
-        <JobRolesSekelton />
+          <JobRolesSekelton />
       </template>
     </Suspense>
+
+
   </div>
 </template>
 
@@ -38,13 +41,13 @@ export default {
     JobRolesSekelton
   },
 
-  
+
   data() {
     return {
       jobRoles: []
     }
   },
-  
+
 }
 
 </script>

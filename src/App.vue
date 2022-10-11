@@ -2,8 +2,7 @@
 
   <MainNavbar />
   <router-view />
-
-
+  
 </template>
 
 <script>

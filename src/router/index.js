@@ -26,6 +26,16 @@ const routes = [
     name: 'Create Learning Journey',
     component: CreateLearningJourney
   },
+  {
+    path: '/Admin',
+    name: 'Admin',
+    component: () => import( '../views/AdminManagement.vue') 
+  },
+  {
+    path: '/UpdateRoles',
+    name: 'Update Roles',
+    component: () => import( '../views/UpdateRoles.vue') 
+  },
 
   // catchall 404
   {
