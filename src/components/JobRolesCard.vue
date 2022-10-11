@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2 g-lg-3 justify-content-center align-content-center">
+        <div
+            class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 justify-content-center align-content-center">
             <div v-for="jobRole in jobRoles" :key="jobRole.Job_ID" class="col">
                 <router-link class="router-link" :to="{ name: 'JobRoleDetails', params: { JobRoleID: jobRole.Job_ID }}">
                     <button class="btn btn-light card w-100 h-100 shadow-sm" @click="selectJobRole(jobRole)">
@@ -25,24 +26,36 @@
 <script>
 
 import { userStore } from '@/store';
+import axios from 'axios'
+import { ref } from 'vue';
+
 
 export default {
-    setup() {
-        const store = userStore()
-        return { store }
-    },
-    props: {
-        jobRoles: {
-            type: Array
+    async setup() {
+        const store = userStore();
+        const jobRoles = ref(null);
+        await getRoles();
+        async function getRoles() {
+            await axios.get('http://127.0.0.1:5000/roles').then((res) => {
+                jobRoles.value = res.data.data;
+                console.log(res.data.data)
+            }).catch((err) => {
+                console.log(err);
+                this.$router.push({ name: 'NotFound404' });
+                return
+            })
         }
+
+
+        return { store, jobRoles }
     },
     methods: {
         selectJobRole(selectedJobRole) {
             this.store.selectJobRole(selectedJobRole)
         }
     }
-
 }
+
 
 </script>
 

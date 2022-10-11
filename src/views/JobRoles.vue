@@ -15,43 +15,36 @@
 
 
   <div class="container">
-    <JobRolesCard :jobRoles="jobRoles" />
+    <Suspense>
+      <template #default>
+        <JobRolesCard />
+      </template>
+      <template #fallback>
+        <JobRolesSekelton />
+      </template>
+    </Suspense>
   </div>
 </template>
 
 <script>
 
 import JobRolesCard from '../components/JobRolesCard.vue'
-import axios from 'axios'
+import JobRolesSekelton from '@/components/JobRolesSekelton.vue'
 
 
 export default {
   components: {
-    JobRolesCard
+    JobRolesCard,
+    JobRolesSekelton
   },
-  mounted() {
-    this.getJobRoles()
-  },
+
+  
   data() {
     return {
       jobRoles: []
     }
   },
-  methods: {
-    // Get all available job roles
-    getJobRoles() {
-      const path = 'http://127.0.0.1:5000/roles';
-      axios.get(path)
-        .then((res) => {
-          this.jobRoles = res.data.data;
-          console.log(res.data.data)
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$router.push({ name: 'NotFound404' });
-        })
-    }
-  }
+  
 }
 
 </script>
