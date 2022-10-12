@@ -404,6 +404,7 @@ export default {
                     "Job_Role": this.job_role,
                     "Job_Title": this.job_title,
                     "Department": this.department,
+                    "Description": this.description,
                     "Skills": formDataSkills
                 }
 
@@ -489,6 +490,7 @@ export default {
             this.job_role = jobRole.Job_Role
             this.job_title = jobRole.Job_Title
             this.department = jobRole.Department
+            this.description = jobRole.Description
             this.skills = [...jobRole.Skills]
         },
         resetFormData() {
