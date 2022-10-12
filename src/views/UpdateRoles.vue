@@ -83,7 +83,7 @@
                                 <div class="form-floating">
                                     <select class="form-select" id="department"
                                         aria-label="Floating label select example" v-model="department">
-                                        <option disabled value="0">...</option>
+                                        <option disabled>...</option>
                                         <option value="Executive Management">Executive Management</option>
                                         <option value="Sales">Sales</option>
                                         <option value="Operations">Operations</option>
@@ -91,8 +91,7 @@
                                         <option value="Finance">Finance</option>
                                     </select>
                                     <label for="department">Department</label>
-                                    <div class="small text-danger" 
-                                        v-if="errors.department.state">
+                                    <div class="small text-danger" v-if="errors.department.state">
                                         {{ errors.department.message }}
                                     </div>
                                 </div>
@@ -102,8 +101,7 @@
                                     <textarea class="form-control" placeholder="Job Description" id="description"
                                         v-model="description" style="height: 200px"></textarea>
                                     <label for="description">Job Description</label>
-                                    <div class="small text-danger" 
-                                        v-if="errors.description.state">
+                                    <div class="small text-danger" v-if="errors.description.state">
                                         {{ errors.description.message }}
                                     </div>
                                 </div>
@@ -197,7 +195,15 @@
         </div>
     </div>
 
-
+    <!-- Success Modal -->
+    <SuccessModal v-if="this.isModalVisible" 
+    @close="closeModal" 
+    @wheel.prevent
+    @touchmove.prevent 
+    @scroll.prevent 
+    :modalTitle="'Update Success'" 
+    :message="'Roles has been successfully updated!'" 
+    :icon="'fa-solid fa-user-check'"/>
 
     <!-- form reset modal -->
     <div class="modal fade" tabindex="-1" id="resetJobInfoModal">
@@ -225,6 +231,7 @@
 
 <script>
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import SuccessModal from '@/components/SuccessModal.vue'
 import axios from 'axios'
 
 // import { userStore } from '@/store';
@@ -252,59 +259,26 @@ export default {
             job_role: '',
             description: '',
             skills: [],
-            errors: {
-                job_id:
-                {
-                    state: false,
-                    message: null,
-                    details: null
-                },
-                job_role:
-                {
-                    state: false,
-                    message: null,
-                    details: null
-                },
-                job_title:
-                {
-                    state: false,
-                    message: null,
-                    details: null
-                },
-                department:
-                {
-                    state: false,
-                    message: null,
-                    details: null
-                },
-                description:
-                {
-                    state: false,
-                    message: null,
-                    details: null
-                },
-                skill:
-                {
-                    state: false,
-                    message: null,
-                    details: null
-                }
-            },
+            errors: null,
 
             // form data toggle
             addSkillsForm: false,
+
+            // Modal
+            isModalVisible: false
 
         }
     },
     mounted() {
         this.getRoles()
+        this.resetErrorState()
     },
     methods: {
         // get job roles
         getRoles() {
             const path = 'http://127.0.0.1:5000/roles'
             axios.get(path).then((res) => {
-                console.log(res.data.data)
+                console.log("job roles data loaded")
                 this.jobRoles = [...res.data.data];
             }).catch((err) => {
                 console.log(err);
@@ -367,14 +341,14 @@ export default {
                 }
             }
 
-            // description validation
-            if (this.description.length == 0) {
-                this.errors.description = {
-                    state: true,
-                    message: 'Please enter a description',
-                    details: this.description
-                }
-            }
+            // // description validation
+            // if (this.description.length == 0) {
+            //     this.errors.description = {
+            //         state: true,
+            //         message: 'Please enter a description',
+            //         details: this.description
+            //     }
+            // }
 
             // skill validation
             if (this.skills.length == 0) {
@@ -385,20 +359,46 @@ export default {
                 }
             }
 
-            // change bootstrap classes
+            // check if there's no error
+            for (const errorType in this.errors) {
+                if (this.errors[errorType].state) {
+                    return
+                }
+            }
+
+
+            console.log("sending put request...");
+
+            // populate skill ID from front end
+            let formDataSkills = []
+            for (let skill of this.skills) {
+                formDataSkills.push(skill.Skill_ID)
+            }
+
+            const formData = {
+                "Job_ID": this.job_id,
+                "Job_Role": this.job_role,
+                "Job_Title": this.job_title,
+                "Department": this.department,
+                "Skills": formDataSkills
+            }
 
 
 
-            // job_id: 0,
-            // job_title: '',
-            // department: '',
-            // job_role: '',
-            // description: '',
-            // skills: [],
+            // if alls good then send put request to backend
+            const path = 'http://127.0.0.1:5000/roles'
 
+            axios.put(path, formData)
+                .then((res) => {
+                    console.log(res)
+                    console.log("put request success");
+                    this.showModal()
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return
+                })
 
-
-            console.log(this.errors);
         },
         resetErrorState() {
             this.errors = {
@@ -455,7 +455,9 @@ export default {
                 this.job_role = '',
                 this.description = '',
                 this.skills = [],
-                this.resetErrorState()
+                this.skillSearchInput = ''
+            this.addSkillsForm = false
+            this.resetErrorState()
         },
         resetJobInfo() {
             // reset error state
@@ -483,11 +485,11 @@ export default {
             this.addSkillsForm = true
             const path = 'http://127.0.0.1:5000/allskills'
             axios.get(path).then((res) => {
-                console.log(res.data.data)
+                console.log("skills data loaded")
                 this.allSkills = [...res.data.data];
             }).catch((err) => {
+                console.log("Unable to retrieve skill from /allskills");
                 console.log(err);
-                this.$router.push({ name: 'NotFound404' });
                 return
             })
         },
@@ -502,7 +504,7 @@ export default {
             // check if skills is already added
             for (const roleSkill of this.skills) {
                 if (skill.Skill_ID == roleSkill.Skill_ID) {
-                    this.errors.skill = { 
+                    this.errors.skill = {
                         state: true,
                         message: 'Unable to add existing skill: ',
                         details: skill.Name
@@ -514,6 +516,13 @@ export default {
 
             // otherwise add skill
             this.skills.push(skill)
+        },
+        showModal() {
+            this.isModalVisible = true
+        },
+        closeModal() {
+            this.isModalVisible = false
+            this.$router.go()
         }
     },
     computed: {
@@ -553,7 +562,7 @@ export default {
         }
 
     },
-    components: { Breadcrumbs }
+    components: { Breadcrumbs, SuccessModal }
 }
 
 
