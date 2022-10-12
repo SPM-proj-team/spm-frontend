@@ -180,11 +180,11 @@
 
                             </div>
 
-                            <div class="col-6 col-lg-3 text-center">
+                            <div class="col-12 col-lg-3 text-center">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal"
                                     class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
                             </div>
-                            <div class="col-6 col-lg-3">
+                            <div class="col-12 col-lg-3">
                                 <button type="submit"
                                     class="btn btn-lg btn-danger me-3 fw-semibold w-100"
                                     data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal"
