@@ -30,8 +30,8 @@
                                 <!-- <router-link > -->
                                 <button class="btn btn-light shadow-sm text-start card p-0 w-100 h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title fw-semibold">Create & Delete Roles</h5>
-                                        <p class="card-text">Create New Role or Delete an existing Role in LJPS</p>
+                                        <h5 class="card-title fw-semibold">Create New Roles</h5>
+                                        <p class="card-text">Create New Role in Learning Journey Management System</p>
                                     </div>
                                 </button>
                                 <!-- </router-link> -->
@@ -40,8 +40,8 @@
                                 <router-link to="/UpdateRoles" class="router-link">
                                 <button class="btn btn-light shadow-sm text-start card p-0 w-100 h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title fw-semibold">Update Roles</h5>
-                                        <p class="card-text">Update existing roles information and map skills to roles
+                                        <h5 class="card-title fw-semibold">Update & Delete Roles</h5>
+                                        <p class="card-text">Update roles information and map skills to roles
                                         </p>
                                     </div>
                                 </button>

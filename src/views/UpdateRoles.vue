@@ -47,7 +47,7 @@
                 <div class="card p-3">
                     <div class="card-body">
                         <h5 class="card-title fw-semibold fs-3 mb-3">Role information</h5>
-                        <form @submit.prevent="formValidate" class="row g-3" novalidate>
+                        <form @submit.prevent="" action="#" class="row g-3" novalidate>
                             <div class="col-3 col-lg-2 ">
                                 <div class="form-floating">
                                     <input v-model="job_id" type="text" class="form-control" id="Job_ID"
@@ -180,13 +180,20 @@
 
                             </div>
 
-                            <div class="col-6 col-lg-8 text-lg-end text-center">
+                            <div class="col-6 col-lg-3 text-center">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal"
-                                    class="btn btn-lg btn-link fw-semibold" style="text-decoration: none">Reset</button>
+                                    class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
                             </div>
-                            <div class="col-6 col-lg-4">
+                            <div class="col-6 col-lg-3">
                                 <button type="submit"
-                                    class="btn btn-lg btn-primary me-3 fw-semibold w-100">Update</button>
+                                    class="btn btn-lg btn-danger me-3 fw-semibold w-100"
+                                    data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal"
+                                    >Delete
+                                </button>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <button type="submit" class="btn btn-lg btn-primary me-3 fw-semibold w-100"
+                                    @click="formValidate('update')">Update</button>
                             </div>
                         </form>
                     </div>
@@ -196,14 +203,9 @@
     </div>
 
     <!-- Success Modal -->
-    <SuccessModal v-if="this.isModalVisible" 
-    @close="closeModal" 
-    @wheel.prevent
-    @touchmove.prevent 
-    @scroll.prevent 
-    :modalTitle="'Update Success'" 
-    :message="'Roles has been successfully updated!'" 
-    :icon="'fa-solid fa-user-check'"/>
+    <SuccessModal v-if="this.isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
+        :modalTitle="'Update Success'" :message="'Roles has been successfully updated!'"
+        :icon="'fa-solid fa-user-check'" />
 
     <!-- form reset modal -->
     <div class="modal fade" tabindex="-1" id="resetJobInfoModal">
@@ -221,6 +223,26 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                         @click="resetJobInfo()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete confirmation modal  -->
+    <div class="modal fade" tabindex="-1" id="deleteConfirmationModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset job information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This will delete the selected role, proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    @click="formValidate('delete')">Delete</button>
                 </div>
             </div>
         </div>
@@ -298,106 +320,127 @@ export default {
                 details: null
             }
         },
-        formValidate() {
+        formValidate(submitType) {
 
             // reset error state
             this.resetErrorState()
 
-            // check for form inputs
+            if (submitType == 'update') {
 
-            // Job role validation
-            if (this.job_id.length == 0) {
-                this.errors.job_id = {
-                    state: true,
-                    message: 'Invalid Job ID',
-                    details: this.job_id
+                // check for form inputs
+
+                // Job role validation
+                if (this.job_id.length == 0) {
+                    this.errors.job_id = {
+                        state: true,
+                        message: 'Invalid Job ID',
+                        details: this.job_id
+                    }
                 }
-            }
 
-            // Job role validation
-            if (this.job_role.length == 0) {
-                this.errors.job_role = {
-                    state: true,
-                    message: 'Invalid Job Role',
-                    details: this.job_role
+                // Job role validation
+                if (this.job_role.length == 0) {
+                    this.errors.job_role = {
+                        state: true,
+                        message: 'Invalid Job Role',
+                        details: this.job_role
+                    }
                 }
-            }
 
-            // Job title validation
-            if (this.job_title.length == 0) {
-                this.errors.job_title = {
-                    state: true,
-                    message: 'Invalid Job Title',
-                    details: this.job_title
+                // Job title validation
+                if (this.job_title.length == 0) {
+                    this.errors.job_title = {
+                        state: true,
+                        message: 'Invalid Job Title',
+                        details: this.job_title
+                    }
                 }
-            }
 
-            // department validation
-            if (this.department.length == 0) {
-                this.errors.department = {
-                    state: true,
-                    message: 'Invalid Department',
-                    details: this.department
+                // department validation
+                if (this.department.length == 0) {
+                    this.errors.department = {
+                        state: true,
+                        message: 'Invalid Department',
+                        details: this.department
+                    }
                 }
-            }
 
-            // // description validation
-            // if (this.description.length == 0) {
-            //     this.errors.description = {
-            //         state: true,
-            //         message: 'Please enter a description',
-            //         details: this.description
-            //     }
-            // }
+                // // description validation
+                // if (this.description.length == 0) {
+                //     this.errors.description = {
+                //         state: true,
+                //         message: 'Please enter a description',
+                //         details: this.description
+                //     }
+                // }
 
-            // skill validation
-            if (this.skills.length == 0) {
-                this.errors.skill = {
-                    state: true,
-                    message: 'Invalid skill, please select at least 1 skill',
-                    details: null
+                // skill validation
+                if (this.skills.length == 0) {
+                    this.errors.skill = {
+                        state: true,
+                        message: 'Invalid skill, please select at least 1 skill',
+                        details: null
+                    }
                 }
-            }
 
-            // check if there's no error
-            for (const errorType in this.errors) {
-                if (this.errors[errorType].state) {
-                    return
+                // check if there's no error
+                for (const errorType in this.errors) {
+                    if (this.errors[errorType].state) {
+                        return
+                    }
                 }
-            }
 
 
-            console.log("sending put request...");
+                console.log("sending put request...");
 
-            // populate skill ID from front end
-            let formDataSkills = []
-            for (let skill of this.skills) {
-                formDataSkills.push(skill.Skill_ID)
-            }
+                // populate skill ID from front end
+                let formDataSkills = []
+                for (let skill of this.skills) {
+                    formDataSkills.push(skill.Skill_ID)
+                }
 
-            const formData = {
-                "Job_ID": this.job_id,
-                "Job_Role": this.job_role,
-                "Job_Title": this.job_title,
-                "Department": this.department,
-                "Skills": formDataSkills
-            }
+                const formData = {
+                    "Job_ID": this.job_id,
+                    "Job_Role": this.job_role,
+                    "Job_Title": this.job_title,
+                    "Department": this.department,
+                    "Skills": formDataSkills
+                }
 
+                console.log(formData);
 
+                // if alls good then send put request to backend
+                const path = 'http://127.0.0.1:5000/roles'
 
-            // if alls good then send put request to backend
-            const path = 'http://127.0.0.1:5000/roles'
+                axios.put(path, formData)
+                    .then((res) => {
+                        console.log(res)
+                        console.log("put request success");
+                        this.showModal()
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return
+                    })
 
-            axios.put(path, formData)
+            } else {
+
+                // delete role by sending delete request
+                console.log("Deleting role " + this.job_id);
+
+                const path = 'http://127.0.0.1:5000/roles/' + this.job_id
+                axios.delete(path)
                 .then((res) => {
                     console.log(res)
-                    console.log("put request success");
-                    this.showModal()
+                    console.log("Delete success");
                 })
                 .catch((err) => {
                     console.log(err);
                     return
                 })
+
+            }
+
 
         },
         resetErrorState() {

@@ -92,7 +92,7 @@ export default {
         },
 
         getSkillProgress() {
-            return this.countSkillsMapped() / this.Skills.length * 100
+            return Math.round(this.countSkillsMapped() / this.Skills.length * 100)
         },
 
         countSkillsMapped() {
