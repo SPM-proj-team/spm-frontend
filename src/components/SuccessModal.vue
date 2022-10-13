@@ -1,5 +1,5 @@
 <template>
-    <div class="modal show" style="display: block;" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal fade show" style="display: block;" tabindex="-1" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,10 +27,16 @@ export default {
         modalTitle: String,
         message: String
     }
-    
+
 }
 </script>
 
 <style scoped>
-
+.modal {
+    width: 100%;
+    height: 100%;
+    padding-top: 100px;
+    background-color: black;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 </style>

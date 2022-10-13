@@ -6,11 +6,21 @@
                 <div class="card p-3">
                     <div class="card-body">
                         <div class="card-title fs-3 fw-semibold mb-3">Select A Role</div>
-                        <div class="form-floating mb-3">
-                            <input v-model="jobSearchInput" type="search" class="form-control" id="jobRoleInputText"
-                                placeholder="Enter job role" @input="onQueryChange">
-                            <label for="jobRoleInputText">Search for a job role name...</label>
+                        <div class="input-group">
+                            <div class="form-floating mb-0">
+                                <input v-model="jobSearchInput" type="search" class="form-control" id="jobRoleInputText"
+                                    placeholder="Enter job role" @input="onQueryChange">
+                                <label for="jobRoleInputText">Search for a job role name...</label>
+                            </div>
+                            <button class="btn btn-outline-primary" type="button" @click="viewAllRoles()">
+                                <font-awesome-icon icon="fa-solid fa-chevron-down" class="me-2"
+                                    v-show="!this.viewAllRolesVisible" />
+                                <font-awesome-icon icon="fa-solid fa-chevron-up" v-show="this.viewAllRolesVisible"
+                                    class="me-2" />
+                                View All Roles
+                            </button>
                         </div>
+
                         <div v-if="this.searchJobRole.length">Showing {{ this.searchJobRole.length }} of {{
                         this.jobRoles.length }}</div>
                         <div v-if="this.searchJobRole.length" class="card shadow-sm">
@@ -140,11 +150,23 @@
                             </div>
                             <div class="col-12" v-if="addSkillsForm">
 
-                                <div class="form-floating mb-3">
-                                    <input v-model="skillSearchInput" type="search" class="form-control"
-                                        id="jobRoleInputText" placeholder="Enter job role" @input="onQueryChangeSkill">
-                                    <label for="jobRoleInputText">Search for a skill name...</label>
+                                <div class="input-group">
+                                    <div class="form-floating">
+                                        <input v-model="skillSearchInput" type="search" class="form-control"
+                                            id="jobRoleInputText" placeholder="Enter job role"
+                                            @input="onQueryChangeSkill">
+                                        <label for="jobRoleInputText">Search for a skill name...</label>
+                                    </div>
+                                    <button class="btn btn-outline-primary" type="button" @click="viewAllSkills()">
+                                        <font-awesome-icon icon="fa-solid fa-chevron-down" class="me-2"
+                                            v-show="!this.viewAllSKillsVisible" />
+                                        <font-awesome-icon icon="fa-solid fa-chevron-up"
+                                            v-show="this.viewAllSKillsVisible" class="me-2" />
+                                        View All Skills
+                                    </button>
                                 </div>
+
+
                                 <div v-if="this.searchSkill.length">Showing {{ this.searchSkill.length }} of
                                     {{
                                     this.allSkills.length }}</div>
@@ -182,13 +204,12 @@
 
                             <div class="col-12 col-lg-3 text-center">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal"
-                                    class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
+                                    class="btn btn-lg btn-light fw-semibold w-100"
+                                    style="text-decoration: none">Reset</button>
                             </div>
                             <div class="col-12 col-lg-3">
-                                <button type="submit"
-                                    class="btn btn-lg btn-danger me-3 fw-semibold w-100"
-                                    data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal"
-                                    >Delete
+                                <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100"
+                                    data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete
                                 </button>
                             </div>
                             <div class="col-12 col-lg-6">
@@ -203,9 +224,12 @@
     </div>
 
     <!-- Success Modal -->
-    <SuccessModal v-if="this.isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
-        :modalTitle="'Update Success'" :message="'Roles has been successfully updated!'"
-        :icon="'fa-solid fa-user-check'" />
+    <Transition>
+        <SuccessModal v-if="this.isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
+            :modalTitle="'Update Success'" :message="'Roles has been successfully updated!'"
+            :icon="'fa-solid fa-user-check'" />
+    </Transition>
+
 
     <!-- form reset modal -->
     <div class="modal fade" tabindex="-1" id="resetJobInfoModal">
@@ -242,7 +266,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                    @click="formValidate('delete')">Delete</button>
+                        @click="formValidate('delete')">Delete</button>
                 </div>
             </div>
         </div>
@@ -273,6 +297,8 @@ export default {
             jobRoles: [],
             allSkills: [],
             skillSearchInput: '',
+            viewAllRolesVisible: false,
+            viewAllSKillsVisible: false,
 
             // form data / input
             job_id: 0,
@@ -282,6 +308,7 @@ export default {
             description: '',
             skills: [],
             errors: null,
+
 
             // form data toggle
             addSkillsForm: false,
@@ -431,14 +458,14 @@ export default {
 
                 const path = 'http://127.0.0.1:5000/roles/' + this.job_id
                 axios.delete(path)
-                .then((res) => {
-                    console.log(res)
-                    console.log("Delete success");
-                })
-                .catch((err) => {
-                    console.log(err);
-                    return
-                })
+                    .then((res) => {
+                        console.log(res)
+                        console.log("Delete success");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return
+                    })
 
             }
 
@@ -568,16 +595,46 @@ export default {
         closeModal() {
             this.isModalVisible = false
             this.$router.go()
+        },
+        viewAllRoles() {
+            this.viewAllRolesVisible = !this.viewAllRolesVisible
+
+            if (this.viewAllRolesVisible) {
+                this.jobSearchInput = 'All'
+                return
+            }
+
+            this.jobSearchInput = ''
+
+        },
+        viewAllSkills() {
+            this.viewAllSKillsVisible = !this.viewAllSKillsVisible
+
+            if (this.viewAllSKillsVisible) {
+                this.skillSearchInput = 'All'
+                return
+            }
+
+            this.skillSearchInput = ''
+
         }
     },
     computed: {
         searchJobRole() {
+
+            // if null
             if (this.jobSearchInput === '') {
                 return []
             }
 
+            else if (this.jobSearchInput.toLowerCase() == 'all') {
+                return this.jobRoles
+            }
+
             let matches = 0
 
+
+            // with user input
             return this.jobRoles.filter(jobRole => {
                 if (
                     jobRole.Job_Role.toLowerCase().includes(this.jobSearchInput.toLowerCase())
@@ -588,9 +645,13 @@ export default {
                 }
             })
         },
+
+
         searchSkill() {
             if (this.skillSearchInput === '') {
                 return []
+            } else if (this.skillSearchInput.toLowerCase() == 'all') {
+                return this.allSkills
             }
 
             let matches = 0
@@ -614,5 +675,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.2s ease;
+}
 
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
 </style>
