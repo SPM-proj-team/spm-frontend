@@ -36,6 +36,11 @@ const routes = [
     name: 'Update Roles',
     component: () => import( '../views/UpdateRoles.vue') 
   },
+  {
+    path: '/CreateRole',
+    name: 'Create Roles',
+    component: () => import( '../views/CreateRole.vue') 
+  },
 
   // catchall 404
   {

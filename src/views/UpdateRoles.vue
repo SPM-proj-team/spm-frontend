@@ -53,7 +53,11 @@
                     </div>
                 </div>
             </div>
-            <JobRolesForm v-if="this.selectedJobRole.job_id" :formData="this.selectedJobRole" :formType="'update'" :allJobRoles='this.jobRoles'/>
+            <JobRolesForm v-if="this.selectedJobRole.job_id" 
+            :formData="this.selectedJobRole" 
+            :formType="'update'" 
+            :allJobRoles='this.jobRoles'
+            :formTitle="'Role Information'"/>
         </div>
     </div>
 

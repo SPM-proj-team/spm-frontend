@@ -2,12 +2,12 @@
     <div class="col-12">
         <div class="card p-3">
             <div class="card-body">
-                <h5 class="card-title fw-semibold fs-3 mb-3">Role information</h5>
+                <h5 class="card-title fw-semibold fs-3 mb-3">{{ formTitle }}</h5>
                 <form @submit.prevent="" action="#" class="row g-3" novalidate>
-                    <div class="col-3 col-lg-2 ">
+                    <div class="col-3 col-lg-2 " v-if='formType=="update"'>
                         <div class="form-floating">
-                            <input v-if='formType=="update"' v-model="job_id" type="text" class="form-control"
-                                id="Job_ID" placeholder="Job Role ID" required disabled>
+                            <input v-model="job_id" type="text" class="form-control" id="Job_ID"
+                                placeholder="Job Role ID" required disabled>
                             <label for="Job_ID">Job Role ID</label>
                             <div class="text-danger" v-if="errors.job_id.state">
                                 {{ errors.job_id.message }}
@@ -38,7 +38,7 @@
                         <div class="form-floating">
                             <select class="form-select" id="department" aria-label="Floating label select example"
                                 v-model="department">
-                                <option disabled>...</option>
+                                <option selected disabled>...</option>
                                 <option value="Executive Management">Executive Management</option>
                                 <option value="Sales">Sales</option>
                                 <option value="Operations">Operations</option>
@@ -146,11 +146,15 @@
 
                     </div>
 
+                    <div class="col-12 col-lg-3 text-center" v-if="formType=='update'">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal"
+                            class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
+                    </div>
                     <div class="col-12 col-lg-3 text-center">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal"
                             class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
                     </div>
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-3" v-if="formType=='update'">
                         <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100"
                             data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete
                         </button>
@@ -161,7 +165,7 @@
                             @click="formValidate('update')">Update</button>
                         <button v-if='formType=="create"' type="submit"
                             class="btn btn-lg btn-primary me-3 fw-semibold w-100"
-                            @click="formValidate('update')">Create</button>
+                            @click="formValidate('create')">Create</button>
                     </div>
                 </form>
             </div>
@@ -190,8 +194,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-if="formType=='update'"
                         @click="resetJobInfo()">Reset</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        @click="resetFormData()">Reset</button>
                 </div>
             </div>
         </div>
@@ -226,8 +232,11 @@ import SuccessModal from '@/components/SuccessModal.vue'
 
 export default {
     props: {
+        formTitle: {
+            type: String
+        },
         formData: {
-            type: Object
+            type: Object,
         },
         formType: {
             type: String
