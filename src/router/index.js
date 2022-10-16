@@ -22,6 +22,12 @@ const routes = [
     props: true
   },
   {
+    path: '/LearningJourney/:LJID',
+    name: 'JobRoleDetails',
+    component: JobRoleDetails,
+    props: true
+  },
+  {
     path: '/CreateLearningJourney',
     name: 'Create Learning Journey',
     component: CreateLearningJourney
