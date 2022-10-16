@@ -42,17 +42,18 @@
 export default {
     data() {
         return {
-            checkedCourses:[],
+            checkedCourses: this.preSelectedCourses,
             skillCourseCounter:{},
             activeColor: 'bg-gray-100'
         }
     },
     mounted(){
-        this.getSkillsCourseCounter()
+        this.getSkillsCourseCounter()   
     },
     props: {
         Skills: Object,
-        mapCourses: Function
+        mapCourses: Function,
+        preSelectedCourses: Array,
     },
     methods: {
         getSkillsCourseCounter(){

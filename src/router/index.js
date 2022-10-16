@@ -23,8 +23,8 @@ const routes = [
   },
   {
     path: '/LearningJourney/:LJID',
-    name: 'JobRoleDetails',
-    component: JobRoleDetails,
+    name: 'Learning Journey Details',
+    component: () => import( '../views/LearningJourneyDetails.vue'),
     props: true
   },
   {

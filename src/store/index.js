@@ -8,7 +8,7 @@ export const userStore = defineStore('userStore', () => {
   const staff_LName = ref('Tan');
   const email = ref('Oliver.Tan@allinone.com.sg');
   const role = ref('Admin')
-  const staff_id = ref('150165')
+  const staff_id = ref('1')
   const department = ref('Ops');
   const selectedJobRole = ref([]);
 
