@@ -175,8 +175,8 @@
     <!-- Success Modal -->
     <Transition>
         <SuccessModal v-if="this.isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
-            :modalTitle="'Update Success'" :message="'Roles has been successfully updated!'"
-            :icon="'fa-solid fa-user-check'" />
+            :modalTitle="'Update Success'" :message="this.successModalMessage"
+            :icon="this.modalIcon" />
     </Transition>
 
 
@@ -304,7 +304,10 @@ export default {
             addSkillsForm: false,
 
             // Modal
-            isModalVisible: false
+            isModalVisible: false,
+            successModalMessage: '',
+            modalIcon: 'fa-solid fa-circle-check'
+            
         }
     },
     methods: {
@@ -324,7 +327,7 @@ export default {
 
                 // check for form inputs
 
-                // Job role validation
+                // Job id validation
                 if (this.job_id.length == 0) {
                     this.errors.job_id = {
                         state: true,
@@ -360,14 +363,14 @@ export default {
                     }
                 }
 
-                // // description validation
-                // if (this.description.length == 0) {
-                //     this.errors.description = {
-                //         state: true,
-                //         message: 'Please enter a description',
-                //         details: this.description
-                //     }
-                // }
+                // description validation
+                if (this.description.length == 0) {
+                    this.errors.description = {
+                        state: true,
+                        message: 'Please enter a description',
+                        details: this.description
+                    }
+                }
 
                 // skill validation
                 if (this.skills.length == 0) {
@@ -412,6 +415,8 @@ export default {
                     .then((res) => {
                         console.log(res)
                         console.log("put request success");
+                        this.modalIcon = 'fa-solid fa-user-check',
+                        this.successModalMessage = 'Roles has been successfully updated!'
                         this.showModal()
                     })
                     .catch((err) => {
@@ -419,7 +424,101 @@ export default {
                         return
                     })
 
-            } else {
+            } else if (submitType == 'create') {
+
+                // check for form inputs
+
+
+                // Job role validation
+                if (this.job_role.length == 0) {
+                    this.errors.job_role = {
+                        state: true,
+                        message: 'Invalid Job Role',
+                        details: this.job_role
+                    }
+                }
+
+                // Job title validation
+                if (this.job_title.length == 0) {
+                    this.errors.job_title = {
+                        state: true,
+                        message: 'Invalid Job Title',
+                        details: this.job_title
+                    }
+                }
+
+                // department validation
+                if (this.department.length == 0) {
+                    this.errors.department = {
+                        state: true,
+                        message: 'Invalid Department',
+                        details: this.department
+                    }
+                }
+
+                // description validation
+                if (this.description.length == 0) {
+                    this.errors.description = {
+                        state: true,
+                        message: 'Please enter a description',
+                        details: this.description
+                    }
+                }
+
+                // skill validation
+                if (this.skills.length == 0) {
+                    this.errors.skill = {
+                        state: true,
+                        message: 'Invalid skill, please select at least 1 skill',
+                        details: null
+                    }
+                }
+
+                // check if there's no error
+                for (const errorType in this.errors) {
+                    if (this.errors[errorType].state) {
+                        return
+                    }
+                }
+
+
+                console.log("sending put request...");
+
+                // populate skill ID from front end
+                let formDataSkills = []
+                for (let skill of this.skills) {
+                    formDataSkills.push(skill.Skill_ID)
+                }
+
+                const formData = {
+                    "Job_Role": this.job_role,
+                    "Job_Title": this.job_title,
+                    "Department": this.department,
+                    "Description": this.description,
+                    "Skills": formDataSkills
+                }
+
+                console.log(formData);
+
+                // if alls good then send put request to backend
+                const path = 'http://127.0.0.1:5000/roles'
+
+                axios.post(path, formData)
+                    .then((res) => {
+                        console.log(res)
+                        console.log("put request success");
+                        this.modalIcon = 'fa-solid fa-user-check'
+                        this.successModalMessage = 'Roles has been successfully created!'
+                        this.showModal();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return
+                    })
+
+            }
+
+            else {
 
                 // delete role by sending delete request
                 console.log("Deleting role " + this.job_id);
@@ -481,12 +580,12 @@ export default {
         },
         resetFormData() {
             this.job_id = 0,
-            this.job_title = '',
-            this.department = '',
-            this.job_role = '',
-            this.description = '',
-            this.skills = [],
-            this.skillSearchInput = ''
+                this.job_title = '',
+                this.department = '',
+                this.job_role = '',
+                this.description = '',
+                this.skills = [],
+                this.skillSearchInput = ''
             this.addSkillsForm = false
             this.resetErrorState()
         },
