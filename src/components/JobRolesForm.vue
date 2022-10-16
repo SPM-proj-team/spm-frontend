@@ -587,12 +587,12 @@ export default {
         },
         resetFormData() {
             this.job_id = 0,
-                this.job_title = '',
-                this.department = '',
-                this.job_role = '',
-                this.description = '',
-                this.skills = [],
-                this.skillSearchInput = ''
+            this.job_title = '',
+            this.department = '',
+            this.job_role = '',
+            this.description = '',
+            this.skills = [],
+            this.skillSearchInput = ''
             this.addSkillsForm = false
             this.resetErrorState()
         },

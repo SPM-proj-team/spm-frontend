@@ -53,11 +53,8 @@
                     </div>
                 </div>
             </div>
-            <JobRolesForm v-if="this.selectedJobRole.job_id" 
-            :formData="this.selectedJobRole" 
-            :formType="'update'" 
-            :allJobRoles='this.jobRoles'
-            :formTitle="'Role Information'"/>
+            <JobRolesForm v-if="this.selectedJobRole.job_id" :formData="this.selectedJobRole" :formType="'update'"
+                :allJobRoles='this.jobRoles' :formTitle="'Role Information'" />
         </div>
     </div>
 
@@ -97,7 +94,7 @@ export default {
                 skills: []
             },
 
-           
+
 
         }
     },
@@ -117,12 +114,19 @@ export default {
                 return
             })
         },
+
+        // clear job roles form whenever input is empty by calling resetFormData() from child
         onQueryChange(event) {
             if (event.target.value.trim().length === 0) {
-                this.resetFormData()
+                this.selectedJobRole.job_id = ''
+                this.selectedJobRole.job_role = ''
+                this.selectedJobRole.job_title = ''
+                this.selectedJobRole.department = ''
+                this.selectedJobRole.description = ''
+                this.selectedJobRole.skills = []
             }
         },
-        
+
         selectJobRole(jobRole) {
             this.jobSearchInput = jobRole.Job_Role
             this.selectedJobRole.job_id = jobRole.Job_ID
@@ -132,8 +136,8 @@ export default {
             this.selectedJobRole.description = jobRole.Description
             this.selectedJobRole.skills = [...jobRole.Skills]
         },
-        
-        
+
+
         viewAllRoles() {
             this.viewAllRolesVisible = !this.viewAllRolesVisible
 
@@ -145,7 +149,7 @@ export default {
             this.jobSearchInput = ''
 
         },
-        
+
     },
     computed: {
         searchJobRole() {
@@ -175,7 +179,7 @@ export default {
         },
 
 
-        
+
     },
     components: { Breadcrumbs, JobRolesForm }
 }

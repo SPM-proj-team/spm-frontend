@@ -24,12 +24,27 @@ import {
     faCircleUser, 
     faTrash, 
     faUserCheck,
-    faCircleXmark
+    faCircleXmark,
+    faCircleCheck
 
 } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faHouse, faUser, faPlus, faBook, faLightbulb, faChevronDown, faChevronUp, faListCheck, faCircleUser, faTrash, faUserCheck, faCircleXmark)
+library.add(
+    faHouse, 
+    faUser, 
+    faPlus, 
+    faBook, 
+    faLightbulb, 
+    faChevronDown, 
+    faChevronUp, 
+    faListCheck, 
+    faCircleUser, 
+    faTrash, 
+    faUserCheck, 
+    faCircleXmark,
+    faCircleCheck
+)
 
 
 createApp(App)
