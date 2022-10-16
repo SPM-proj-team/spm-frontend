@@ -5,9 +5,8 @@
       <font-awesome-icon icon="fa-solid fa-list-check" /> My Learning Journey
     </h2>
     <div class="d-lg-none d-grid mt-3">
-      <router-link to="/CreateLearningJourney" class="btn btn-warning btn-lg fw-bold shadow ">
-        + Start New Learning
-        Journey</router-link>
+      <router-link to="/CreateLearningJourney" class="btn btn-success btn-lg fw-bold shadow ">
+        + Start New LearningJourney</router-link>
     </div>
     <div class="d-grid mb-4">
     </div>

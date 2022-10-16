@@ -5,7 +5,7 @@
                 <h5 class="card-title fw-semibold fs-3 mb-3">{{ formTitle }}</h5>
                 <form @submit.prevent="" action="#" class="row g-3" novalidate>
                     <div class="col-3 col-lg-2 " v-if='formType=="update"'>
-                        <div class="form-floating">
+                        <div class="form-floating ">
                             <input v-model="job_id" type="text" class="form-control" id="Job_ID"
                                 placeholder="Job Role ID" required disabled>
                             <label for="Job_ID">Job Role ID</label>
@@ -17,7 +17,7 @@
                     <div class="col col-lg-4">
                         <div class="form-floating">
                             <input v-model="job_role" type="text" class="form-control" id="job_role"
-                                placeholder="Job Role Name" required>
+                                placeholder="Job Role Name" :class="{'is-invalid':errors.job_role.state}" required>
                             <label for="job_role">Job Role Name</label>
                             <div class="small text-danger" v-if="errors.job_role.state">
                                 {{ errors.job_role.message }}
@@ -27,7 +27,7 @@
                     <div class="col">
                         <div class="form-floating">
                             <input v-model="job_title" type="text" class="form-control" id="job_Title"
-                                placeholder="Job Role Title" required>
+                                placeholder="Job Role Title" :class="{'is-invalid':errors.job_title.state}" required>
                             <label for="job_Title">Job Role Title</label>
                             <div class="small text-danger" id="job_title-feedback" v-if="errors.job_title.state">
                                 {{ errors.job_title.message }}
@@ -37,7 +37,7 @@
                     <div class="col-12 col-lg-3">
                         <div class="form-floating">
                             <select class="form-select" id="department" aria-label="Floating label select example"
-                                v-model="department">
+                                v-model="department" :class="{'is-invalid':errors.department.state}">
                                 <option selected disabled>...</option>
                                 <option value="Executive Management">Executive Management</option>
                                 <option value="Sales">Sales</option>
@@ -54,7 +54,9 @@
                     <div class="col-12">
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="Job Description" id="description"
-                                v-model="description" style="height: 200px"></textarea>
+                                v-model="description"
+                                style="height: 150px;max-height: 200px;min-height: 100px"
+                                :class="{'is-invalid':errors.description.state}"></textarea>
                             <label for="description">Job Description</label>
                             <div class="small text-danger" v-if="errors.description.state">
                                 {{ errors.description.message }}
@@ -90,7 +92,8 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button @click="addSkills()" type="button" class="btn btn-warning w-100 fw-semibold shadow-sm" id="add-skills-btn">+
+                        <button @click="addSkills()" type="button" class="btn btn-warning w-100 fw-semibold shadow-sm"
+                            id="add-skills-btn">+
                             Add Skills</button>
                     </div>
                     <div class="col-12" v-if="addSkillsForm">
@@ -148,11 +151,12 @@
 
                     <div class="col-12 col-lg-3 text-center">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal" id="reset-btn"
-                            class="btn btn-lg btn-light fw-semibold w-100 shadow-sm" style="text-decoration: none">Reset</button>
+                            class="btn btn-lg btn-light fw-semibold w-100 shadow-sm"
+                            style="text-decoration: none">Reset</button>
                     </div>
                     <div class="col-12 col-lg-3" v-if="formType=='update'">
-                        <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100 shadow-sm"  id="delete-btn"
-                            data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete
+                        <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100 shadow-sm"
+                            id="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete
                         </button>
                     </div>
                     <div class="col-12 col-lg-6" v-if='formType=="update"'>
@@ -160,9 +164,9 @@
                             class="btn btn-lg btn-primary me-3 fw-semibold w-100 shadow-sm"
                             @click="formValidate('update')">Update</button>
                     </div>
-                    <div class="col-12 col-lg-9"  v-if='formType=="create"'>
+                    <div class="col-12 col-lg-9" v-if='formType=="create"'>
                         <button type="submit" id="create-btn"
-                            class="btn btn-lg btn-primary me-3 fw-semibold w-100 shadow-sm"
+                            class="btn btn-lg btn-success me-3 fw-semibold w-100 shadow-sm"
                             @click="formValidate('create')">Create</button>
                     </div>
                 </form>
@@ -173,8 +177,7 @@
     <!-- Success Modal -->
     <Transition>
         <SuccessModal v-if="this.isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
-            :modalTitle="this.modalTitle" :message="this.successModalMessage"
-            :icon="this.modalIcon" />
+            :modalTitle="this.modalTitle" :message="this.successModalMessage" :icon="this.modalIcon" />
     </Transition>
 
 
@@ -191,9 +194,10 @@
                         information?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="reset-close-btn">Close</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-if="formType=='update'" id="reset-update-btn"
-                        @click="resetJobInfo()">Reset</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        id="reset-close-btn">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-if="formType=='update'"
+                        id="reset-update-btn" @click="resetJobInfo()">Reset</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="reset-create-btn"
                         @click="resetFormData()">Reset</button>
                 </div>
@@ -306,7 +310,7 @@ export default {
             successModalMessage: '',
             modalIcon: 'fa-solid fa-circle-check',
             modalTitle: ''
-            
+
         }
     },
     methods: {
@@ -416,14 +420,14 @@ export default {
                         console.log("put request success");
                         this.modalTitle = 'Update Success'
                         this.modalIcon = 'fa-solid fa-user-check',
-                        this.successModalMessage = 'Roles has been successfully updated!'
+                            this.successModalMessage = 'Roles has been successfully updated!'
                         this.showModal()
                     })
                     .catch((err) => {
                         console.log(err);
                         this.modalTitle = 'Update Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to update role! please contact system developer'
+                            this.successModalMessage = 'Error! Unable to update role! please contact system developer'
                         this.showModal()
                     })
 
@@ -519,7 +523,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Create Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to create role! please contact system developer'
+                            this.successModalMessage = 'Error! Unable to create role! please contact system developer'
                         this.showModal()
                     })
 
@@ -587,12 +591,12 @@ export default {
         },
         resetFormData() {
             this.job_id = 0,
-            this.job_title = '',
-            this.department = '',
-            this.job_role = '',
-            this.description = '',
-            this.skills = [],
-            this.skillSearchInput = ''
+                this.job_title = '',
+                this.department = '',
+                this.job_role = '',
+                this.description = '',
+                this.skills = [],
+                this.skillSearchInput = ''
             this.addSkillsForm = false
             this.resetErrorState()
         },

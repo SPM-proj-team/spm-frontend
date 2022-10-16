@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <div
-            class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 justify-content-center align-content-center">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 justify-content-start align-content-center">
             <div v-for="jobRole in jobRoles" :key="jobRole.Job_ID" class="col">
                 <router-link class="router-link" :to="{ name: 'JobRoleDetails', params: { JobRoleID: jobRole.Job_ID }}">
                     <button class="btn btn-light card w-100 h-100 shadow-sm" @click="selectJobRole(jobRole)">

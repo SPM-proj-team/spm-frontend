@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card shadow">
         <div class="card-body">
             <h5 class="card-title fw-bold mb-3">Skills Fulfillment</h5>
             <div class="card-subtitle mb-1 text-muted d-flex justify-content-start align-items-start">
@@ -14,9 +14,10 @@
                     {{ SelectedCourses.length }} Course<template v-if="SelectedCourses.length>1">s</template>
                 </h6>
             </div>
-            <div class="progress">
+            <div class="progress" >
                 <div class="progress-bar" role="progressbar" aria-label="Example with label"
                     :style="{ width: getSkillProgress() + '%'}" :aria-valuenow="getSkillProgress()" aria-valuemin="0"
+                    v-if="getSkillProgress()"
                     aria-valuemax="100">{{ getSkillProgress() }}%</div>
             </div>
         </div>
@@ -71,7 +72,7 @@
             type="button">
             Create Learning Journey
         </button>
-        <button @click="this.updateLearningJourney()" v-if='formType=="update"' class="btn btn-warning rounded-0 rounded-bottom fw-bold" type="button">Update
+        <button @click="this.updateLearningJourney()" v-if='formType=="update"' class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button">Update
             Learning Journey</button>
 
     </div>

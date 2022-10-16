@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid border-bottom border-warning border-5 bg-white">
+    <div class="container-fluid border-bottom border-success border-5 bg-white">
         <div class="container container-md-fluid">
             <div class="row">
                 <div class="col">

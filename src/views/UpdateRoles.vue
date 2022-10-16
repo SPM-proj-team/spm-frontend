@@ -21,7 +21,7 @@
                             </button>
                         </div>
 
-                        <div v-if="this.searchJobRole.length">Showing {{ this.searchJobRole.length }} of {{
+                        <div v-if="this.searchJobRole.length" class="mt-3">Showing {{ this.searchJobRole.length }} of {{
                         this.jobRoles.length }}</div>
                         <div v-if="this.searchJobRole.length" class="card shadow-sm">
                             <div class="card-body p-0">

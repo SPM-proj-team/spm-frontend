@@ -1,11 +1,14 @@
 <template>
-    <div class="container mt-5">
+    <div class="container my-3">
         <Breadcrumbs :navObjects="navObjects" />
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
             <div class="col-12 col-xl-4 order-2 order-xl-1">
-                <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="this.mappedCourses"
-                    :SelectedCourses="this.selectedCourses" :preSelectedCourses="this.preSelectedCourses"
-                    :formType="'create'" />
+                <SkillsFulfillment 
+                :Skills="jobRoleSkills" 
+                :MappedCourses="mappedCourses"
+                :SelectedCourses="selectedCourses" 
+                :preSelectedCourses="preSelectedCourses"
+                :formType="'create'" />
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -13,8 +16,8 @@
                         <SelectedJobRole :SelectedJobRole="jobRoleDetails" />
                     </div>
                     <div class="col-12">
-                        <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses"
-                            :preSelectedCourses='this.preSelectedCourses' v-if="jobRoleDetails.Skills" />
+                        <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
+                            :preSelectedCourses='preSelectedCourses' v-if="jobRoleDetails.Skills" />
                     </div>
                 </div>
 

@@ -1,33 +1,35 @@
 <template>
-    <div class="container mt-3">
+    <div class="container my-3">
         <Breadcrumbs :navObjects="navObjects" />
+        <div class="row mb-3">
+            <div class="col">
+                <LearningJourneyInfo :ljName='learningJourneyDetails.Learning_Journey_Name'
+                    :ljDescription='learningJourneyDetails.Description' v-if="learningJourneyDetails" />
+            </div>
+        </div>
+        <div class="card text-bg-success mb-3 shadow">
+            <div class="card-header fw-semibold">Courses and Skills</div>
+        </div>
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
             <div class="col-12 col-xl-4 order-2 order-xl-1">
-                <SkillsFulfillment
-                :Skills="jobRoleSkills" 
-                :MappedCourses="this.mappedCourses"
-                :formType="'update'"
-                :SelectedCourses="this.selectedCourses"
-                />
+                <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :formType="'update'"
+                    :SelectedCourses="selectedCourses" />
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
                     <div class="col-12 mb-3 mb-lg-0">
-                        <SelectedJobRole :SelectedJobRole="jobRoleDetails" />
+                        <SelectedJobRole :SelectedJobRole="jobRoleDetails" v-if="jobRoleDetails"/>
                     </div>
                     <div class="col-12">
-                        <SkillsCard 
-                        :Skills="jobRoleDetails.Skills" 
-                        :mapCourses="this.mapCourses"
-                        :preSelectedCourses="this.selectedCourses" 
-                        v-if="jobRoleDetails.Skills"/>
+                        <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
+                            :preSelectedCourses="selectedCourses" v-if="jobRoleDetails.Skills" />
                     </div>
                 </div>
 
             </div>
 
         </div>
-        
+
     </div>
 </template>
 
@@ -39,6 +41,7 @@ import Breadcrumbs from '@/components/Breadcrumbs.vue';
 import SkillsFulfillment from '@/components/SkillFulfillment.vue'
 import SkillsCard from '@/components/SkillsCard.vue';
 import SelectedJobRole from '@/components/SelectedJobRole.vue';
+import LearningJourneyInfo from '@/components/LearningJourneyInfo.vue';
 
 
 export default {
@@ -58,7 +61,7 @@ export default {
             mappedCourses: [],
             preSelectedCourses: [],
             navObjects: [
-                { navLabel: "Home", path: "/Home", isActive: false },
+                { navLabel: "Home", path: "/", isActive: false },
                 { navLabel: "Learning Journey Details", path: "", isActive: true }
             ],
 
@@ -119,12 +122,12 @@ export default {
 
                     // process
                     this.getSkills()
-                    
+
                     // populate the courses
                     for (let Course of this.learningJourneyDetails.Courses) {
                         this.selectedCourses.push(Course.Course_ID)
                     }
-                    
+
                     this.preSelectedCourses = this.selectedCourses
 
                     console.log(this.selectedCourses)
@@ -192,7 +195,8 @@ export default {
         Breadcrumbs,
         SkillsFulfillment,
         SkillsCard,
-        SelectedJobRole
+        SelectedJobRole,
+        LearningJourneyInfo
     }
 }
 </script>

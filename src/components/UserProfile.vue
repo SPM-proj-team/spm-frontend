@@ -29,7 +29,7 @@
                                 <p class="mb-1 h5 fw-semibold">{{ this.userInfo.userRole }} </p>
                             </div>
                             <div class="d-none d-lg-flex">
-                                <router-link to="/CreateLearningJourney" class="btn btn-warning btn-lg fw-bold shadow ">
+                                <router-link to="/CreateLearningJourney" class="btn btn-success btn-lg fw-bold shadow ">
                                     + Start New Learning
                                     Journey</router-link>
                             </div>
