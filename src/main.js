@@ -12,10 +12,24 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faHouse, faUser, faPlus, faBook, faLightbulb, faChevronDown, faChevronUp, faListCheck, faCircleUser, faTrash, faUserCheck} from '@fortawesome/free-solid-svg-icons'
+import { 
+    faHouse, 
+    faUser, 
+    faPlus, 
+    faBook, 
+    faLightbulb, 
+    faChevronDown, 
+    faChevronUp, 
+    faListCheck, 
+    faCircleUser, 
+    faTrash, 
+    faUserCheck,
+    faCircleXmark
+
+} from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faHouse, faUser, faPlus, faBook, faLightbulb, faChevronDown, faChevronUp, faListCheck, faCircleUser, faTrash, faUserCheck)
+library.add(faHouse, faUser, faPlus, faBook, faLightbulb, faChevronDown, faChevronUp, faListCheck, faCircleUser, faTrash, faUserCheck, faCircleXmark)
 
 
 createApp(App)

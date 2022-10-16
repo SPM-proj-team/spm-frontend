@@ -171,7 +171,7 @@
     <!-- Success Modal -->
     <Transition>
         <SuccessModal v-if="this.isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
-            :modalTitle="'Update Success'" :message="this.successModalMessage"
+            :modalTitle="this.modalTitle" :message="this.successModalMessage"
             :icon="this.modalIcon" />
     </Transition>
 
@@ -302,7 +302,8 @@ export default {
             // Modal
             isModalVisible: false,
             successModalMessage: '',
-            modalIcon: 'fa-solid fa-circle-check'
+            modalIcon: 'fa-solid fa-circle-check',
+            modalTitle: ''
             
         }
     },
@@ -411,13 +412,17 @@ export default {
                     .then((res) => {
                         console.log(res)
                         console.log("put request success");
+                        this.modalTitle = 'Update Success'
                         this.modalIcon = 'fa-solid fa-user-check',
                         this.successModalMessage = 'Roles has been successfully updated!'
                         this.showModal()
                     })
                     .catch((err) => {
                         console.log(err);
-                        return
+                        this.modalTitle = 'Update Error'
+                        this.modalIcon = 'fa-solid fa-circle-xmark',
+                        this.successModalMessage = 'Error! Unable to update role! please contact system developer'
+                        this.showModal()
                     })
 
             } else if (submitType == 'create') {
@@ -503,13 +508,17 @@ export default {
                     .then((res) => {
                         console.log(res)
                         console.log("put request success");
+                        this.modalTitle = 'Create Success'
                         this.modalIcon = 'fa-solid fa-user-check'
                         this.successModalMessage = 'Roles has been successfully created!'
                         this.showModal();
                     })
                     .catch((err) => {
                         console.log(err);
-                        return
+                        this.modalTitle = 'Create Error'
+                        this.modalIcon = 'fa-solid fa-circle-xmark',
+                        this.successModalMessage = 'Error! Unable to create role! please contact system developer'
+                        this.showModal()
                     })
 
             }
