@@ -62,8 +62,8 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="fw-semibold mb-3 fs-3">Skills Information</div>
-                        <div class="card shadow-sm" v-if="this.skills.length">
+                        <div class="fw-semibold fs-3">Skills Information</div>
+                        <div class="card shadow-sm mt-3" v-if="this.skills.length">
                             <div class="card-body p-0">
                                 <table class="table table-sm table-hover mb-0">
                                     <thead class="table-info bg-opacity-25">
