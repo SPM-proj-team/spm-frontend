@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-3">
+                    <div class="col">
                         <div class="form-floating">
                             <input v-model="job_title" type="text" class="form-control" id="job_Title"
                                 placeholder="Job Role Title" required>
@@ -146,24 +146,20 @@
 
                     </div>
 
-                    <div class="col-12 col-lg-3 text-center" v-if="formType=='update'">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal"
+                    <div class="col-12 col-lg-6 text-center">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal" id="reset-btn"
                             class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
                     </div>
-                    <div class="col-12 col-lg-3 text-center">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal"
-                            class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
-                    </div>
-                    <div class="col-12 col-lg-3" v-if="formType=='update'">
-                        <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100"
+                    <div class="col-12 col-lg-6" v-if="formType=='update'">
+                        <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100"  id="delete-btn"
                             data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete
                         </button>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <button v-if='formType=="update"' type="submit"
+                        <button v-if='formType=="update"' type="submit" id="update-btn"
                             class="btn btn-lg btn-primary me-3 fw-semibold w-100"
                             @click="formValidate('update')">Update</button>
-                        <button v-if='formType=="create"' type="submit"
+                        <button v-if='formType=="create"' type="submit" id="create-btn"
                             class="btn btn-lg btn-primary me-3 fw-semibold w-100"
                             @click="formValidate('create')">Create</button>
                     </div>
@@ -193,10 +189,10 @@
                         information?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-if="formType=='update'"
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="reset-close-btn">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-if="formType=='update'" id="reset-update-btn"
                         @click="resetJobInfo()">Reset</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="reset-create-btn"
                         @click="resetFormData()">Reset</button>
                 </div>
             </div>
