@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-light card w-100 h-100 my-3 p-0 text-start" v-for="learningJourney in learningJourneys"
+  <button class="btn btn-light card w-100 h-100 my-3 p-0 text-start" v-for="learningJourney in store.learningJourneys"
     :key="learningJourney.Learning_Journey_ID">
 
     <div class="row g-0 w-100 ">

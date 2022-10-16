@@ -2,33 +2,49 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-
-
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold">Job Roles Filter</h5>
+                        <h5 class="card-title fw-semibold">Filters</h5>
 
-                        <div class="row">
-                            <div class="col-8">
-                                <!-- search job role filter -->
-                                <div class="form-floating">
-                                    <input type="search" class="form-control" id="floatingInput"
-                                        placeholder="Enter Role Name.." v-model="searchQuery" @input="filterRoles">
-                                    <label for="floatingInput">Search for role...</label>
-                                </div>
-                            </div>
-
-                            <div class="col-4">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-5 col-xl-3">
                                 <div class="dropdown w-100 h-100">
-                                    <button class="btn btn-large btn-secondary dropdown-toggle w-100 h-100" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Department
+                                    <button class="btn btn-large btn-outline-success dropdown-toggle w-100 h-100"
+                                        type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                        aria-expanded="false" :class="{'disabled':this.searchQuery.length>0}">
+                                        <font-awesome-icon icon="fa-solid fa-house-chimney-user" class="mx-3" />
+                                        <template v-if="!this.selectedDepartment.length">Filter
+                                            by Department </template><b v-if="this.selectedDepartment.length">[{{
+                                            this.selectedDepartment.length }} department selected] </b>
                                     </button>
-                                    <ul class="dropdown-menu" >
-                                        <li><a class="dropdown-item" v-for="department in this.store.departments" :key="department">{{ department }}</a></li>
-                                    </ul>
+                                    <form class="dropdown-menu p-4">
+                                        <div class="form-check" v-for="department in this.store.departments"
+                                            :key="department">
+                                            <input class="form-check-input" type="checkbox"
+                                                v-model="this.selectedDepartment" :value="department" :id="department">
+                                            <label class="form-check-label" :for="department">
+                                                {{ department }}
+                                            </label>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+
+                            <div class="col-12 col-md-7 col-xl-9">
+                                <!-- search job role filter -->
+                                <div class="input-group">
+                                    <div class="form-floating">
+                                        <input type="search" class="form-control" id="floatingInput"
+                                            placeholder="Enter Role Name.." v-model="searchQuery"
+                                            @click="this.selectedDepartment=[]"
+                                            :disabled="this.selectedDepartment.length>0">
+                                        <label for="floatingInput">Search for role... </label>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+
 
                         </div>
 
@@ -39,7 +55,7 @@
 
 
             </div>
-            
+
             <!-- <section class="dropdown-wrapper col">
                 <div @click="isVisible = !isVisible" class="selected-roles">
                     <span v-if="selectedRole"> {{selectedRole.Job_Role}}</span>
@@ -63,7 +79,7 @@
             </section> -->
             <div class="col">
                 <div
-                    class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 justify-content-center align-content-center">
+                    class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 justify-content-start align-content-center">
                     <div v-for="jobRole in this.jobRoles" :key="jobRole.Job_ID" class="col">
                         <router-link class="router-link"
                             :to="{ name: 'JobRoleDetails', params: { JobRoleID: jobRole.Job_ID }}">
@@ -100,44 +116,49 @@ export default {
         await store.getRoles();
         return { store }
     },
-   
+
     methods: {
         selectJobRole(selectedJobRole) {
             this.store.selectJobRole(selectedJobRole)
-        },
-        selectRoles(jobRole) {
-            this.selectedRole = jobRole;
-            this.isVisible = false;
+
         },
         viewAllRoles() {
             this.isVisible = !this.isVisible
         },
-        filterRoles() {
-            const query = this.searchQuery.toLowerCase();
-            if (this.searchQuery == "") {
-                this.jobRoles = this.store.jobRoles;
-            }
-            this.jobRoles = this.allJobRoles.filter((jobRole) => {
-                return Object.values(jobRole).some((word) =>
-                    String(word).toLowerCase().includes(query)
-                );
-            });
-        },
+
 
     },
     data() {
         return {
             searchQuery: "",
-            selectedRole: null,
             isVisible: false,
             jobRoles: [...this.store.jobRoles],
-            departments: [...this.store.departments]
+            departments: [...this.store.departments],
+            selectedDepartment: []
         };
     },
     watch: {
         searchQuery: function () {
-            this.jobRoles = this.store.jobRoles.filter((jobRole) =>
-                jobRole.Job_Role.toLowerCase().includes(this.searchQuery.toLowerCase()))
+
+            if (this.searchQuery == "" && this.selectedDepartment.length == 0) {
+                this.jobRoles = this.store.jobRoles;
+            } else {
+                this.jobRoles = this.store.jobRoles.filter((jobRole) =>
+                    jobRole.Job_Role.toLowerCase().includes(this.searchQuery.toLowerCase()))
+            }
+
+
+
+        },
+        selectedDepartment: function () {
+            this.searchQuery = ""
+            if (this.selectedDepartment.length == 0) {
+                this.jobRoles = this.store.jobRoles;
+            } else {
+                this.jobRoles = this.store.jobRoles.filter((jobRole) =>
+                    this.selectedDepartment.includes(jobRole.Department))
+            }
+
         }
     },
 
