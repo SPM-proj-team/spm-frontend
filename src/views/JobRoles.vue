@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fuild bg-white mb-5">
+  <div class="container-fluid bg-white mb-5">
     <div class="container col-xl-10 col-xxl-8 px-4 py-3">
       <div class="row align-items-center py-5 align-items-center ">
         <div class="col-lg-7 text-center text-lg-start text-gray-500">
@@ -14,7 +14,7 @@
   </div>
 
 
-  <div class="container">
+  <div class="container my-3">
 
     <Suspense>
       <template #default>

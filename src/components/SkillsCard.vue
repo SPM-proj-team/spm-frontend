@@ -1,17 +1,26 @@
 <template>
     <div class="form-check p-0">
         <template v-for="Skill in Skills" :key="Skill.Skill_ID" >
-            <div class="accordion mb-3 my-lg-3" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
+            <div class="accordion mb-3 my-lg-3 shadow" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
                 <div class="accordion-item">
                     <h2 class="accordion-header" :id="'panelsStayOpen-heading'+Skill.Skill_ID">
-                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
-                            :data-bs-target="'#panelsStayOpen-collapse'+Skill.Skill_ID" aria-expanded="false"
-                            :aria-controls="'panelsStayOpen-collapse'+Skill.Skill_ID">
+                        <button class="accordion-button fw-bold" 
+                        type="button" 
+                        data-bs-toggle="collapse"
+                        :data-bs-target="'#panelsStayOpen-collapse'+Skill.Skill_ID"
+                        aria-expanded="false"
+                        :class="{ 'collapsed': checkSelectedCourses(Skill.Courses)==0}"
+                        :aria-controls="'panelsStayOpen-collapse'+Skill.Skill_ID">
                             {{Skill.Name}}
+                            <span class="mx-2" v-if="checkSelectedCourses(Skill.Courses)">[ {{ checkSelectedCourses(Skill.Courses) }} Selected ]</span>
                         </button>
+                        
                     </h2>
-                    <div :id="'panelsStayOpen-collapse'+Skill.Skill_ID" class="accordion-collapse collapse"
-                        :aria-labelledby="'panelsStayOpen-heading'+Skill.Skill_ID">
+                    <div :id="'panelsStayOpen-collapse'+Skill.Skill_ID" 
+                    class="accordion-collapse collapse"
+                    :aria-labelledby="'panelsStayOpen-heading'+Skill.Skill_ID"
+                    :class="{ 'show': checkSelectedCourses(Skill.Courses)>0}"
+                    >
                         <div class="accordion-body p-0">
                             <ul class="list-group list-group-flush ">
                                 <li class="list-group-item" v-for="Course in Skill.Courses" :key="Course.Course_ID">
@@ -42,24 +51,31 @@
 export default {
     data() {
         return {
-            checkedCourses:[],
+            checkedCourses: this.preSelectedCourses,
             skillCourseCounter:{},
             activeColor: 'bg-gray-100'
         }
     },
-    mounted(){
-        this.getSkillsCourseCounter()
-    },
+    
     props: {
         Skills: Object,
-        mapCourses: Function
+        mapCourses: Function,
+        preSelectedCourses: Array,
     },
     methods: {
-        getSkillsCourseCounter(){
-           
-            console.log(this.Skills)
+        
+        checkSelectedCourses(Courses){
+            var courseCounter = 0;
+            for (let Course of Courses){
+                if (this.checkedCourses.includes(Course.Course_ID)){
+                    courseCounter++
+                }
+            }
+            return courseCounter
         }
-    }
+    },
+    
+    
 }
 
 </script>

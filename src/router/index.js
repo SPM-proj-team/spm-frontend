@@ -22,6 +22,12 @@ const routes = [
     props: true
   },
   {
+    path: '/LearningJourney/:LJID',
+    name: 'Learning Journey Details',
+    component: () => import( '../views/LearningJourneyDetails.vue'),
+    props: true
+  },
+  {
     path: '/CreateLearningJourney',
     name: 'Create Learning Journey',
     component: CreateLearningJourney
