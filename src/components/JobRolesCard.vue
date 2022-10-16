@@ -1,64 +1,92 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-3">
-                <div class="card">
-                    <div class="input-group mb-3">
-                        <div class="form-floating mb-3">
-                            <input type="search" class="form-control" id="floatingInput" placeholder="Enter Role Name..">
-                            <label for="floatingInput">Search Role</label>
+            <div class="col-12">
+
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">Job Roles Filter</h5>
+
+                        <div class="row">
+                            <div class="col-8">
+                                <!-- search job role filter -->
+                                <div class="form-floating">
+                                    <input type="search" class="form-control" id="floatingInput"
+                                        placeholder="Enter Role Name.." v-model="searchQuery" @input="filterRoles">
+                                    <label for="floatingInput">Search for role...</label>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="dropdown w-100 h-100">
+                                    <button class="btn btn-large btn-secondary dropdown-toggle w-100 h-100" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Department
+                                    </button>
+                                    <ul class="dropdown-menu" v-for="department in departments" :key="department">
+                                        <li><a class="dropdown-item" href="#">{{ department }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
-                        <button class="btn btn-outline-primary" type="button" @click="viewAllSkills()">
-                                <font-awesome-icon icon="fa-solid fa-chevron-down" class="me-2"
-                                    v-show="!this.viewAllSKillsVisible" />
-                                <font-awesome-icon icon="fa-solid fa-chevron-up" v-show="this.viewAllSKillsVisible"
-                                    class="me-2" />
-                                View All Roles
-                        </button>
+
+
                     </div>
+
+                </div>
+
+
+            </div>
+            
+            <!-- <section class="dropdown-wrapper col">
+                <div @click="isVisible = !isVisible" class="selected-roles">
+                    <span v-if="selectedRole"> {{selectedRole.Job_Role}}</span>
+                    <span v-else> Select User</span>
+                    <svg :class="isVisible ? 'dropdown' : ''" class="drop-down-icon" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z" />
+                    </svg>
+                </div>
+                <div :class="isVisible ? 'visible' : 'invisible'" class="dropdown-popover">
+                    <input v-model="searchQuery" type="text" placeholder="Search for roles">
+                    <span v-if="filterRoles.length == 0">No Data Available</span>
+                    <div class="options">
+                        <ul>
+                            <li @click="selectRoles(jobRole)" v-for="jobRole in filterRoles" :key="jobRole.Job_ID">
+                                {{jobRole.Job_Role}}</li>
+                        </ul>
                     </div>
                 </div>
-                <section class="dropdown-wrapper col">
-                    <div @click="isVisible = !isVisible" class="selected-roles">
-                        <span v-if="selectedRole"> {{selectedRole.Job_Role}}</span>
-                        <span v-else> Select User</span>
-                        <svg :class="isVisible ? 'dropdown' : ''" class="drop-down-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/>
-                        <path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z"/></svg>
-                    </div>
-                    <div :class="isVisible ? 'visible' : 'invisible'" class="dropdown-popover">
-                        <input v-model="searchQuery" type="text" placeholder="Search for roles">
-                        <span v-if="filterRoles.length == 0">No Data Available</span>
-                        <div class="options">
-                            <ul>
-                                <li @click="selectRoles(jobRole)" v-for="jobRole in filterRoles" :key="jobRole.Job_ID">{{jobRole.Job_Role}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            </section> -->
             <div class="col">
                 <div
-            class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 justify-content-center align-content-center">
-            <div v-for="jobRole in jobRoles" :key="jobRole.Job_ID" class="col">
-                <router-link class="router-link" :to="{ name: 'JobRoleDetails', params: { JobRoleID: jobRole.Job_ID }}">
-                    <button class="btn btn-light card w-100 h-100 shadow-sm" @click="selectJobRole(jobRole)">
-                        <div class="card-body w-100 text-start">
-                            <h5 class="card-title my-auto fw-semibold">{{jobRole.Job_Role}}</h5>
-                            <p class="card-text my-auto"> {{jobRole.Department}}</p>
-                            <p class="card-text my-auto"> {{jobRole.Job_Title}}</p>
-                        </div>
-                        <div class="ico-card">
-                            <i>
-                                <font-awesome-icon icon="fa-solid fa-user" />
-                            </i>
-                        </div>
-                    </button>
-                </router-link>
+                    class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-lg-3 justify-content-center align-content-center">
+                    <div v-for="jobRole in this.jobRoles" :key="jobRole.Job_ID" class="col">
+                        <router-link class="router-link"
+                            :to="{ name: 'JobRoleDetails', params: { JobRoleID: jobRole.Job_ID }}">
+                            <button class="btn btn-light card w-100 h-100 shadow-sm" @click="selectJobRole(jobRole)">
+                                <div class="card-body w-100 text-start">
+                                    <h5 class="card-title my-auto fw-semibold">{{jobRole.Job_Role}}</h5>
+                                    <p class="card-text my-auto"> {{jobRole.Department}}</p>
+                                    <p class="card-text my-auto"> {{jobRole.Job_Title}}</p>
+                                </div>
+                                <div class="ico-card">
+                                    <i>
+                                        <font-awesome-icon icon="fa-solid fa-user" />
+                                    </i>
+                                </div>
+                            </button>
+                        </router-link>
+                    </div>
+                </div>
             </div>
         </div>
-            </div>
-        </div>
+
     </div>
+
 
 </template>
 
@@ -72,11 +100,17 @@ import { ref } from 'vue';
 export default {
     async setup() {
         const store = userStore();
-        const jobRoles = ref(null);
+        const allJobRoles = ref(null);
+        const allDepartments = ref([]);
         await getRoles();
         async function getRoles() {
             await axios.get('http://127.0.0.1:5000/roles').then((res) => {
-                jobRoles.value = res.data.data;
+                allJobRoles.value = res.data.data;
+                for (let jobRole in res.data.data){
+                    if (!allDepartments.value.includes(jobRole.Department)){
+                        allDepartments.value.push(jobRole.Department)
+                    }
+                }
                 console.log(res.data.data)
             }).catch((err) => {
                 console.log(err);
@@ -86,44 +120,49 @@ export default {
             return
         }
 
-        return { store, jobRoles }
+        return { store, allJobRoles }
     },
+   
     methods: {
         selectJobRole(selectedJobRole) {
             this.store.selectJobRole(selectedJobRole)
         },
-        selectRoles(jobRole){
+        selectRoles(jobRole) {
             this.selectedRole = jobRole;
             this.isVisible = false;
         },
-        
-    },
-    data(){
-        return{
-            searchQuery:"",
-            selectedRole: null,
-            isVisible: false,
-        };
-    },
-    watch:{
-        searchQuery: function(){
-            this.jobRoles = this.jobRoles.filter((jobRole) => 
-            jobRole.Job_Role.toLowerCase().includes(this.searchQuery.toLowerCase()))
-        }
-    },
-    computed: {
+        viewAllRoles() {
+            this.isVisible = !this.isVisible
+        },
         filterRoles() {
             const query = this.searchQuery.toLowerCase();
             if (this.searchQuery == "") {
-                return this.jobRoles;
+                this.jobRoles = this.allJobRoles;
             }
-            return this.jobRoles.filter((jobRole) => {
+            this.jobRoles = this.allJobRoles.filter((jobRole) => {
                 return Object.values(jobRole).some((word) =>
                     String(word).toLowerCase().includes(query)
-                    );
+                );
             });
         },
+
     },
+    data() {
+        return {
+            searchQuery: "",
+            selectedRole: null,
+            isVisible: false,
+            jobRoles: [...this.allJobRoles],
+            departments: this.allDepartments
+        };
+    },
+    watch: {
+        searchQuery: function () {
+            this.jobRoles = this.allJobRoles.filter((jobRole) =>
+                jobRole.Job_Role.toLowerCase().includes(this.searchQuery.toLowerCase()))
+        }
+    },
+
 }
 
 
@@ -152,13 +191,13 @@ i {
     z-index: 0;
 }
 
-.dropdown-wrapper{
+.dropdown-wrapper {
     max-width: 350px;
     position: relative;
     margin: 0 auto;
 
-    .selected-roles{
-        height:40px;
+    .selected-roles {
+        height: 40px;
         border: 2px solid lightgray;
         border-radius: 5px;
         padding: 5px 10px;
@@ -168,10 +207,11 @@ i {
         font-size: 18px;
         font-weight: 400;
 
-        .drop-down-icon{
+        .drop-down-icon {
             transform: rotate(0eg);
             transition: all 0.4s ease;
-            &.dropdown{
+
+            &.dropdown {
                 transform: rotate(180deg);
             }
         }
@@ -191,14 +231,14 @@ i {
         max-height: 0px;
         overflow: hidden;
 
-        &.visible{
+        &.visible {
             max-height: 450px;
             visibility: visible;
         }
 
         input {
             width: 90%;
-            height: 30px; 
+            height: 30px;
             border: 2px solid lightgray;
             font-size: 16px;
             padding-left: 8px;
@@ -207,7 +247,7 @@ i {
         .options {
             width: 100%;
 
-            ul{
+            ul {
                 list-style: none;
                 text-align: left;
                 padding-left: 8px;
@@ -215,17 +255,18 @@ i {
                 overflow-y: scroll;
                 overflow-x: hidden;
 
-                li { 
+                li {
                     width: 100%;
                     border-bottom: 1px solid lightgray;
                     padding: 10px;
                     background-color: #f1f1f1;
-                    cursor: pointer; 
+                    cursor: pointer;
                     font-size: 16px;
-                    &:hover{
+
+                    &:hover {
                         background: #70878a;
                         color: #fff;
-                        font-weight: bold; 
+                        font-weight: bold;
                     }
                 }
             }
