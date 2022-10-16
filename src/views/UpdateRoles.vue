@@ -3,7 +3,7 @@
         <Breadcrumbs :navObjects="navObjects" />
         <div class="row g-3">
             <div class="col-12">
-                <div class="card p-3">
+                <div class="card p-3 shadow">
                     <div class="card-body">
                         <div class="card-title fs-3 fw-semibold mb-3">Select A Role</div>
                         <div class="input-group">

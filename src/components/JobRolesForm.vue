@@ -1,6 +1,6 @@
 <template>
     <div class="col-12">
-        <div class="card p-3">
+        <div class="card p-3 shadow">
             <div class="card-body">
                 <h5 class="card-title fw-semibold fs-3 mb-3">{{ formTitle }}</h5>
                 <form @submit.prevent="" action="#" class="row g-3" novalidate>
