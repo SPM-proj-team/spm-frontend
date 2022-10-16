@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button @click="addSkills()" type="button" class="btn btn-warning w-100 fw-semibold">+
+                        <button @click="addSkills()" type="button" class="btn btn-warning w-100 fw-semibold shadow-sm">+
                             Add Skills</button>
                     </div>
                     <div class="col-12" v-if="addSkillsForm">
@@ -148,19 +148,19 @@
 
                     <div class="col-12 col-lg-6 text-center">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#resetJobInfoModal" id="reset-btn"
-                            class="btn btn-lg btn-light fw-semibold w-100" style="text-decoration: none">Reset</button>
+                            class="btn btn-lg btn-light fw-semibold w-100 shadow-sm" style="text-decoration: none">Reset</button>
                     </div>
                     <div class="col-12 col-lg-6" v-if="formType=='update'">
-                        <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100"  id="delete-btn"
+                        <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100 shadow-sm"  id="delete-btn"
                             data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete
                         </button>
                     </div>
                     <div class="col-12 col-lg-6">
                         <button v-if='formType=="update"' type="submit" id="update-btn"
-                            class="btn btn-lg btn-primary me-3 fw-semibold w-100"
+                            class="btn btn-lg btn-primary me-3 fw-semibold w-100 shadow-sm"
                             @click="formValidate('update')">Update</button>
                         <button v-if='formType=="create"' type="submit" id="create-btn"
-                            class="btn btn-lg btn-primary me-3 fw-semibold w-100"
+                            class="btn btn-lg btn-primary me-3 fw-semibold w-100 shadow-sm"
                             @click="formValidate('create')">Create</button>
                     </div>
                 </form>
