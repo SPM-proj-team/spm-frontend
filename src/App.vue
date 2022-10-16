@@ -2,17 +2,20 @@
 
   <MainNavbar />
   <router-view />
+  <MainFooter/>
   
 </template>
 
 <script>
 
 import MainNavbar from './components/MainNavbar.vue'
+import MainFooter from './components/MainFooter.vue'
+
 
 export default {
 
   components: {
-    MainNavbar
+    MainNavbar, MainFooter
   },
   mounted(){
     document.body.classList.add('bg-light')
@@ -32,6 +35,12 @@ export default {
 .router-link {
   text-decoration: none;
   color: inherit
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 5px;
 }
 
 

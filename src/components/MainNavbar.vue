@@ -85,11 +85,7 @@
 <style scoped>
 
 
-.logo {
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 5px;
-}
+
 
 .nav-item {
     font-size: 18px;
