@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <Breadcrumbs :navObjects="navObjects" />
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
             <div class="col-12 col-xl-4 order-2 order-xl-1">
@@ -19,7 +19,8 @@
                         <SkillsCard 
                         :Skills="jobRoleDetails.Skills" 
                         :mapCourses="this.mapCourses"
-                        :preSelectedCourses="this.selectedCourses" />
+                        :preSelectedCourses="this.selectedCourses" 
+                        v-if="jobRoleDetails.Skills"/>
                     </div>
                 </div>
 

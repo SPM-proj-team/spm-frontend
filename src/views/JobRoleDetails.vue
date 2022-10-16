@@ -1,28 +1,28 @@
 <template>
     <div class="container mt-5">
-            <Breadcrumbs :navObjects="navObjects"/>
-            <div class="row justify-content-center align-content-center g-1 g-xl-4">
-                <div class="col-12 col-xl-4 order-2 order-xl-1">
-                    <SkillsFulfillment 
-                    :Skills="jobRoleSkills" 
-                    :MappedCourses="this.mappedCourses" 
-                    :SelectedCourses="this.selectedCourses"
-                    :preSelectedCourses="this.preSelectedCourses"
-                    :formType="'create'"
-                    />
-                </div>
-                <div class="col-12 col-xl-8 order-1 order-xl-2">
-                    <div class="row justify-content-center align-items-center g-1 g-xl-0">
-                        <div class="col-12 mb-3 mb-lg-0"> <SelectedJobRole :SelectedJobRole="jobRoleDetails"/></div>
-                        <div class="col-12"><SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses" :preSelectedCourses='this.preSelectedCourses'/>
-</div>
+        <Breadcrumbs :navObjects="navObjects" />
+        <div class="row justify-content-center align-content-center g-1 g-xl-4">
+            <div class="col-12 col-xl-4 order-2 order-xl-1">
+                <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="this.mappedCourses"
+                    :SelectedCourses="this.selectedCourses" :preSelectedCourses="this.preSelectedCourses"
+                    :formType="'create'" />
+            </div>
+            <div class="col-12 col-xl-8 order-1 order-xl-2">
+                <div class="row justify-content-center align-items-center g-1 g-xl-0">
+                    <div class="col-12 mb-3 mb-lg-0">
+                        <SelectedJobRole :SelectedJobRole="jobRoleDetails" />
                     </div>
-                   
+                    <div class="col-12">
+                        <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="this.mapCourses"
+                            :preSelectedCourses='this.preSelectedCourses' v-if="jobRoleDetails.Skills" />
+                    </div>
                 </div>
-                
+
             </div>
 
-        
+        </div>
+
+
     </div>
 </template>
 
@@ -48,8 +48,8 @@ export default {
             mappedCourses: [],
             preSelectedCourses: [],
             navObjects: [
-                {navLabel: "View Roles", path: "/JobRoles", isActive: false},
-                {navLabel: "Job Details", path: "", isActive: true}
+                { navLabel: "View Roles", path: "/JobRoles", isActive: false },
+                { navLabel: "Job Details", path: "", isActive: true }
             ]
         }
     },
@@ -138,11 +138,11 @@ export default {
     // }
 
     components: {
-    SelectedJobRole,
-    SkillsCard,
-    SkillsFulfillment,
-    Breadcrumbs
-}
+        SelectedJobRole,
+        SkillsCard,
+        SkillsFulfillment,
+        Breadcrumbs
+    }
 }
 
 

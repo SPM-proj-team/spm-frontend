@@ -122,14 +122,14 @@ export default {
             return Object.keys(skillsCounter).length
         },
 
-        updateLearningJourney(){
-            console.log("======= updateLearningJourney function running =======");
-            const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
-            console.log("Retrieving learning Journey details from " + path)
-            let params = {
-                "Staff_ID": this.staff_ID
-            };
-        }
+        // updateLearningJourney(){
+        //     console.log("======= updateLearningJourney function running =======");
+        //     const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
+        //     console.log("Retrieving learning Journey details from " + path)
+        //     let params = {
+        //         "Staff_ID": this.staff_ID
+        //     };
+        // }
 
     }
 }
