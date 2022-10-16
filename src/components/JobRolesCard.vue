@@ -24,8 +24,8 @@
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         Department
                                     </button>
-                                    <ul class="dropdown-menu" v-for="department in departments" :key="department">
-                                        <li><a class="dropdown-item" href="#">{{ department }}</a></li>
+                                    <ul class="dropdown-menu" >
+                                        <li><a class="dropdown-item" v-for="department in this.store.departments" :key="department">{{ department }}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -93,34 +93,12 @@
 <script>
 
 import { userStore } from '@/store';
-import axios from 'axios'
-import { ref } from 'vue';
-
 
 export default {
     async setup() {
         const store = userStore();
-        const allJobRoles = ref(null);
-        const allDepartments = ref([]);
-        await getRoles();
-        async function getRoles() {
-            await axios.get('http://127.0.0.1:5000/roles').then((res) => {
-                allJobRoles.value = res.data.data;
-                for (let jobRole in res.data.data){
-                    if (!allDepartments.value.includes(jobRole.Department)){
-                        allDepartments.value.push(jobRole.Department)
-                    }
-                }
-                console.log(res.data.data)
-            }).catch((err) => {
-                console.log(err);
-                this.$router.push({ name: 'NotFound404' });
-                return
-            })
-            return
-        }
-
-        return { store, allJobRoles }
+        await store.getRoles();
+        return { store }
     },
    
     methods: {
@@ -137,7 +115,7 @@ export default {
         filterRoles() {
             const query = this.searchQuery.toLowerCase();
             if (this.searchQuery == "") {
-                this.jobRoles = this.allJobRoles;
+                this.jobRoles = this.store.jobRoles;
             }
             this.jobRoles = this.allJobRoles.filter((jobRole) => {
                 return Object.values(jobRole).some((word) =>
@@ -152,13 +130,13 @@ export default {
             searchQuery: "",
             selectedRole: null,
             isVisible: false,
-            jobRoles: [...this.allJobRoles],
-            departments: this.allDepartments
+            jobRoles: [...this.store.jobRoles],
+            departments: [...this.store.departments]
         };
     },
     watch: {
         searchQuery: function () {
-            this.jobRoles = this.allJobRoles.filter((jobRole) =>
+            this.jobRoles = this.store.jobRoles.filter((jobRole) =>
                 jobRole.Job_Role.toLowerCase().includes(this.searchQuery.toLowerCase()))
         }
     },

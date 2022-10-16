@@ -1,7 +1,7 @@
 <template>
   <button
     class="btn btn-light card w-100 h-100 my-3 p-0 text-start"
-    v-for="learningJourney in learningJourneys"
+    v-for="learningJourney in store.learningJourneys"
     :key="learningJourney.Learning_Journey_ID"
   >
     
@@ -27,17 +27,16 @@
 <script>
 import { userStore } from "@/store";
 
-export default {
-  setup() {
-    const store = userStore();
-    return { store };
-  },
 
-  name: "MyLearningJourneys",
-  props: {
-    learningJourneys: Object
-  },
+export default {
+  async setup() {
+    const store = userStore();
+    await store.getLearningJourney()
+    
+    return { store };
+  }
+
+
 };
 </script>
 
-<style scoped></style>

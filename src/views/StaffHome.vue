@@ -12,7 +12,14 @@
     <div class="d-grid mb-4">
     </div>
     <div class="container p-0">
-      <MyLearningJourneys :learningJourneys="learningJourneys" />
+        <Suspense>
+          <template #default>
+            <MyLearningJourneys />
+          </template>
+          <template #fallback>
+            <MyLearningJourneysSkeleton />
+          </template>
+        </Suspense>
     </div>
   </div>
 
@@ -22,8 +29,7 @@
 import UserProfile from '@/components/UserProfile.vue';
 import { userStore } from '@/store';
 import MyLearningJourneys from '../components/MyLearningJourneys.vue';
-import axios from 'axios';
-
+import MyLearningJourneysSkeleton from '@/components/MyLearningJourneysSkeleton.vue';
 
 
 export default {
@@ -33,7 +39,8 @@ export default {
   },
   components: {
     UserProfile,
-    MyLearningJourneys
+    MyLearningJourneys,
+    MyLearningJourneysSkeleton
   },
   data() {
     return {
@@ -47,27 +54,8 @@ export default {
       }
     }
   },
-  mounted() {
-    this.getLearningJourney()
 
-  },
-  methods: {
-    // Get all available learning journeys
-    getLearningJourney() {
-      const path = 'http://127.0.0.1:5000/learning_journey';
-      axios.post(path, {
-        "Staff_ID": 1
-      })
-        .then((res) => {
-          this.learningJourneys = res.data.data;
-          console.log(res.data.data)
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$router.push({ name: 'NotFound404' });
-        })
-    }
-  }
+
 }
 
 </script>
