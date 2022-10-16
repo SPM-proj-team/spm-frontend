@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button @click="addSkills()" type="button" class="btn btn-warning w-100 fw-semibold shadow-sm">+
+                        <button @click="addSkills()" type="button" class="btn btn-warning w-100 fw-semibold shadow-sm" id="add-skills-btn">+
                             Add Skills</button>
                     </div>
                     <div class="col-12" v-if="addSkillsForm">
