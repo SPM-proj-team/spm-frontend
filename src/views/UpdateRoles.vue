@@ -1,7 +1,7 @@
 <template>
     <div class="container my-3">
         <Breadcrumbs :navObjects="navObjects" />
-        <div class="row g-3">
+        <div class="row">
             <div class="col-12">
                 <div class="card p-3 shadow">
                     <div class="card-body">

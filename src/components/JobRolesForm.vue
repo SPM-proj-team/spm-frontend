@@ -427,7 +427,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Update Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                            this.successModalMessage = 'Error! Unable to update role! please contact system developer'
+                        this.successModalMessage = 'Error! Unable to update role! please contact system developer'
                         this.showModal()
                     })
 
@@ -515,7 +515,7 @@ export default {
                         console.log(res)
                         console.log("put request success");
                         this.modalTitle = 'Create Success'
-                        this.modalIcon = 'fa-solid fa-user-check'
+                        this.modalIcon = 'fa-solid fa-user-plus'
                         this.successModalMessage = 'Roles has been successfully created!'
                         this.showModal();
                     })
@@ -523,7 +523,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Create Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                            this.successModalMessage = 'Error! Unable to create role! please contact system developer'
+                        this.successModalMessage = 'Error! Unable to create role! please contact system developer'
                         this.showModal()
                     })
 
@@ -539,10 +539,17 @@ export default {
                     .then((res) => {
                         console.log(res)
                         console.log("Delete success");
+                        this.modalTitle = 'Delete Success'
+                        this.modalIcon = 'fa-solid fa-user-xmark'
+                        this.successModalMessage = 'Roles has been successfully deleted!'
+                        this.showModal();
                     })
                     .catch((err) => {
                         console.log(err);
-                        return
+                        this.modalTitle = 'Delete Error'
+                        this.modalIcon = 'fa-solid fa-circle-xmark',
+                        this.successModalMessage = 'Error! Unable to delete role! please contact system developer'
+                        this.showModal()
                     })
 
             }
