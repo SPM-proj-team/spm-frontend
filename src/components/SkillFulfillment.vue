@@ -72,7 +72,7 @@
             type="button">
             Create Learning Journey
         </button>
-        <button @click="this.$emit('myEvent')" v-if='formType=="update"' class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button">Update
+        <button @click="this.$emit('updateLJbutton')" v-if='formType=="update"' class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button">Update
             Learning Journey</button>
 
     </div>

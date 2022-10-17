@@ -13,7 +13,10 @@
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
             <div class="col-12 col-xl-4 order-2 order-xl-1">
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :formType="'update'"
-                    :SelectedCourses="selectedCourses" @myEvent='updateLearningJourney'/>
+                    :SelectedCourses="selectedCourses" @updateLJbutton='updateLearningJourney'/>
+                <div class="card text-bg-success mb-3 shadow" v-if="updatedLJ == true">
+                    <div class="card-header fw-semibold">Successfully updated your Learning Journey!</div>
+                </div>
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -66,7 +69,9 @@ export default {
             ],
 
             learningJourneyDetails: null,
-            SkillsCarddata: SkillsCard.data
+            updatedLJ: false,
+            sharedItems: LearningJourneyInfo.data,
+            sharedCourses: SkillsCard.data
 
 
         }
@@ -98,7 +103,6 @@ export default {
 
                     // get job role details of the learning journey
                     this.getJobDetails()
-
 
                     // process
                     // this.getCourses()
@@ -193,22 +197,24 @@ export default {
             console.log("======= updateLearningJourney function running =======");
             const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
             console.log("Updating learning Journey details at " + path);
+
             let body = {
                 "Staff_ID": this.staff_ID,
                 "Learning_Journey": {
+                    // need to change list of Courses to make it dynamic based on the user's input. Currently it is being hardcoded. Only need the Course_ID
                     "Courses": [
                     {
-                        "Course_Category": "Core",
-                        "Course_Desc": "This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking,",
-                        "Course_ID": "COR001",
-                        "Course_Name": "Systems Thinking and Design",
-                        "Course_Status": "Active",
-                        "Course_Type": "Internal"
+                        "Course_ID": "COR001"
+                    },
+                    {
+                        "Course_ID": "SAL002"
                     }
                 ],
-                "Description": "updated description",
+                // Learning Journey Description currently hardcoded. Need to dynamically change based on user's input
+                "Description": "updated description v7",
                 "Learning_Journey_ID": this.LJID,
-                "Learning_Journey_Name": "Updated ADVANCED Learning Journey Name",
+                // Learning Journey Name currently hardcoded. Need to dynamically change based on user's input
+                "Learning_Journey_Name": "9:04pm 17 Oct ADVANCED Learning Journey Name",
                 "Role": this.learningJourneyDetails.Role,
                 "Staff_ID": this.staff_ID
                 }
@@ -229,6 +235,7 @@ export default {
                     // get job role details of the learning journey
                     this.getJobDetails()
 
+                    this.updatedLJ = true
 
                     // process
                     // this.getCourses()
