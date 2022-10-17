@@ -15,7 +15,7 @@
                                         <font-awesome-icon icon="fa-solid fa-house-chimney-user" class="mx-3" />
                                         <template v-if="!this.selectedDepartment.length">Filter
                                             by Department </template><b v-if="this.selectedDepartment.length">[{{
-                                            this.selectedDepartment.length }} department selected] </b>
+                                            this.selectedDepartment.length }} selected] </b>
                                     </button>
                                     <form class="dropdown-menu p-4">
                                         <div class="form-check" v-for="department in this.store.departments"

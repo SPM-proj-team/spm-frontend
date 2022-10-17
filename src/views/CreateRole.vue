@@ -1,7 +1,7 @@
 <template>
     <div class="container my-3">
         <Breadcrumbs :navObjects="navObjects" />
-        <div class="row g-3">
+        <div class="row">
             <JobRolesForm :formData="this.formData" :formType="'create'" :formTitle="'Create New Role'"/>
         </div>
 
