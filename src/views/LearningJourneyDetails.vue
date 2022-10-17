@@ -13,7 +13,7 @@
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
             <div class="col-12 col-xl-4 order-2 order-xl-1">
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :formType="'update'"
-                    :SelectedCourses="selectedCourses" />
+                    :SelectedCourses="selectedCourses" @myEvent='updateLearningJourney'/>
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -66,6 +66,7 @@ export default {
             ],
 
             learningJourneyDetails: null,
+            SkillsCarddata: SkillsCard.data
 
 
         }
@@ -187,6 +188,56 @@ export default {
             console.log(temp_mappedCourses)
 
         },
+
+        updateLearningJourney(){
+            console.log("======= updateLearningJourney function running =======");
+            const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
+            console.log("Updating learning Journey details at " + path);
+            let body = {
+                "Staff_ID": this.staff_ID,
+                "Learning_Journey": {
+                    "Courses": [
+                    {
+                        "Course_Category": "Core",
+                        "Course_Desc": "This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking,",
+                        "Course_ID": "COR001",
+                        "Course_Name": "Systems Thinking and Design",
+                        "Course_Status": "Active",
+                        "Course_Type": "Internal"
+                    }
+                ],
+                "Description": "updated description",
+                "Learning_Journey_ID": this.LJID,
+                "Learning_Journey_Name": "Updated ADVANCED Learning Journey Name",
+                "Role": this.learningJourneyDetails.Role,
+                "Staff_ID": this.staff_ID
+                }
+            };
+
+            axios.put(path, body)
+                .then((res) => {
+
+                    // get full details
+                    this.learningJourneyDetails = res.data.data[0];
+                    this.role = res.data.data[0].Role
+                    this.learningJourneyName = this.learningJourneyDetails.Learning_Journey_Name;
+
+                    console.log("New Learning Journey Details: ")
+                    console.log(this.learningJourneyDetails)
+                    console.log(this.role)
+
+                    // get job role details of the learning journey
+                    this.getJobDetails()
+
+
+                    // process
+                    // this.getCourses()
+                })
+                .catch((err) => {
+                    console.log(err);
+                    // this.$router.push({ name: 'NotFound404' });
+                })
+        }
 
         
 

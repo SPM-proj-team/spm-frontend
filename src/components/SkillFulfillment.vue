@@ -72,15 +72,13 @@
             type="button">
             Create Learning Journey
         </button>
-        <button @click="this.updateLearningJourney()" v-if='formType=="update"' class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button">Update
+        <button @click="this.$emit('myEvent')" v-if='formType=="update"' class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button">Update
             Learning Journey</button>
 
     </div>
 </template>
 
 <script>
-
-import axios from 'axios'
 
 export default {
     props: {
@@ -124,40 +122,6 @@ export default {
             }
 
             return Object.keys(skillsCounter).length
-        },
-
-        updateLearningJourney(){
-            console.log("======= updateLearningJourney function running =======");
-            const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
-            console.log("Updating learning Journey details at " + path);
-            let body = {
-                "Staff_ID": this.staff_ID,
-                
-            };
-
-            axios.put(path, body)
-                .then((res) => {
-
-                    // get full details
-                    this.learningJourneyDetails = res.data.data[0];
-                    this.role = res.data.data[0].Role
-                    this.learningJourneyName = this.learningJourneyDetails.Learning_Journey_Name;
-
-                    console.log("Learning Journey Details: ")
-                    console.log(this.learningJourneyDetails)
-                    console.log(this.role)
-
-                    // get job role details of the learning journey
-                    this.getJobDetails()
-
-
-                    // process
-                    // this.getCourses()
-                })
-                .catch((err) => {
-                    console.log(err);
-                    // this.$router.push({ name: 'NotFound404' });
-                })
         }
 
     }
