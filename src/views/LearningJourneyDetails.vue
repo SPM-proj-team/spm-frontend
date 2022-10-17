@@ -3,7 +3,7 @@
         <Breadcrumbs :navObjects="navObjects" />
         <div class="row mb-3">
             <div class="col">
-                <LearningJourneyInfo :ljName='learningJourneyDetails.Learning_Journey_Name'
+                <LearningJourneyInfo ref="childLJinfo" :ljName='learningJourneyDetails.Learning_Journey_Name'
                     :ljDescription='learningJourneyDetails.Description' v-if="learningJourneyDetails" />
             </div>
         </div>
@@ -14,9 +14,6 @@
             <div class="col-12 col-xl-4 order-2 order-xl-1">
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :formType="'update'"
                     :SelectedCourses="selectedCourses" @updateLJbutton='updateLearningJourney'/>
-                <div class="card text-bg-success mb-3 shadow" v-if="updatedLJ == true">
-                    <div class="card-header fw-semibold">Successfully updated your Learning Journey!</div>
-                </div>
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -24,7 +21,7 @@
                         <SelectedJobRole :SelectedJobRole="jobRoleDetails" v-if="jobRoleDetails"/>
                     </div>
                     <div class="col-12">
-                        <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
+                        <SkillsCard ref="childCheckedCourses" :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
                             :preSelectedCourses="selectedCourses" v-if="jobRoleDetails.Skills" />
                     </div>
                 </div>
@@ -32,6 +29,12 @@
             </div>
 
         </div>
+
+            <!-- Success Modal -->
+    <Transition>
+        <SuccessModal v-if="updatedLJ == true" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
+            :modalTitle="this.modalTitle" :message="this.successModalMessage" :icon="this.modalIcon" />
+    </Transition>
 
     </div>
 </template>
@@ -45,12 +48,18 @@ import SkillsFulfillment from '@/components/SkillFulfillment.vue'
 import SkillsCard from '@/components/SkillsCard.vue';
 import SelectedJobRole from '@/components/SelectedJobRole.vue';
 import LearningJourneyInfo from '@/components/LearningJourneyInfo.vue';
+import SuccessModal from '@/components/SuccessModal.vue';
+import { ref } from '@vue/reactivity'; 
 
 
 export default {
     setup() {
         const store = userStore();
-        return { store }
+        const childCheckedCourses = ref();
+        const childLJinfo = ref();
+        return { store, childCheckedCourses, childLJinfo }
+
+        
     },
     data() {
         return {
@@ -71,7 +80,8 @@ export default {
             learningJourneyDetails: null,
             updatedLJ: false,
             sharedItems: LearningJourneyInfo.data,
-            sharedCourses: SkillsCard.data
+            sharedCourses: SkillsCard.data,
+            successModalMessage: "Successfully updated Learning Journey!"
 
 
         }
@@ -193,30 +203,43 @@ export default {
 
         },
 
+        // close modal
+        closeModal() {
+            this.isModalVisible = false
+            this.$router.go()
+        },
+
         updateLearningJourney(){
             console.log("======= updateLearningJourney function running =======");
             const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
             console.log("Updating learning Journey details at " + path);
 
+            // checker which course user has selected
+            console.log(this.childCheckedCourses.checkedCourses);
+            // checker for new Learning Journey description and name
+            console.log(this.childLJinfo.name, this.childLJinfo.description);
+            
+            var newCourses = [];
+
+            for (var courseid in this.childCheckedCourses.checkedCourses){
+                newCourses.push(
+                        {
+                            "Course_ID": this.childCheckedCourses.checkedCourses[courseid]
+                    }
+                );
+            }
+            console.log(newCourses);
+
+
             let body = {
                 "Staff_ID": this.staff_ID,
                 "Learning_Journey": {
-                    // need to change list of Courses to make it dynamic based on the user's input. Currently it is being hardcoded. Only need the Course_ID
-                    "Courses": [
-                    {
-                        "Course_ID": "COR001"
-                    },
-                    {
-                        "Course_ID": "SAL002"
-                    }
-                ],
-                // Learning Journey Description currently hardcoded. Need to dynamically change based on user's input
-                "Description": "updated description v7",
-                "Learning_Journey_ID": this.LJID,
-                // Learning Journey Name currently hardcoded. Need to dynamically change based on user's input
-                "Learning_Journey_Name": "9:04pm 17 Oct ADVANCED Learning Journey Name",
-                "Role": this.learningJourneyDetails.Role,
-                "Staff_ID": this.staff_ID
+                    "Courses": newCourses,
+                    "Description": this.childLJinfo.description,
+                    "Learning_Journey_ID": this.LJID,
+                    "Learning_Journey_Name": this.childLJinfo.name,
+                    "Role": this.learningJourneyDetails.Role,
+                    "Staff_ID": this.staff_ID
                 }
             };
 
@@ -256,7 +279,8 @@ export default {
         SkillsFulfillment,
         SkillsCard,
         SelectedJobRole,
-        LearningJourneyInfo
+        LearningJourneyInfo,
+        SuccessModal
     }
 }
 </script>
