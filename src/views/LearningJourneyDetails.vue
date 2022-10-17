@@ -188,6 +188,8 @@ export default {
 
         },
 
+        
+
     },
     props: ['LJID'],
 
