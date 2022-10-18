@@ -4,17 +4,36 @@
             <form>
                 <h3 class="card-title fw-semibold my-3">Learning Journey Details</h3>
                 <div class="form-floating mb-3">
-                    <input type="text" readonly class="form-control-plaintext" id="lj-name"
-                        placeholder="Learning Journey Name" v-model="this.name" @focusin="clickChangeInputType"
-                        @focusout="clickChangeInputTypeReadOnly">
+                    <input type="text" :readonly="formType=='update'" :class="{
+                    'form-control-plaintext': formType=='update',
+                    'form-control': formType=='create',
+                    'is-invalid':errors.name.state
+                    }" id="lj-name" placeholder="Learning Journey Name" v-model="this.name"
+                        @focusin="clickChangeInputType" @focusout="clickChangeInputTypeReadOnly">
                     <label for="lj-name">Name</label>
+                    <div class="small text-danger" v-if="errors.name.state">
+                        {{ errors.name.message }}
+                    </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea type="search" class="form-control-plaintext" readonly id="lj-description"
-                        placeholder="Learning Journey Description"
+                    <textarea type="search" id="lj-description" placeholder="Learning Journey Description"
                         style="height: 150px; max-height: 200px; min-height: 200px;" v-model="this.description"
-                        @focusin="clickChangeInputType" @focusout="clickChangeInputTypeReadOnly"></textarea>
+                        :readonly="formType=='update'" :class="{
+                        'form-control-plaintext': formType=='update',
+                        'form-control': formType=='create',
+                        'is-invalid':errors.desc.state
+                        }" @focusin="clickChangeInputType" @focusout="clickChangeInputTypeReadOnly"
+                        ref="lj_desc"></textarea>
                     <label for="lj-description">Description</label>
+                    <div class="small text-danger" v-if="errors.desc.state">
+                        {{ errors.desc.message }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 ">
+                        <button type="reset" class="btn btn-primary btn-lg shadow w-100 fw-semibold"
+                            @click="$emit('nextBtnClick')">Next</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -23,30 +42,54 @@
 
 <script>
 
+
 export default {
+
     props: {
-        ljName: String,
-        ljDescription: String
+        ljName: {
+            type: String,
+            default: ''
+        },
+        ljDescription: {
+            type: String,
+            default: ''
+        },
+        formType: {
+            type: String,
+            default: 'update'
+        }
     },
+
     data() {
         return {
             name: this.ljName,
-            description: this.ljDescription
+            description: this.ljDescription,
+            errors : {
+                name: {
+                    state: false,
+                    message: ''
+                },
+                desc: {
+                    state: false,
+                    message: ''
+                }
+            }
         }
     },
     methods: {
         clickChangeInputType(event) {
-            if (event.target.classList.contains("form-control-plaintext")) {
+            if (event.target.classList.contains("form-control-plaintext") && this.formType == 'update') {
                 event.target.classList = ["form-control"]
                 event.target.removeAttribute('readonly')
             }
         },
         clickChangeInputTypeReadOnly(event) {
-            if (event.target.classList.contains("form-control")) {
+            if (event.target.classList.contains("form-control") && this.formType == 'update') {
                 event.target.classList = ["form-control-plaintext"]
                 event.target.addAttribute('readonly')
             }
-        }
+        },
+
     }
 }
 

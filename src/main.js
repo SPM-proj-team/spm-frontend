@@ -29,7 +29,9 @@ import {
     faHouseChimneyUser,
     faMagnifyingGlass,
     faUserXmark,
-    faUserPlus
+    faUserPlus,
+    faCheck,
+    faChevronLeft
 
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -51,7 +53,9 @@ library.add(
     faHouseChimneyUser,
     faMagnifyingGlass,
     faUserXmark,
-    faUserPlus
+    faUserPlus,
+    faCheck,
+    faChevronLeft
 )
 
 

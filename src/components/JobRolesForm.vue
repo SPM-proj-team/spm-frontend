@@ -54,8 +54,7 @@
                     <div class="col-12">
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="Job Description" id="description"
-                                v-model="description"
-                                style="height: 150px;max-height: 200px;min-height: 100px"
+                                v-model="description" style="height: 150px;max-height: 200px;min-height: 100px"
                                 :class="{'is-invalid':errors.description.state}"></textarea>
                             <label for="description">Job Description</label>
                             <div class="small text-danger" v-if="errors.description.state">
@@ -146,7 +145,6 @@
                         <div class="alert alert-danger" role="alert">
                             {{ errors.skill.message }} <b>{{ errors.skill.details }}</b>
                         </div>
-
                     </div>
 
                     <div class="col-12 col-lg-3 text-center">
@@ -337,6 +335,12 @@ export default {
                         message: 'Invalid Job ID',
                         details: this.job_id
                     }
+                } else {
+                    this.errors.job_id = {
+                        state: false,
+                        message: 'Valid Job ID',
+                        details: this.job_id
+                    }
                 }
 
                 // Job role validation
@@ -344,6 +348,12 @@ export default {
                     this.errors.job_role = {
                         state: true,
                         message: 'Invalid Job Role',
+                        details: this.job_role
+                    }
+                } else {
+                    this.errors.job_role = {
+                        state: false,
+                        message: 'Valid Job Role',
                         details: this.job_role
                     }
                 }
@@ -355,6 +365,12 @@ export default {
                         message: 'Invalid Job Title',
                         details: this.job_title
                     }
+                } else {
+                    this.errors.job_title = {
+                        state: false,
+                        message: 'Valid Job Title',
+                        details: this.job_title
+                    }
                 }
 
                 // department validation
@@ -362,6 +378,12 @@ export default {
                     this.errors.department = {
                         state: true,
                         message: 'Invalid Department',
+                        details: this.department
+                    }
+                } else {
+                    this.errors.department = {
+                        state: false,
+                        message: 'Valid Department',
                         details: this.department
                     }
                 }
@@ -373,6 +395,12 @@ export default {
                         message: 'Please enter a description',
                         details: this.description
                     }
+                } else {
+                    this.errors.description = {
+                        state: false,
+                        message: 'Valid description',
+                        details: this.description
+                    }
                 }
 
                 // skill validation
@@ -380,6 +408,12 @@ export default {
                     this.errors.skill = {
                         state: true,
                         message: 'Invalid skill, please select at least 1 skill',
+                        details: null
+                    }
+                } else {
+                    this.errors.skill = {
+                        state: false,
+                        message: '',
                         details: null
                     }
                 }
@@ -427,7 +461,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Update Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to update role! please contact system developer'
+                            this.successModalMessage = 'Error! Unable to update role! please contact system developer'
                         this.showModal()
                     })
 
@@ -523,7 +557,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Create Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to create role! please contact system developer'
+                            this.successModalMessage = 'Error! Unable to create role! please contact system developer'
                         this.showModal()
                     })
 
@@ -548,7 +582,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Delete Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to delete role! please contact system developer'
+                            this.successModalMessage = 'Error! Unable to delete role! please contact system developer'
                         this.showModal()
                     })
 
