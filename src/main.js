@@ -31,7 +31,8 @@ import {
     faUserXmark,
     faUserPlus,
     faCheck,
-    faChevronLeft
+    faChevronLeft,
+    faChevronRight
 
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -55,7 +56,8 @@ library.add(
     faUserXmark,
     faUserPlus,
     faCheck,
-    faChevronLeft
+    faChevronLeft,
+    faChevronRight
 )
 
 

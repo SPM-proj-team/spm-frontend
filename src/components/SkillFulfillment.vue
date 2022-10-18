@@ -68,8 +68,9 @@
         </ol>
         <button 
             v-if='formType=="create"' 
-            class="btn btn-success rounded-0 rounded-bottom fw-bold" 
-            type="button">
+            class="btn btn-primary rounded-0 rounded-bottom fw-bold" 
+            type="button"
+            @click="emit('createLearningJourney')">
             Create Learning Journey
         </button>
         

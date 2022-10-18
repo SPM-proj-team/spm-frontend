@@ -37,7 +37,7 @@
                 <div class="row mb-3" v-if="formType=='create'">
                     <div class="col-12 ">
                         <button type="reset" class="btn btn-primary btn-lg shadow w-100 fw-semibold"
-                            @click="$emit('nextBtnClick')">Next</button>
+                            @click="$emit('nextBtnClick')">Next<font-awesome-icon icon="fa-solid fa-chevron-right" class="mx-3" /></button>
                     </div>
                 </div>
                 <div class="row mb-3" v-if="formType=='update'">

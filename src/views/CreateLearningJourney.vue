@@ -29,10 +29,15 @@
     </template>
 
     <template v-if="currentStep==2">
-      <div class="row g-3">
-        <div class="col-12 mb-3">
+      <div class="row g-3 mb-3">
+        <div class="col-6 col-lg-6">
           <button class="btn btn-lg btn-secondary w-100 shadow fw-semibold" @click="prevBtnClick">
             <font-awesome-icon icon="fa-solid fa-chevron-left" class="me-3" />Back
+          </button>
+        </div>
+        <div class="col-6 ">
+          <button class="btn btn-lg btn-primary w-100 shadow fw-semibold" @click="prevBtnClick">
+            Create
           </button>
         </div>
       </div>
@@ -155,6 +160,15 @@ export default {
 
     },
     prevBtnClick() {
+
+
+      // whenever user click back reset skill fulfillment
+      if (this.currentStep == 2) {
+        this.selectedCourses= [],
+        this.mappedCourses= [],
+        this.preSelectedCourses= []
+      }
+
       this.currentStep--
     },
     selectJobRole() {
