@@ -67,7 +67,7 @@
             </li>
         </ol>
         <button 
-            v-if='formType=="create"' 
+            v-if='formType!="update"' 
             class="btn btn-primary rounded-0 rounded-bottom fw-bold" 
             type="button"
             @click="emit('createLearningJourney')">
@@ -84,7 +84,9 @@ export default {
         Skills: Object,
         MappedCourses: Object,
         SelectedCourses: Array,
-        formType: String
+        formType: {
+            type: String,
+        }
     },
 
     data() {

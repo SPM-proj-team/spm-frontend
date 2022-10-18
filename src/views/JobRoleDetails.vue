@@ -8,7 +8,7 @@
                 :MappedCourses="mappedCourses"
                 :SelectedCourses="selectedCourses" 
                 :preSelectedCourses="preSelectedCourses"
-                :formType="'update'" />
+                :formType="'create'" />
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
