@@ -3,9 +3,13 @@
         <Breadcrumbs :navObjects="navObjects" />
         <div class="row mb-3">
             <div class="col">
-                <LearningJourneyInfo ref="childLJinfo" :ljName='learningJourneyDetails.Learning_Journey_Name'
-                    :ljDescription='learningJourneyDetails.Description' v-if="learningJourneyDetails" />
+                <LearningJourneyInfo ref="ljInfo" :ljName='this.ljName'
+                    :ljDescription='learningJourneyDetails.Description' v-if="learningJourneyDetails" formType='update'
+                    @updateLearningJourney="updateLearningJourney" />
             </div>
+        </div>
+        <div v-if="this.errors.skills.state" class="alert alert-danger" role="alert">
+            {{ this.errors.skills.message }} <b>{{ this.errors.skills.details }}</b>
         </div>
         <div class="card text-bg-success mb-3 shadow">
             <div class="card-header fw-semibold">Courses and Skills</div>
@@ -13,15 +17,15 @@
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
             <div class="col-12 col-xl-4 order-2 order-xl-1">
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :formType="'update'"
-                    :SelectedCourses="selectedCourses" @updateLJbutton='updateLearningJourney'/>
+                    :SelectedCourses="selectedCourses" @updateLJbutton='updateLearningJourney' />
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
                     <div class="col-12 mb-3 mb-lg-0">
-                        <SelectedJobRole :SelectedJobRole="jobRoleDetails" v-if="jobRoleDetails"/>
+                        <SelectedJobRole :SelectedJobRole="jobRoleDetails" v-if="jobRoleDetails" />
                     </div>
                     <div class="col-12">
-                        <SkillsCard ref="childCheckedCourses" :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
+                        <SkillsCard ref="skillsFulfilment" :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
                             :preSelectedCourses="selectedCourses" v-if="jobRoleDetails.Skills" />
                     </div>
                 </div>
@@ -30,11 +34,11 @@
 
         </div>
 
-            <!-- Success Modal -->
-    <Transition>
-        <SuccessModal v-if="updatedLJ == true" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
-            :modalTitle="this.modalTitle" :message="this.successModalMessage" :icon="this.modalIcon" />
-    </Transition>
+        <!-- Success Modal -->
+        <Transition>
+            <SuccessModal v-if="isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
+                :modalTitle="this.modalTitle" :message="this.successModalMessage" :icon="this.modalIcon" />
+        </Transition>
 
     </div>
 </template>
@@ -49,40 +53,49 @@ import SkillsCard from '@/components/SkillsCard.vue';
 import SelectedJobRole from '@/components/SelectedJobRole.vue';
 import LearningJourneyInfo from '@/components/LearningJourneyInfo.vue';
 import SuccessModal from '@/components/SuccessModal.vue';
-import { ref } from '@vue/reactivity'; 
+import { ref } from '@vue/reactivity';
 
 
 export default {
     setup() {
         const store = userStore();
-        const childCheckedCourses = ref();
-        const childLJinfo = ref();
-        return { store, childCheckedCourses, childLJinfo }
-
-        
+        const skillsFulfilment = ref();
+        const ljInfo = ref();
+        return { store, skillsFulfilment, ljInfo }
     },
     data() {
         return {
             // to change the hardcoding to make it dynamic for staffID
-            staff_ID: 1,
-            role: [],
-            jobRoleDetails: [],
-            jobRoleSkills: [],
-            learningJourneyName: '',
-            selectedCourses: [],
-            mappedCourses: [],
-            preSelectedCourses: [],
             navObjects: [
                 { navLabel: "Home", path: "/", isActive: false },
                 { navLabel: "Learning Journey Details", path: "", isActive: true }
             ],
+            staff_ID: 1,
+            role: [],
+            jobRoleDetails: [],
+            jobRoleSkills: [],
+            ljName: '',
+            selectedCourses: [],
+            mappedCourses: [],
+            preSelectedCourses: [],
+            errors: {
+                count: 0,
+                skills: {
+                    state: false,
+                    message: '',
+                    details: ''
+                }
+            },
 
             learningJourneyDetails: null,
-            updatedLJ: false,
             sharedItems: LearningJourneyInfo.data,
             sharedCourses: SkillsCard.data,
-            successModalMessage: "Successfully updated Learning Journey!"
 
+            // Modal
+            isModalVisible: false,
+            successModalMessage: '',
+            modalIcon: 'fa-solid fa-circle-check',
+            modalTitle: ''
 
         }
     },
@@ -105,7 +118,8 @@ export default {
                     // get full details
                     this.learningJourneyDetails = res.data.data[0];
                     this.role = res.data.data[0].Role
-                    this.learningJourneyName = this.learningJourneyDetails.Learning_Journey_Name;
+                    this.ljName = this.learningJourneyDetails.Learning_Journey_Name;
+                    this.ljDescription = this.learningJourneyDetails.Description
 
                     console.log("Learning Journey Details: ")
                     console.log(this.learningJourneyDetails)
@@ -203,28 +217,97 @@ export default {
 
         },
 
-        // close modal
+        // open modal function
+        showModal() {
+            this.isModalVisible = true
+        },
+
+        // close modal function
         closeModal() {
             this.isModalVisible = false
             this.$router.go()
         },
 
-        updateLearningJourney(){
+        updateLearningJourney() {
+
+            // perform form validation
+            this.errors.count = 0
+
+            // lj info 
+            if (this.ljInfo.name.length == 0) {
+                this.ljInfo.errors.name = {
+                    state: true,
+                    message: 'Invalid Name',
+                    details: this.ljInfo.name
+                }
+            } else {
+                this.ljInfo.errors.name = {
+                    state: false,
+                    message: 'Valid Name',
+                    details: this.ljInfo.name
+                }
+            }
+
+            // lj description validation
+            if (this.ljInfo.description.length == 0) {
+                this.ljInfo.errors.desc = {
+                    state: true,
+                    message: 'Invalid Description',
+                    details: this.ljInfo.description
+                }
+            } else {
+                this.ljInfo.errors.desc = {
+                    state: false,
+                    message: 'Valid Description',
+                    details: this.ljInfo.description
+                }
+            }
+            for (let errorType in this.ljInfo.errors) {
+                if (this.ljInfo.errors[errorType].state) {
+                    this.errors.count++
+                }
+            }
+
+            // skills validation
+            if (this.skillsFulfilment.checkedCourses.length == 0) {
+                this.errors.skills = {
+                    state: true,
+                    message: "Please select at least 1 course",
+                    details: ''
+                }
+                this.errors.count++
+
+            } else {
+
+                this.errors.skills = {
+                    state: false,
+                    message: "Valid Skill",
+                    details: ''
+                }
+
+            }
+
+            if (this.errors.count!=0){
+                return
+            }
+
+
+
             console.log("======= updateLearningJourney function running =======");
             const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
             console.log("Updating learning Journey details at " + path);
 
             // checker which course user has selected
-            console.log(this.childCheckedCourses.checkedCourses);
+            console.log(this.skillsFulfilment.checkedCourses);
             // checker for new Learning Journey description and name
-            console.log(this.childLJinfo.name, this.childLJinfo.description);
-            
+            console.log(this.ljInfo.name, this.ljInfo.description);
+
             var newCourses = [];
 
-            for (var courseid in this.childCheckedCourses.checkedCourses){
+            for (var courseid in this.skillsFulfilment.checkedCourses) {
                 newCourses.push(
-                        {
-                            "Course_ID": this.childCheckedCourses.checkedCourses[courseid]
+                    {
+                        "Course_ID": this.skillsFulfilment.checkedCourses[courseid]
                     }
                 );
             }
@@ -235,9 +318,9 @@ export default {
                 "Staff_ID": this.staff_ID,
                 "Learning_Journey": {
                     "Courses": newCourses,
-                    "Description": this.childLJinfo.description,
+                    "Description": this.ljInfo.description,
                     "Learning_Journey_ID": this.LJID,
-                    "Learning_Journey_Name": this.childLJinfo.name,
+                    "Learning_Journey_Name": this.ljInfo.name,
                     "Role": this.learningJourneyDetails.Role,
                     "Staff_ID": this.staff_ID
                 }
@@ -249,16 +332,16 @@ export default {
                     // get full details
                     this.learningJourneyDetails = res.data.data[0];
                     this.role = res.data.data[0].Role
-                    this.learningJourneyName = this.learningJourneyDetails.Learning_Journey_Name;
+                    this.ljName = this.learningJourneyDetails.Learning_Journey_Name;
 
                     console.log("New Learning Journey Details: ")
                     console.log(this.learningJourneyDetails)
                     console.log(this.role)
 
-                    // get job role details of the learning journey
-                    this.getJobDetails()
-
-                    this.updatedLJ = true
+                    this.modalTitle = 'Update Success'
+                    this.modalIcon = 'fa-solid fa-circle-check'
+                    this.successModalMessage = 'Learning journey has been successfully updated!'
+                    this.showModal();
 
                     // process
                     // this.getCourses()
@@ -267,9 +350,12 @@ export default {
                     console.log(err);
                     // this.$router.push({ name: 'NotFound404' });
                 })
-        }
+        },
 
         
+        
+
+
 
     },
     props: ['LJID'],

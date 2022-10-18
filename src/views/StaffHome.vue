@@ -13,7 +13,7 @@
     <div class="container p-0">
         <Suspense>
           <template #default>
-            <MyLearningJourneys />
+            <MyLearningJourneys/>
           </template>
           <template #fallback>
             <MyLearningJourneysSkeleton />

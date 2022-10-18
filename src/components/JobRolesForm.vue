@@ -454,14 +454,14 @@ export default {
                         console.log("put request success");
                         this.modalTitle = 'Update Success'
                         this.modalIcon = 'fa-solid fa-user-check',
-                            this.successModalMessage = 'Roles has been successfully updated!'
+                        this.successModalMessage = 'Roles has been successfully updated!'
                         this.showModal()
                     })
                     .catch((err) => {
                         console.log(err);
                         this.modalTitle = 'Update Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                            this.successModalMessage = 'Error! Unable to update role! please contact system developer'
+                        this.successModalMessage = 'Error! Unable to update role! please contact system developer'
                         this.showModal()
                     })
 
@@ -557,7 +557,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Create Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                            this.successModalMessage = 'Error! Unable to create role! please contact system developer'
+                        this.successModalMessage = 'Error! Unable to create role! please contact system developer'
                         this.showModal()
                     })
 

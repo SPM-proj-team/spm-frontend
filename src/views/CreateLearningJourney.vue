@@ -104,7 +104,7 @@ export default {
   methods: {
     nextBtnClick() {
 
-      // do form validation if it's at the first step
+      // do form validation for learning journey info
       if (this.currentStep == 0) {
 
         // lj name validation

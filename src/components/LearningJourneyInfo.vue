@@ -4,11 +4,15 @@
             <form>
                 <h3 class="card-title fw-semibold my-3">Learning Journey Details</h3>
                 <div class="form-floating mb-3">
-                    <input type="text" :readonly="formType=='update'" :class="{
-                    'form-control-plaintext': formType=='update',
-                    'form-control': formType=='create',
+                    <input type="text"
+                    :class="{
+                    'form-control-plaintext': formType=='update' && !errors.name.state,
+                    'form-control': formType=='create' || errors.desc.state,
                     'is-invalid':errors.name.state
-                    }" id="lj-name" placeholder="Learning Journey Name" v-model="this.name"
+                    }" 
+                    id="name" 
+                    placeholder="Learning Journey Name" 
+                    v-model="this.name"
                         @focusin="clickChangeInputType" @focusout="clickChangeInputTypeReadOnly">
                     <label for="lj-name">Name</label>
                     <div class="small text-danger" v-if="errors.name.state">
@@ -16,11 +20,12 @@
                     </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea type="search" id="lj-description" placeholder="Learning Journey Description"
+                    <textarea type="search" id="desc" placeholder="Learning Journey Description"
                         style="height: 150px; max-height: 200px; min-height: 200px;" v-model="this.description"
-                        :readonly="formType=='update'" :class="{
-                        'form-control-plaintext': formType=='update',
-                        'form-control': formType=='create',
+                        
+                        :class="{
+                        'form-control-plaintext': (formType=='update' && !errors.desc.state),
+                        'form-control': formType=='create' || errors.desc.state ,
                         'is-invalid':errors.desc.state
                         }" @focusin="clickChangeInputType" @focusout="clickChangeInputTypeReadOnly"
                         ref="lj_desc"></textarea>
@@ -29,10 +34,16 @@
                         {{ errors.desc.message }}
                     </div>
                 </div>
-                <div class="row mb-3">
+                <div class="row mb-3" v-if="formType=='create'">
                     <div class="col-12 ">
                         <button type="reset" class="btn btn-primary btn-lg shadow w-100 fw-semibold"
                             @click="$emit('nextBtnClick')">Next</button>
+                    </div>
+                </div>
+                <div class="row mb-3" v-if="formType=='update'">
+                    <div class="col-12 ">
+                        <button type="button" class="btn btn-primary btn-lg shadow w-100 fw-semibold"
+                            @click="$emit('updateLearningJourney')">Update Learning Journey</button>
                     </div>
                 </div>
             </form>
@@ -78,15 +89,13 @@ export default {
     },
     methods: {
         clickChangeInputType(event) {
-            if (event.target.classList.contains("form-control-plaintext") && this.formType == 'update') {
+            if (event.target.classList.contains("form-control-plaintext") && this.formType == 'update' && !this.errors[event.target.id].state) {
                 event.target.classList = ["form-control"]
-                event.target.removeAttribute('readonly')
             }
         },
         clickChangeInputTypeReadOnly(event) {
-            if (event.target.classList.contains("form-control") && this.formType == 'update') {
+            if (event.target.classList.contains("form-control") && this.formType == 'update' && !this.errors[event.target.id].state) {
                 event.target.classList = ["form-control-plaintext"]
-                event.target.addAttribute('readonly')
             }
         },
 
