@@ -5,7 +5,8 @@
             <div class="col">
                 <LearningJourneyInfo ref="ljInfo" :ljName='this.ljName'
                     :ljDescription='learningJourneyDetails.Description' v-if="learningJourneyDetails" formType='update'
-                    @updateLearningJourney="updateLearningJourney" />
+                    @updateLearningJourney="updateLearningJourney" 
+                    @deleteLearningJourney="deleteLearningJourney" />
             </div>
         </div>
         <div v-if="this.errors.skills.state" class="alert alert-danger" role="alert">
@@ -352,6 +353,21 @@ export default {
                 })
         },
 
+        async deleteLearningJourney() {
+            const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
+
+            await axios.delete(path)
+                .then((res) => {
+                    console.log(res);
+                    this.modalTitle = 'Delete Success'
+                    this.modalIcon = 'fa-solid fa-circle-check'
+                    this.successModalMessage = 'Learning journey has been successfully deleted!'
+                    this.showModal();
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
         
         
 

@@ -41,12 +41,36 @@
                     </div>
                 </div>
                 <div class="row mb-3" v-if="formType=='update'">
-                    <div class="col-12 ">
+                    <div class="col-6 ">
+                        <button type="button" class="btn btn-danger btn-lg shadow w-100 fw-semibold"
+                           id="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete Learning Journey</button>
+                    </div>
+                    <div class="col-6 ">
                         <button type="button" class="btn btn-primary btn-lg shadow w-100 fw-semibold"
                             @click="$emit('updateLearningJourney')">Update Learning Journey</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- delete confirmation modal  -->
+    <div class="modal fade" tabindex="-1" id="deleteConfirmationModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Learning Journey</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This will delete selected learning journey, proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    @click="$emit('deleteLearningJourney')" >Delete</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
