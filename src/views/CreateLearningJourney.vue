@@ -71,7 +71,7 @@
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
           <div class="col-12 col-xl-4 order-2 order-xl-1">
             <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :SelectedCourses="selectedCourses"
-              :preSelectedCourses="preSelectedCourses" :formType="'create'" ref='sfComponent' />
+              :preSelectedCourses="preSelectedCourses" :formType="'create'" @createLearningJourney="createLearningJourney" />
           </div>
           <div class="col-12 col-xl-8 order-1 order-xl-2">
             <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -88,7 +88,7 @@
       </div>
     </template>
 
-    <template v-if="currentStep==3">
+    <template v-if="currentStep==3">+
 
       <div class="card p-5">
         <div class="card-body">
@@ -206,7 +206,7 @@ export default {
             details: this.ljInfo.name
           }
 
-          this.errors.name = {
+          this.errors.ljName = {
             state: false,
             message: 'Valid Name',
           }

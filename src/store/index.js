@@ -72,27 +72,38 @@ export const userStore = defineStore('userStore', {
 
     // update learning journey
     updateLearningJourney(courses, ljDescription, ljName, role) {
-      return new Promise((resolve,reject) => {
+      return new Promise((resolve, reject) => {
         axios.post('http://127.0.0.1:5000/learning_journey/create', {
-          "Staff_ID": this.staff_id,
-          "Learning_Journey": {
-            "Courses": courses,
-            "Description": ljDescription,
-            "Learning_Journey_Name": ljName,
-            "Role": role,
-            "Staff_ID": this.staff_id
-          }
-        })
-        .then((res) => {
-          console.log(res);
-          resolve(res)
-        }).catch((err) => {
-          console.log(err);
-          reject(err)
-        })
+            "Staff_ID": this.staff_id,
+            "Learning_Journey": {
+              "Courses": courses,
+              "Description": ljDescription,
+              "Learning_Journey_Name": ljName,
+              "Role": role,
+              "Staff_ID": this.staff_id
+            }
+          })
+          .then((res) => {
+            console.log(res);
+            resolve(res)
+          }).catch((err) => {
+            console.log(err);
+            reject(err)
+          })
       })
-      
 
+    },
+    deleteLearningJourney(id) {
+      return new Promise((resolve, reject) => {
+        const path = "http://127.0.0.1:5000/learning_journey/" + id
+        axios.delete(path, { data: { "Staff_ID": this.staff_id }})
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
     }
   }
 })

@@ -153,7 +153,7 @@
                             style="text-decoration: none">Reset</button>
                     </div>
                     <div class="col-12 col-lg-3" v-if="formType=='update'">
-                        <button type="submit" class="btn btn-lg btn-danger me-3 fw-semibold w-100 shadow-sm"
+                        <button type="button" class="btn btn-lg btn-danger me-3 fw-semibold w-100 shadow-sm"
                             id="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete
                         </button>
                     </div>

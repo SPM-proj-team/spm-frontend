@@ -70,7 +70,7 @@
             v-if='formType!="update"' 
             class="btn btn-primary rounded-0 rounded-bottom fw-bold" 
             type="button"
-            @click="emit('createLearningJourney')">
+            @click="$emit('createLearningJourney')">
             Create Learning Journey
         </button>
         
@@ -133,7 +133,10 @@ export default {
             return Object.keys(skillsCounter).length
         }
 
-    }
+    },
+    emits: [
+        'createLearningJourney'
+    ]
 }
 
 </script>

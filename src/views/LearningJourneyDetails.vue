@@ -5,8 +5,7 @@
             <div class="col">
                 <LearningJourneyInfo ref="ljInfo" :ljName='this.ljName'
                     :ljDescription='learningJourneyDetails.Description' v-if="learningJourneyDetails" formType='update'
-                    @updateLearningJourney="updateLearningJourney" 
-                    @deleteLearningJourney="deleteLearningJourney" />
+                    @updateLearningJourney="updateLearningJourney" @deleteLearningJourney="deleteLearningJourney" />
             </div>
         </div>
         <div v-if="this.errors.courses.state" class="alert alert-danger" role="alert">
@@ -37,7 +36,7 @@
 
         <!-- Success Modal -->
         <Transition>
-            <SuccessModal v-show="isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
+            <SuccessModal v-if="isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
                 :modalTitle="this.modalTitle" :message="this.successModalMessage" :icon="this.modalIcon" />
         </Transition>
 
@@ -89,8 +88,6 @@ export default {
             },
 
             learningJourneyDetails: null,
-            sharedItems: LearningJourneyInfo.data,
-            sharedCourses: SkillsCard.data,
 
             // Modal
             isModalVisible: false,
@@ -113,8 +110,15 @@ export default {
                 "Staff_ID": this.staff_ID
             };
 
+            
+
             axios.post(path, params)
                 .then((res) => {
+
+                    if (res.data.data.length == 0) {
+                        this.$router.push('/')
+                        return
+                    }
 
                     // get full details
                     this.learningJourneyDetails = res.data.data[0];
@@ -288,7 +292,7 @@ export default {
 
             }
 
-            if (this.errors.count!=0){
+            if (this.errors.count != 0) {
                 return
             }
 
@@ -353,22 +357,21 @@ export default {
         },
 
         async deleteLearningJourney() {
-            const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
+            console.log("=== delete learning journey function is running ===");
+            console.log("--- deleting learning journey ID: " + this.learningJourneyDetails.Learning_Journey_ID);
+            const res = await this.store.deleteLearningJourney(this.learningJourneyDetails.Learning_Journey_ID);
 
-            await axios.delete(path)
-                .then((res) => {
-                    console.log(res);
-                    this.modalTitle = 'Delete Success'
-                    this.modalIcon = 'fa-solid fa-circle-check'
-                    this.successModalMessage = 'Learning journey has been successfully deleted!'
-                    this.showModal();
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+            if (res.data.code == 200) {
+                this.modalTitle = 'Delete Success'
+                this.modalIcon = 'fa-solid fa-circle-check'
+                this.successModalMessage = 'Learning journey has been successfully deleted!'
+                this.showModal();
+            }
+
+
         }
-        
-        
+
+
 
 
 
@@ -387,15 +390,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
-
 </style>
