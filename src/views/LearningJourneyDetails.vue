@@ -9,8 +9,8 @@
                     @deleteLearningJourney="deleteLearningJourney" />
             </div>
         </div>
-        <div v-if="this.errors.skills.state" class="alert alert-danger" role="alert">
-            {{ this.errors.skills.message }} <b>{{ this.errors.skills.details }}</b>
+        <div v-if="this.errors.courses.state" class="alert alert-danger" role="alert">
+            {{ this.errors.courses.message }} <b>{{ this.errors.courses.details }}</b>
         </div>
         <div class="card text-bg-success mb-3 shadow">
             <div class="card-header fw-semibold">Courses and Skills</div>
@@ -26,7 +26,7 @@
                         <SelectedJobRole :SelectedJobRole="jobRoleDetails" v-if="jobRoleDetails" />
                     </div>
                     <div class="col-12">
-                        <SkillsCard ref="skillsFulfilment" :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
+                        <SkillsCard ref="skillsCardComponent" :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
                             :preSelectedCourses="selectedCourses" v-if="jobRoleDetails.Skills" />
                     </div>
                 </div>
@@ -37,7 +37,7 @@
 
         <!-- Success Modal -->
         <Transition>
-            <SuccessModal v-if="isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
+            <SuccessModal v-show="isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
                 :modalTitle="this.modalTitle" :message="this.successModalMessage" :icon="this.modalIcon" />
         </Transition>
 
@@ -60,9 +60,9 @@ import { ref } from '@vue/reactivity';
 export default {
     setup() {
         const store = userStore();
-        const skillsFulfilment = ref();
+        const skillsCardComponent = ref();
         const ljInfo = ref();
-        return { store, skillsFulfilment, ljInfo }
+        return { store, skillsCardComponent, ljInfo }
     },
     data() {
         return {
@@ -81,7 +81,7 @@ export default {
             preSelectedCourses: [],
             errors: {
                 count: 0,
-                skills: {
+                courses: {
                     state: false,
                     message: '',
                     details: ''
@@ -270,8 +270,8 @@ export default {
             }
 
             // skills validation
-            if (this.skillsFulfilment.checkedCourses.length == 0) {
-                this.errors.skills = {
+            if (this.skillsCardComponent.checkedCourses.length == 0) {
+                this.errors.courses = {
                     state: true,
                     message: "Please select at least 1 course",
                     details: ''
@@ -280,7 +280,7 @@ export default {
 
             } else {
 
-                this.errors.skills = {
+                this.errors.courses = {
                     state: false,
                     message: "Valid Skill",
                     details: ''
@@ -293,22 +293,21 @@ export default {
             }
 
 
-
             console.log("======= updateLearningJourney function running =======");
             const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
             console.log("Updating learning Journey details at " + path);
 
             // checker which course user has selected
-            console.log(this.skillsFulfilment.checkedCourses);
+            console.log(this.skillsCardComponent.checkedCourses);
             // checker for new Learning Journey description and name
             console.log(this.ljInfo.name, this.ljInfo.description);
 
             var newCourses = [];
 
-            for (var courseid in this.skillsFulfilment.checkedCourses) {
+            for (var courseid in this.skillsCardComponent.checkedCourses) {
                 newCourses.push(
                     {
-                        "Course_ID": this.skillsFulfilment.checkedCourses[courseid]
+                        "Course_ID": this.skillsCardComponent.checkedCourses[courseid]
                     }
                 );
             }
@@ -388,5 +387,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 
 </style>

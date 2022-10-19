@@ -8,7 +8,7 @@ export const userStore = defineStore('userStore', {
 
   // state
   state: () => ({
-    
+
 
     // user information
     staff_FName: 'Oliver',
@@ -25,7 +25,7 @@ export const userStore = defineStore('userStore', {
     selectedJobRole: [],
     jobRoles: [],
     departments: [],
-    
+
 
   }),
   actions: {
@@ -38,8 +38,8 @@ export const userStore = defineStore('userStore', {
     async getLearningJourney() {
       const path = 'http://127.0.0.1:5000/learning_journey';
       await axios.post(path, {
-        "Staff_ID": this.staff_id
-      })
+          "Staff_ID": this.staff_id
+        })
         .then((res) => {
           console.log(res.data.data)
           this.learningJourneys = res.data.data
@@ -55,39 +55,62 @@ export const userStore = defineStore('userStore', {
     // get all available roles and departments
     async getRoles() {
       await axios.get('http://127.0.0.1:5000/roles').then((res) => {
-          this.jobRoles = res.data.data;
-          for (let jobRole of res.data.data){
-              if (!this.departments.includes(jobRole.Department)){
-                this.departments.push(jobRole.Department)
-              }
+        this.jobRoles = res.data.data;
+        for (let jobRole of res.data.data) {
+          if (!this.departments.includes(jobRole.Department)) {
+            this.departments.push(jobRole.Department)
           }
-          console.log(res.data.data)
+        }
+        console.log(res.data.data)
       }).catch((err) => {
-          console.log(err);
-          // this.$router.push({ name: 'NotFound404' });
-          return
+        console.log(err);
+        // this.$router.push({ name: 'NotFound404' });
+        return
       })
-      return
+
+    },
+
+    // update learning journey
+    updateLearningJourney(courses, ljDescription, ljName, role) {
+      return new Promise((resolve,reject) => {
+        axios.post('http://127.0.0.1:5000/learning_journey/create', {
+          "Staff_ID": this.staff_id,
+          "Learning_Journey": {
+            "Courses": courses,
+            "Description": ljDescription,
+            "Learning_Journey_Name": ljName,
+            "Role": role,
+            "Staff_ID": this.staff_id
+          }
+        })
+        .then((res) => {
+          console.log(res);
+          resolve(res)
+        }).catch((err) => {
+          console.log(err);
+          reject(err)
+        })
+      })
+      
+
+    }
   }
-  }
-
-
-
-
-  // getter function
-  // to add retrieval of all roles, skills to roles, courses to skill
-  // e.g. const doubleCount = computed(() => count.value * 2);
-
-
-
-  // return {
-  //   staff_FName,
-  //   staff_LName,
-  //   email,
-  //   role,
-  //   staff_id,
-  //   selectedJobRole,
-  //   department,
-  //   selectJobRole
-  // }
 })
+
+
+// getter function
+// to add retrieval of all roles, skills to roles, courses to skill
+// e.g. const doubleCount = computed(() => count.value * 2);
+
+
+
+// return {
+//   staff_FName,
+//   staff_LName,
+//   email,
+//   role,
+//   staff_id,
+//   selectedJobRole,
+//   department,
+//   selectJobRole
+// 
