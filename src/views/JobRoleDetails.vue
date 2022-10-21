@@ -25,6 +25,11 @@
 
         </div>
 
+        <!-- Success Modal -->
+        <Transition>
+            <SuccessModal v-if="isModalVisible" @close="closeModal" @wheel.prevent @touchmove.prevent @scroll.prevent
+                :modalTitle="this.modalTitle" :message="this.LJModalMessage" :modalType="this.modalType"/>
+        </Transition>
 
     </div>
 </template>
@@ -36,12 +41,17 @@ import SkillsCard from '@/components/SkillsCard.vue';
 import { userStore } from '@/store';
 import axios from 'axios'
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
+import SuccessModal from '@/components/SuccessModal.vue';
+import { ref } from '@vue/reactivity';
+// import CreateLearningJourney from '@/views/CreateLearningJourney.vue';
 
 
 export default {
     setup() {
         const store = userStore();
-        return { store }
+        const LJinfoModal = ref();
+        // const createLearningJourney = ref();
+        return { store, LJinfoModal }
     },
     data() {
         return {
@@ -53,7 +63,16 @@ export default {
             navObjects: [
                 { navLabel: "View Roles", path: "/JobRoles", isActive: false },
                 { navLabel: "Job Details", path: "", isActive: true }
-            ]
+            ],
+            isModalVisible: false,
+            LJModalMessage: '',
+            modalTitle: '',
+            modalIcon: 'fa-solid fa-circle-check',
+            modalType: '',
+
+            currentStep: 0,
+            ljName: '',
+            ljDescription: '',
         }
     },
     mounted() {
@@ -127,8 +146,26 @@ export default {
             console.log(skills)
 
             this.jobRoleSkills = skills
-        }
+        },
 
+        // open modal function
+        openModalForLJInfo() {
+            console.log("======> openModalForLJInfo ======")
+            this.isModalVisible = true
+            this.LJModalMessage = "Please Enter Learning Journey Name and Description"
+            this.modalTitle = "Create Learning Journey"
+            this.modalType = 'createLJInfo'
+        },
+
+        // close modal function
+        closeModal() {
+            this.isModalVisible = false
+            this.$router.go()
+        },
+
+        nextBtnClick() {
+            console.log("======> nextBtnClick on JobRoleDetails.vue ======")
+        }
 
     },
     props: ['JobRoleID'],
@@ -144,7 +181,9 @@ export default {
         SelectedJobRole,
         SkillsCard,
         SkillsFulfillment,
-        Breadcrumbs
+        Breadcrumbs,
+        // CreateLearningJourney,
+        SuccessModal
     }
 }
 

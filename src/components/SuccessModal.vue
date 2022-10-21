@@ -12,7 +12,9 @@
                     </div>
                     <p class="text-center my-3 fs-3"> {{ message }}</p>
                 </div>
-                <div class="modal-footer">
+                <LearningJourneyInfo v-if="modalType" ref='ljInfo' formType='create' @nextBtnClick="nextBtnClick()" />
+
+                <div v-if="modalType == null" class="modal-footer">
                     <button type="button" class="btn btn-primary w-100" @click="$emit('close')">Ok</button>
                 </div>
             </div>
@@ -21,11 +23,29 @@
 </template>
   
 <script>
+
+import LearningJourneyInfo from '@/components/LearningJourneyInfo.vue';
+
 export default {
+    data() {
+        return {
+        }
+    },
     props: {
         icon: String,
         modalTitle: String,
-        message: String
+        message: String,
+        modalType: String
+    },
+    components: {
+        LearningJourneyInfo
+    },
+
+    methods: {
+        nextBtnClick() {
+            console.log("======> nextBtnClick on SuccessModal.vue ======")
+            this.$parent.nextBtnClick()
+        }
     }
 
 }

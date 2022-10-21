@@ -70,11 +70,14 @@
             v-if='formType!="update"' 
             class="btn btn-primary rounded-0 rounded-bottom fw-bold" 
             type="button"
-            @click="$emit('createLearningJourney')">
+            @click="openModalForLJInfo()">
             Create Learning Journey
         </button>
-        
+
     </div>
+
+    
+
 </template>
 
 <script>
@@ -95,7 +98,7 @@ export default {
                 skills: {
                     state: false,
                     message: '',
-                    details: ''
+                    details: '',
                 }
             }
         }
@@ -131,11 +134,18 @@ export default {
             }
 
             return Object.keys(skillsCounter).length
+        },
+
+        openModalForLJInfo() {
+            this.$parent.openModalForLJInfo()
         }
 
     },
     emits: [
         'createLearningJourney'
+    ],
+    components: [
+       
     ]
 }
 
