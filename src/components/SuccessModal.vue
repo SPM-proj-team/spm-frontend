@@ -12,7 +12,6 @@
                     </div>
                     <p class="text-center my-3 fs-3"> {{ message }}</p>
                 </div>
-                <LearningJourneyInfo v-if="modalType" ref='ljInfo' formType='create' @nextBtnClick="nextBtnClick()" />
 
                 <div v-if="modalType == null" class="modal-footer">
                     <button type="button" class="btn btn-primary w-100" @click="$emit('close')">Ok</button>
@@ -24,8 +23,6 @@
   
 <script>
 
-import LearningJourneyInfo from '@/components/LearningJourneyInfo.vue';
-
 export default {
     data() {
         return {
@@ -36,9 +33,6 @@ export default {
         modalTitle: String,
         message: String,
         modalType: String
-    },
-    components: {
-        LearningJourneyInfo
     },
 
     methods: {

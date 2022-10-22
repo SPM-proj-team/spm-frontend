@@ -14,11 +14,10 @@
                     {{ SelectedCourses.length }} Course<template v-if="SelectedCourses.length>1">s</template>
                 </h6>
             </div>
-            <div class="progress" >
+            <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-label="Example with label"
                     :style="{ width: getSkillProgress() + '%'}" :aria-valuenow="getSkillProgress()" aria-valuemin="0"
-                    v-if="getSkillProgress()"
-                    aria-valuemax="100">{{ getSkillProgress() }}%</div>
+                    v-if="getSkillProgress()" aria-valuemax="100">{{ getSkillProgress() }}%</div>
             </div>
         </div>
         <ol class="list-group list-group-numbered list-group-flush">
@@ -66,23 +65,24 @@
 
             </li>
         </ol>
-        <button 
-            v-if='formType!="update"' 
-            class="btn btn-primary rounded-0 rounded-bottom fw-bold" 
-            type="button"
-            @click="openModalForLJInfo()">
+        <button v-if='formType=="create"' class="btn btn-primary rounded-0 rounded-bottom fw-bold" type="button"
+            @click="$emit('createLearningJourney')"  :disabled="getSkillProgress()==0">
+            Create Learning Journey
+        </button>
+        <button v-if='formType=="createFromViewRole"' class="btn btn-primary rounded-0 rounded-bottom fw-bold"
+            type="button" data-bs-toggle="modal" data-bs-target="#ljInfoModal" :disabled="getSkillProgress()==0">
             Create Learning Journey
         </button>
 
     </div>
 
-    
 
 </template>
 
 <script>
 
 export default {
+   
     props: {
         Skills: Object,
         MappedCourses: Object,
@@ -144,9 +144,7 @@ export default {
     emits: [
         'createLearningJourney'
     ],
-    components: [
-       
-    ]
+    
 }
 
 </script>

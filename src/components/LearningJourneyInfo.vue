@@ -30,6 +30,14 @@
                     </button>
                 </div>
             </div>
+            <div class="row mb-3" v-if="formType=='createFromViewRole'">
+                <div class="col-12">
+                    <button type="reset" class="btn btn-primary btn-lg shadow w-100 fw-semibold"
+                        @click="$emit('createLearningJourney')">Create
+                        <font-awesome-icon icon="fa-solid fa-chevron-right" class="mx-3" />
+                    </button>
+                </div>
+            </div>
             <div class="row" v-if="formType=='update'">
                 <div class="col-12 col-lg-6 mb-3">
                     <button type="button" class="btn btn-danger btn-lg shadow w-100 fw-semibold" id="delete-btn"

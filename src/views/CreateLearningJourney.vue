@@ -36,7 +36,7 @@
           </button>
         </div>
         <div class="col-6 ">
-          <button class="btn btn-lg btn-primary w-100 shadow fw-semibold" @click="createLearningJourney()">
+          <button class="btn btn-lg btn-primary w-100 shadow fw-semibold" @click="createLearningJourney()" >
             Create
           </button>
         </div>
