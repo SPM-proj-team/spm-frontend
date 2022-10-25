@@ -29,6 +29,8 @@ export default {
     if (this.store.staff_id === null){
       this.$router.push({name: 'Login'})
     }
+
+    
   }
 
 }

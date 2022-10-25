@@ -1,6 +1,8 @@
 import {
   defineStore
 } from 'pinia'
+import { useStorage } from '@vueuse/core'
+
 import axios from 'axios';
 
 
@@ -11,21 +13,16 @@ export const userStore = defineStore('userStore', {
 
 
     // user information
-    staff_FName: '',
-    staff_LName: '',
-    email: '',
-    role: '',
-    staff_id: null,
-    department: '',
-    // staff_FName: 'Oliver',
-    // staff_LName: 'Tan',
-    // email: 'Oliver.Tan@allinone.com.sg',
-    // role: 'Admin',
-    // staff_id: 1,
-    // department: 'Ops',
+    staff_FName: useStorage('staff_FName',''),
+    staff_LName: useStorage('staff_LName',''),
+    email: useStorage('email',''),
+    role: useStorage('role',''),
+    staff_id: useStorage('staff_id',null),
+    department: useStorage('department',''),
 
     // user learning journey
     learningJourneys: [],
+    ljRole: [],
 
     // view roles data
     selectedJobRole: [],
@@ -38,6 +35,22 @@ export const userStore = defineStore('userStore', {
     //actions are methods - including async functions
     selectJobRole(jobRole) {
       this.selectedJobRole = jobRole
+    },
+
+    login(){
+      const path = 'http://127.0.0.1:5000/staff';
+
+      return new Promise((resolve, reject) => {
+        axios.get(path)
+          .then((res) => {
+            console.log(res);
+            resolve(res)
+          }).catch((err) => {
+            console.log(err);
+            reject(err)
+          })
+      })
+
     },
 
     // get user's learning journey
@@ -75,6 +88,10 @@ export const userStore = defineStore('userStore', {
       })
 
     },
+
+    // get specific learning journey
+
+
 
     // update learning journey
     updateLearningJourney(courses, ljDescription, ljName, role) {

@@ -70,7 +70,6 @@ export default {
                 { navLabel: "Home", path: "/", isActive: false },
                 { navLabel: "Learning Journey Details", path: "", isActive: true }
             ],
-            staff_ID: 1,
             role: [],
             jobRoleDetails: [],
             jobRoleSkills: [],
@@ -98,16 +97,16 @@ export default {
         }
     },
     mounted() {
-        this.getLearningJourneyDetails()
+        this.getLearningJourneyDetails(this.LJID)
 
     },
     methods: {
         // Get individual Learning Journey detail for staff
-        getLearningJourneyDetails() {
-            const path = 'http://127.0.0.1:5000/learning_journey/' + this.LJID;
+        getLearningJourneyDetails(LJID) {
+            const path = 'http://127.0.0.1:5000/learning_journey/' + LJID;
             console.log("Retrieving learning Journey details from " + path)
             let params = {
-                "Staff_ID": this.staff_ID
+                "Staff_ID": JSON.parse( JSON.stringify(this.store.staff_id) )
             };
 
             
@@ -319,14 +318,14 @@ export default {
 
 
             let body = {
-                "Staff_ID": this.staff_ID,
+                "Staff_ID": JSON.parse( JSON.stringify(this.store.staff_id) ),
                 "Learning_Journey": {
                     "Courses": newCourses,
                     "Description": this.ljInfo.description,
                     "Learning_Journey_ID": this.LJID,
                     "Learning_Journey_Name": this.ljInfo.name,
                     "Role": this.learningJourneyDetails.Role,
-                    "Staff_ID": this.staff_ID
+                    "Staff_ID": JSON.parse( JSON.stringify(this.store.staff_id) )
                 }
             };
 
