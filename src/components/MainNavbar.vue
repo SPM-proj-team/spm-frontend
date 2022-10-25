@@ -76,7 +76,11 @@
             }
             return false
         }
+    },
+    pops:{
+        isLoggedIn: String
     }
+
 
     }
 

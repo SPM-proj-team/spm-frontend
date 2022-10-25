@@ -11,12 +11,18 @@ export const userStore = defineStore('userStore', {
 
 
     // user information
-    staff_FName: 'Oliver',
-    staff_LName: 'Tan',
-    email: 'Oliver.Tan@allinone.com.sg',
-    role: 'Admin',
-    staff_id: 1,
-    department: 'Ops',
+    staff_FName: '',
+    staff_LName: '',
+    email: '',
+    role: '',
+    staff_id: null,
+    department: '',
+    // staff_FName: 'Oliver',
+    // staff_LName: 'Tan',
+    // email: 'Oliver.Tan@allinone.com.sg',
+    // role: 'Admin',
+    // staff_id: 1,
+    // department: 'Ops',
 
     // user learning journey
     learningJourneys: [],

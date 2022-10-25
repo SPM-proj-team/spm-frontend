@@ -1,8 +1,8 @@
 <template>
 
-  <MainNavbar />
+  <MainNavbar v-if="this.store.staff_id" />
   <router-view />
-  <MainFooter/>
+  <MainFooter v-if="this.store.staff_id"/>
   
 </template>
 
@@ -10,15 +10,25 @@
 
 import MainNavbar from './components/MainNavbar.vue'
 import MainFooter from './components/MainFooter.vue'
-
+import { userStore } from './store'
 
 export default {
+  setup() {
+    const store  = userStore();
+
+    return { store }
+  },
 
   components: {
     MainNavbar, MainFooter
   },
   mounted(){
     document.body.classList.add('bg-light')
+
+    // check if user logged in
+    if (this.store.staff_id === null){
+      this.$router.push({name: 'Login'})
+    }
   }
 
 }
@@ -43,6 +53,8 @@ export default {
     letter-spacing: 5px;
 }
 
-
+html,body, #app {
+  height:100%
+}
 
 </style>
