@@ -64,24 +64,24 @@
                         </div>
                         <div class="row g-3">
                             <div class="col-12 col-lg-6">
-                                <!-- <router-link> -->
+                                <router-link to="/CreateSkill" class="router-link">
                                 <button class="btn btn-light shadow-sm text-start card p-0 w-100 h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title fw-semibold">Create & Delete Skills</h5>
+                                        <h5 class="card-title fw-semibold">Create New Skills</h5>
                                         <p class="card-text">Create New Skills or Delete existing Skills in LJPS</p>
                                     </div>
                                 </button>
-                                <!-- </router-link> -->
+                                </router-link>
                             </div>
                             <div class="col-12 col-lg-6">
-                                <!-- <router-link> -->
+                                <router-link to="/UpdateSkills" class="router-link">
                                 <button class="btn btn-light shadow-sm text-start card p-0 w-100 h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title fw-semibold">Update Skills</h5>
+                                        <h5 class="card-title fw-semibold">Update & Delete Skills</h5>
                                         <p class="card-text">Update existing skills information</p>
                                     </div>
                                 </button>
-                                <!-- </router-link> -->
+                                </router-link>
                             </div>
                         </div>
                     </div>
