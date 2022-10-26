@@ -4,23 +4,6 @@
       <div class="card-body">
         <h5 class="card-title fw-semibold fs-3 mb-3">{{ formTitle }}</h5>
         <form @submit.prevent="" action="#" class="row g-3" novalidate>
-          <div class="col-3 col-lg-2" v-if="formType == 'update'">
-            <div class="form-floating">
-              <input
-                v-model="job_id"
-                type="text"
-                class="form-control"
-                id="Job_ID"
-                placeholder="Job Role ID"
-                required
-                disabled
-              />
-              <label for="Job_ID">Job Role ID</label>
-              <div class="text-danger" v-if="errors.job_id.state">
-                {{ errors.job_id.message }}
-              </div>
-            </div>
-          </div>
           <div class="col col-lg-6">
             <div class="form-floating">
               <input
@@ -31,6 +14,7 @@
                 placeholder="Skill ID"
                 :class="{ 'is-invalid': errors.skill_id.state }"
                 required
+                disabled
               />
               <label for="skill_ID">Skill ID</label>
               <div class="small text-danger" v-if="errors.skill_id.state">
@@ -49,10 +33,10 @@
                 :class="{ 'is-invalid': errors.skill_name.state }"
                 required
               />
-              <label for="job_Title">Skill Name</label>
+              <label for="skill_Name">Skill Name</label>
               <div
                 class="small text-danger"
-                id="job_title-feedback"
+                id="skill_name-feedback"
                 v-if="errors.skill_name.state"
               >
                 {{ errors.skill_name.message }}
@@ -111,11 +95,11 @@
                   v-model="courseSearchInput"
                   type="search"
                   class="form-control"
-                  id="jobRoleInputText"
-                  placeholder="Enter job role"
+                  id="skillInputText"
+                  placeholder="Enter Skill"
                   @input="onQueryChangeSkill"
                 />
-                <label for="jobRoleInputText"
+                <label for="skillInputText"
                   >Search for a course name...</label
                 >
               </div>
@@ -184,7 +168,7 @@
             <button
               type="button"
               data-bs-toggle="modal"
-              data-bs-target="#resetJobInfoModal"
+              data-bs-target="#resetSkillInfoModal"
               id="reset-btn"
               class="btn btn-lg btn-light fw-semibold w-100 shadow-sm"
               style="text-decoration: none"
@@ -243,11 +227,11 @@
   </Transition>
 
   <!-- form reset modal -->
-  <div class="modal fade" tabindex="-1" id="resetJobInfoModal">
+  <div class="modal fade" tabindex="-1" id="resetSkillInfoModal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Reset job information</h5>
+          <h5 class="modal-title">Reset Skill information</h5>
           <button
             type="button"
             class="btn-close"
@@ -257,8 +241,8 @@
         </div>
         <div class="modal-body">
           <p>
-            This will reset job information to it's original state. Are you sure
-            you want to reset job information?
+            This will reset Skill information to it's original state. Are you sure
+            you want to reset Skill information?
           </p>
         </div>
         <div class="modal-footer">
@@ -276,7 +260,7 @@
             data-bs-dismiss="modal"
             v-if="formType == 'update'"
             id="reset-update-btn"
-            @click="resetJobInfo()"
+            @click="resetSkillInfo()"
           >
             Reset
           </button>
@@ -299,7 +283,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Delete Role</h5>
+          <h5 class="modal-title">Delete Skill</h5>
           <button
             type="button"
             class="btn-close"
@@ -308,7 +292,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <p>This will delete the selected role, proceed?</p>
+          <p>This will delete the selected skill, proceed?</p>
         </div>
         <div class="modal-footer">
           <button
@@ -347,7 +331,7 @@ export default {
     formType: {
       type: String,
     },
-    allJobRoles: {
+    allSkills: {
       type: Array,
     },
   },
@@ -357,51 +341,14 @@ export default {
       courseSearchInput: "",
       viewAllCoursesVisible: false,
 
-      jobRoles: this.allJobRoles,
+      Skills: this.allSkills,
 
       // form data input
       skill_id: this.formData.skill_id,
       skill_name: this.formData.skill_name,
       courses: this.formData.courses,
 
-      // form data input
-      job_id: this.formData.job_id,
-      job_title: this.formData.job_title,
-      department: this.formData.department,
-      job_role: this.formData.job_role,
-      description: this.formData.description,
-      skills: this.formData.skills,
       errors: {
-        job_id: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        job_role: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        job_title: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        department: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        description: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        skill: {
-          state: false,
-          message: null,
-          details: null,
-        },
         skill_id: {
           state: false,
           message: null,
@@ -444,90 +391,45 @@ export default {
       if (submitType == "update") {
         // check for form inputs
 
-        // Job id validation
-        if (this.job_id.length == 0) {
-          this.errors.job_id = {
+        // Skill id validation
+        if (this.skill_id.length == 0) {
+          this.errors.skill_id = {
             state: true,
-            message: "Invalid Job ID",
-            details: this.job_id,
+            message: "Invalid Skill ID",
+            details: this.skill_id,
           };
         } else {
-          this.errors.job_id = {
+          this.errors.skill_id = {
             state: false,
-            message: "Valid Job ID",
-            details: this.job_id,
+            message: "Valid Skill ID",
+            details: this.skill_id,
           };
         }
 
-        // Job role validation
-        if (this.job_role.length == 0) {
-          this.errors.job_role = {
+        // Skill Name validation
+        if (this.skill_name.length == 0) {
+          this.errors.skill_name = {
             state: true,
-            message: "Invalid Job Role",
-            details: this.job_role,
+            message: "Invalid Skill Name",
+            details: this.skill_name,
           };
         } else {
-          this.errors.job_role = {
+          this.errors.skill_name = {
             state: false,
-            message: "Valid Job Role",
-            details: this.job_role,
+            message: "Valid Skill Name",
+            details: this.skill_name,
           };
         }
 
-        // Job title validation
-        if (this.job_title.length == 0) {
-          this.errors.job_title = {
+        // course validation
+        if (this.courses.length == 0) {
+          this.errors.course = {
             state: true,
-            message: "Invalid Job Title",
-            details: this.job_title,
-          };
-        } else {
-          this.errors.job_title = {
-            state: false,
-            message: "Valid Job Title",
-            details: this.job_title,
-          };
-        }
-
-        // department validation
-        if (this.department.length == 0) {
-          this.errors.department = {
-            state: true,
-            message: "Invalid Department",
-            details: this.department,
-          };
-        } else {
-          this.errors.department = {
-            state: false,
-            message: "Valid Department",
-            details: this.department,
-          };
-        }
-
-        // description validation
-        if (this.description.length == 0) {
-          this.errors.description = {
-            state: true,
-            message: "Please enter a description",
-            details: this.description,
-          };
-        } else {
-          this.errors.description = {
-            state: false,
-            message: "Valid description",
-            details: this.description,
-          };
-        }
-
-        // skill validation
-        if (this.skills.length == 0) {
-          this.errors.skill = {
-            state: true,
-            message: "Invalid skill, please select at least 1 skill",
+            message: "Invalid course, please select at least 1 course",
             details: null,
           };
         } else {
-          this.errors.skill = {
+          this.errors.course = {
             state: false,
             message: "",
             details: null,
@@ -544,24 +446,21 @@ export default {
         console.log("sending put request...");
 
         // populate skill ID from front end
-        let formDataSkills = [];
-        for (let skill of this.skills) {
-          formDataSkills.push(skill.Skill_ID);
+        let fromDataCourses = [];
+        for (let course of this.courses) {
+          fromDataCourses.push(course.Course_ID);
         }
 
-        const formData = {
-          Job_ID: this.job_id,
-          Job_Role: this.job_role,
-          Job_Title: this.job_title,
-          Department: this.department,
-          Description: this.description,
-          Skills: formDataSkills,
+         const formData = {
+          Skill_ID: this.skill_id,
+          Name: this.skill_name,
+          Courses: fromDataCourses,
         };
 
         console.log(formData);
 
         // if alls good then send put request to backend
-        const path = "http://127.0.0.1:5000/roles";
+        const path = "http://127.0.0.1:5000/skills";
 
         axios
           .put(path, formData)
@@ -571,7 +470,7 @@ export default {
             this.modalTitle = "Update Success";
             (this.modalIcon = "fa-solid fa-user-check"),
               (this.successModalMessage =
-                "Roles has been successfully updated!");
+                "Skill has been successfully updated!");
             this.showModal();
           })
           .catch((err) => {
@@ -579,13 +478,13 @@ export default {
             this.modalTitle = "Update Error";
             (this.modalIcon = "fa-solid fa-circle-xmark"),
               (this.successModalMessage =
-                "Error! Unable to update role! please contact system developer");
+                "Error! Unable to update skill! Duplicated Skill ID!");
             this.showModal();
           });
       } else if (submitType == "create") {
         // check for form inputs
 
-        // Job role validation
+        // Skill id validation
         if (this.skill_id.length == 0) {
           this.errors.skill_id = {
             state: true,
@@ -594,7 +493,7 @@ export default {
           };
         }
 
-        // Job title validation
+        // Skill name validation
         if (this.skill_name.length == 0) {
           this.errors.skill_name = {
             state: true,
@@ -660,18 +559,18 @@ export default {
                 this.showModal()
             })
       } else {
-        // delete role by sending delete request
-        console.log("Deleting role " + this.job_id);
+        // delete Skill by sending delete request
+        console.log("Deleting Skill " + this.skill_id);
 
-        const path = "http://127.0.0.1:5000/roles/" + this.job_id;
+        const path = "http://127.0.0.1:5000/skills/" + this.skill_id;
         axios
           .delete(path)
           .then((res) => {
             console.log(res);
             console.log("Delete success");
             this.modalTitle = "Delete Success";
-            this.modalIcon = "fa-solid fa-user-xmark";
-            this.successModalMessage = "Roles has been successfully deleted!";
+            this.modalIcon = "fa-solid fa-user-plus";
+            this.successModalMessage = "Skills has been successfully deleted!";
             this.showModal();
           })
           .catch((err) => {
@@ -679,43 +578,13 @@ export default {
             this.modalTitle = "Delete Error";
             (this.modalIcon = "fa-solid fa-circle-xmark"),
               (this.successModalMessage =
-                "Error! Unable to delete role! please contact system developer");
+                "Error! Unable to delete Skill! please contact system developer");
             this.showModal();
           });
       }
     },
     resetErrorState() {
       this.errors = {
-        job_id: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        job_role: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        job_title: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        department: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        description: {
-          state: false,
-          message: null,
-          details: null,
-        },
-        skill: {
-          state: false,
-          message: null,
-          details: null,
-        },
         skill_id: {
           state: false,
           message: null,
@@ -734,27 +603,22 @@ export default {
       };
     },
     resetFormData() {
-      (this.job_id = 0),
-        (this.job_title = ""),
-        (this.department = ""),
-        (this.job_role = ""),
-        (this.description = ""),
-        (this.skills = []),
+      (this.skill_id = 0),
+        (this.skill_name = ""),
+        (this.courses = []),
         (this.courseSearchInput = "");
       this.addCoursesForm = false;
       this.resetErrorState();
     },
-    resetJobInfo() {
+    resetSkillInfo() {
       // reset error state
       this.resetErrorState();
 
-      this.jobRoles.filter((jobRole) => {
-        if (jobRole.Job_ID == this.job_id) {
-          this.job_role = jobRole.Job_Role;
-          this.job_title = jobRole.Job_Title;
-          this.department = jobRole.Department;
-          this.skills = [...jobRole.Skills];
-          this.description = jobRole.Description;
+      this.Skills.filter((skill) => {
+        if (skill.Skill_ID == this.skill_id) {
+          this.skill_id = skill.Skill_ID;
+          this.skill_name = skill.Name;
+          this.skills = [...skill.Courses];
         }
       });
     },
@@ -792,8 +656,8 @@ export default {
       };
 
       // check if skills is already added
-      for (const roleSkill of this.courses) {
-        if (course.Course_ID == roleSkill.Course_ID) {
+      for (const skillCourse of this.courses) {
+        if (course.Course_ID == skillCourse.Course_ID) {
           this.errors.course = {
             state: true,
             message: "Unable to add existing course: ",

@@ -52,6 +52,11 @@ const routes = [
     name: 'Create Skills',
     component: () => import( '../views/CreateSkill.vue') 
   },
+  {
+    path: '/UpdateSkills',
+    name: 'Update Skills',
+    component: () => import( '../views/UpdateSkills.vue') 
+  },
   // catchall 404
   {
     path: '/:catchAll(.*)',
