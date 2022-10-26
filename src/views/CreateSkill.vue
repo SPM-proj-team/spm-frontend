@@ -2,14 +2,14 @@
     <div class="container my-3">
         <Breadcrumbs :navObjects="navObjects" />
         <div class="row">
-            <JobRolesForm :formData="this.formData" :formType="'create'" :formTitle="'Create New Role'"/>
+            <SkillsForm :formData="this.formData" :formType="'create'" :formTitle="'Create New Skill'"/>
         </div>
 
     </div>
 </template>
 
 <script>
-import JobRolesForm from '@/components/JobRolesForm.vue'
+import SkillsForm from '@/components/SkillsForm.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 
 
@@ -21,6 +21,7 @@ export default {
                 { navLabel: "Create Role", path: "", isActive: true }
             ],
             formData: {
+                // to remove job
                 job_id: 0,
                 job_role: '',
                 job_title: '',
@@ -28,14 +29,15 @@ export default {
                 description: '',
                 skills: [],
 
-                
-
+                skill_id:'',
+                skill_name:'',
+                courses:[]
             },
             
         }
     },
     components: {
-        JobRolesForm,
+        SkillsForm,
         Breadcrumbs
     }
 
