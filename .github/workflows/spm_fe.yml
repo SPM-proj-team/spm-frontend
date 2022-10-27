@@ -7,4 +7,4 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
+    uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@main
