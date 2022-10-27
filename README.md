@@ -1,4 +1,4 @@
-# ljps
+# Learning Journey Management System (LJPS)
 
 ## Project setup
 ```
