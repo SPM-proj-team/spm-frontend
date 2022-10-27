@@ -3,9 +3,8 @@
 
 name: SPM
 
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   e2e-test:
     uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
-    secrets: inherit
