@@ -33,6 +33,12 @@ jobs:
         echo DB_USERNAME=${{ secrets.DB_USERNAME }} >> .env
         echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
         echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+
+    - name: Install frontend dependencies and run frontend service in background 
+      run: |
+        npm install &&
+        npm run serve &
+        sleep 20 &&
     
     - name: Clone backend repo 
       uses: actions/checkout@v3
@@ -56,16 +62,9 @@ jobs:
 #         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
 #         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   
-    - name: Install frontend dependencies and run frontend service in background 
-      run: |
-        cd ../
-        npm install &&
-        npm run serve &
-        sleep 20 &&
 
     - name: Install dependencies
       run: |
-        cd ./spm-backend 
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install -r requirements.txt
@@ -73,7 +72,6 @@ jobs:
 
     - name: Run backend in background
       run: |
-        cd ./spm-backend &&
         ( python run.py > /dev/null 2> /dev/null & ) &
         sleep 5
 
