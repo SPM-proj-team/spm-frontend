@@ -6,5 +6,5 @@ name: SPM
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  build:
+  call-e2e-workflow:
     uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
