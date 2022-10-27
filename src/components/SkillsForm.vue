@@ -4,7 +4,7 @@
       <div class="card-body">
         <h5 class="card-title fw-semibold fs-3 mb-3">{{ formTitle }}</h5>
         <form @submit.prevent="" action="#" class="row g-3" novalidate>
-          <div class="col col-lg-6">
+          <div class="col col-lg-3" v-if="formType=='update'">
             <div class="form-floating">
               <input
                 v-model="skill_id"
@@ -14,7 +14,6 @@
                 placeholder="Skill ID"
                 :class="{ 'is-invalid': errors.skill_id.state }"
                 required
-                disabled
               />
               <label for="skill_ID">Skill ID</label>
               <div class="small text-danger" v-if="errors.skill_id.state">
@@ -468,7 +467,7 @@ export default {
             console.log(res);
             console.log("put request success");
             this.modalTitle = "Update Success";
-            (this.modalIcon = "fa-solid fa-user-check"),
+            (this.modalIcon = "fa-solid fa-circle-check"),
               (this.successModalMessage =
                 "Skill has been successfully updated!");
             this.showModal();
@@ -482,16 +481,9 @@ export default {
             this.showModal();
           });
       } else if (submitType == "create") {
-        // check for form inputs
 
-        // Skill id validation
-        if (this.skill_id.length == 0) {
-          this.errors.skill_id = {
-            state: true,
-            message: "Invalid Skill ID",
-            details: this.skill_id,
-          };
-        }
+
+        // check for form inputs
 
         // Skill name validation
         if (this.skill_name.length == 0) {
@@ -532,7 +524,7 @@ export default {
         }
 
         const formData = {
-          Skill_ID: this.skill_id,
+          // Skill_ID: this.skill_id,
           Name: this.skill_name,
           Courses: formDataCourses,
         };
@@ -547,7 +539,7 @@ export default {
                 console.log(res)
                 console.log("put request success");
                 this.modalTitle = 'Create Success'
-                this.modalIcon = 'fa-solid fa-user-plus'
+                this.modalIcon = 'fa-solid fa-circle-check'
                 this.successModalMessage = 'Skill has been successfully created!'
                 this.showModal();
             })
