@@ -53,7 +53,7 @@ jobs:
 
     - name: Setup MySQL database
       run: |
-        cd ./spm-backend &&
+        cd ./spm-backend
         mysql -h ${{ secrets.DB_HOSTNAME }} --port 3306 -e "DROP SCHEMA IF EXISTS ${{ secrets.DB_NAME }};" -u${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }}
         mysql -h ${{ secrets.DB_HOSTNAME }} --port 3306 -u${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }} < tests/sql/test_spm.sql
         mysql -h ${{ secrets.DB_HOSTNAME }} --port 3306 -e "SHOW schemas;" -u${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }}
@@ -67,7 +67,7 @@ jobs:
   
     - name: Install frontend dependencies and run frontend service in background 
       run: |
-        cd ../ &&
+        cd ../
         npm install &&
         npm run serve &
         sleep 20 &&
