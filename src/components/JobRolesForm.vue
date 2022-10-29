@@ -196,7 +196,7 @@
                         id="reset-close-btn">Close</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-if="formType=='update'"
                         id="reset-update-btn" @click="resetJobInfo()">Reset</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="reset-create-btn"
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="reset-create-btn" v-if="formType!='update'"
                         @click="resetFormData()">Reset</button>
                 </div>
             </div>

@@ -14,6 +14,7 @@
                 placeholder="Skill ID"
                 :class="{ 'is-invalid': errors.skill_id.state }"
                 required
+                disabled
               />
               <label for="skill_ID">Skill ID</label>
               <div class="small text-danger" v-if="errors.skill_id.state">
@@ -268,6 +269,7 @@
             class="btn btn-danger"
             data-bs-dismiss="modal"
             id="reset-create-btn"
+            v-if="formType == 'create'"
             @click="resetFormData()"
           >
             Reset
@@ -524,7 +526,6 @@ export default {
         }
 
         const formData = {
-          // Skill_ID: this.skill_id,
           Name: this.skill_name,
           Courses: formDataCourses,
         };
@@ -561,7 +562,7 @@ export default {
             console.log(res);
             console.log("Delete success");
             this.modalTitle = "Delete Success";
-            this.modalIcon = "fa-solid fa-user-plus";
+            this.modalIcon = "fa-solid fa-check-circle";
             this.successModalMessage = "Skills has been successfully deleted!";
             this.showModal();
           })
@@ -595,7 +596,6 @@ export default {
       };
     },
     resetFormData() {
-      (this.skill_id = 0),
         (this.skill_name = ""),
         (this.courses = []),
         (this.courseSearchInput = "");
@@ -610,7 +610,7 @@ export default {
         if (skill.Skill_ID == this.skill_id) {
           this.skill_id = skill.Skill_ID;
           this.skill_name = skill.Name;
-          this.skills = [...skill.Courses];
+          this.courses = [...skill.Courses];
         }
       });
     },
