@@ -461,7 +461,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Update Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to update role! please contact system developer'
+                        this.successModalMessage = err.response.data.message
                         this.showModal()
                     })
 
@@ -557,7 +557,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Create Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to create role! please contact system developer'
+                        this.successModalMessage = err.response.data.message
                         this.showModal()
                     })
 
@@ -582,7 +582,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Delete Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                            this.successModalMessage = 'Error! Unable to delete role! please contact system developer'
+                        this.successModalMessage = err.response.data.message
                         this.showModal()
                     })
 

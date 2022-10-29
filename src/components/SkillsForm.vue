@@ -479,7 +479,7 @@ export default {
             this.modalTitle = "Update Error";
             (this.modalIcon = "fa-solid fa-circle-xmark"),
               (this.successModalMessage =
-                "Error! Unable to update skill! Duplicated Skill ID!");
+              err.response.data.message);
             this.showModal();
           });
       } else if (submitType == "create") {
@@ -548,7 +548,7 @@ export default {
                 console.log(err);
                 this.modalTitle = 'Create Error'
                 this.modalIcon = 'fa-solid fa-circle-xmark',
-                this.successModalMessage = 'Error! Unable to create skill! Skill ID already exists!'
+                this.successModalMessage = err.response.data.message
                 this.showModal()
             })
       } else {
@@ -571,7 +571,7 @@ export default {
             this.modalTitle = "Delete Error";
             (this.modalIcon = "fa-solid fa-circle-xmark"),
               (this.successModalMessage =
-                "Error! Unable to delete Skill! please contact system developer");
+              err.response.data.message);
             this.showModal();
           });
       }
