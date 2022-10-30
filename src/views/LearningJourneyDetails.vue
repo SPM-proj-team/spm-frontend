@@ -370,10 +370,11 @@ export default {
 
         }
 
-
-
-
-
+    },
+    watch: {
+        LJID: function () {
+            this.$router.go()
+        }
     },
     props: ['LJID'],
 
