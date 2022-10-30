@@ -297,6 +297,11 @@ export default {
 
 
     },
+    watch: {
+        JobRoleID: function() {
+            this.$router.go()
+        }
+    },
     props: ['JobRoleID'],
 
     // or alternatively without props can use:
