@@ -53,6 +53,7 @@ export default {
     font-size: 24px;
     font-weight: 800;
     letter-spacing: 5px;
+    text-align: center;
 }
 
 html,body, #app {

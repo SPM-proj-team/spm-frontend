@@ -91,7 +91,21 @@
     </div>
 </template>
 
-<script setup>
+<script>
+
+import { userStore } from "@/store";
+
+export default {
+    setup(){
+        const store = userStore();
+        return { store }
+    },
+    mounted(){
+        if (this.store.role.toLowerCase() != "admin"){
+            this.$router.push("/");
+        }
+    }
+}
 
 </script>
 

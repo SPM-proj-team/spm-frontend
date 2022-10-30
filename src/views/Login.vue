@@ -92,6 +92,8 @@ export default {
                 console.log("user is not found")
                 this.isFound = false
 
+                return
+
                 
             }
         }

@@ -196,7 +196,7 @@
                         id="reset-close-btn">Close</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-if="formType=='update'"
                         id="reset-update-btn" @click="resetJobInfo()">Reset</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="reset-create-btn"
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="reset-create-btn" v-if="formType!='update'"
                         @click="resetFormData()">Reset</button>
                 </div>
             </div>
@@ -461,7 +461,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Update Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to update role! please contact system developer'
+                        this.successModalMessage = err.response.data.message
                         this.showModal()
                     })
 
@@ -557,7 +557,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Create Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                        this.successModalMessage = 'Error! Unable to create role! please contact system developer'
+                        this.successModalMessage = err.response.data.message
                         this.showModal()
                     })
 
@@ -582,7 +582,7 @@ export default {
                         console.log(err);
                         this.modalTitle = 'Delete Error'
                         this.modalIcon = 'fa-solid fa-circle-xmark',
-                            this.successModalMessage = 'Error! Unable to delete role! please contact system developer'
+                        this.successModalMessage = err.response.data.message
                         this.showModal()
                     })
 

@@ -52,7 +52,7 @@
                 </div>
             </div>
             <SkillsForm v-if="this.selectedSkill.skill_id" :formData="this.selectedSkill" :formType="'update'"
-                :allJobRoles='this.skills' :formTitle="'Skill Information'" />
+                :allSkills='this.skills' :formTitle="'Skill Information'" />
         </div>
     </div>
 
