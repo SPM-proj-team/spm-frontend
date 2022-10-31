@@ -29,7 +29,12 @@
                                             :id="'check'+Skill.Skill_ID+Course.Course_ID" v-model="checkedCourses" >
                                         <label class="form-check-label" :for="'check'+Skill.Skill_ID+Course.Course_ID">
                                             <p class="fw-semibold"> {{Course.Course_ID}} - {{Course.Course_Name}} </p>
-                                            <p class="mt-0 small">Registration Status: <span class="badge bg-secondary">{{ Course.Course_Status}}</span></p>
+                                            <div class="my-3 small">
+                                                <b>Course Status:</b> {{ Course.Course_Status }} |
+                                                <b>Registration Status:</b> {{ mapRegistration(Course.Course_ID, 'registration') }} | 
+                                                <b>Completion Status:</b> {{ mapRegistration(Course.Course_ID, 'completion') }}
+                                                
+                                            </div>
                                             <p class="mb-0"> {{ Course.Course_Desc }} </p>
                                         </label>
                                         
@@ -61,7 +66,9 @@ export default {
         Skills: Object,
         mapCourses: Function,
         preSelectedCourses: Array,
+        courseRegistration: Object
     },
+
     methods: {
         
         checkSelectedCourses(Courses){
@@ -72,13 +79,37 @@ export default {
                 }
             }
             return courseCounter
+        },
+
+        mapRegistration(courseID, type){
+
+            if (type === "registration"){
+
+                for (let registration of this.courseRegistration){
+                    if (registration.Course.Course_ID === courseID){
+                        return registration.Reg_Status
+                    }
+                }
+                
+                return 'Not Registered';
+
+            } else if (type === "completion"){
+
+
+                for (let registration of this.courseRegistration){
+                    if (registration.Course.Course_ID === courseID){
+                        return registration.Completion_Status
+                    }
+                }
+
+
+                return 'Not Completed';
+            }
+            
         }
-    },
+        
+    }
     
 }
 
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -71,7 +71,7 @@
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
           <div class="col-12 col-xl-4 order-2 order-xl-1">
             <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :SelectedCourses="selectedCourses"
-              :preSelectedCourses="preSelectedCourses" :formType="'create'" @createLearningJourney="createLearningJourney" />
+              :preSelectedCourses="preSelectedCourses" :formType="'create'" @createLearningJourney="createLearningJourney" :courseRegistration='courseRegistration'/>
           </div>
           <div class="col-12 col-xl-8 order-1 order-xl-2">
             <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -80,7 +80,7 @@
               </div>
               <div class="col-12">
                 <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
-                  :preSelectedCourses='preSelectedCourses' v-if="jobRoleDetails.Skills" ref="skillsCardComponent" />
+                  :preSelectedCourses='preSelectedCourses' v-if="jobRoleDetails.Skills" ref="skillsCardComponent" :courseRegistration='courseRegistration' />
               </div>
             </div>
           </div>
@@ -133,11 +133,13 @@ export default {
     const skillsCardComponent = ref();
     return { ljInfo, store, skillsCardComponent }
   },
-  mounted() {
+  async mounted() {
     let faScript = document.createElement('script');
     faScript.setAttribute('src', 'https://kit.fontawesome.com/f85d503e77.js');
     faScript.setAttribute('crossorigin', 'anonymous');
     document.head.appendChild(faScript);
+    
+
   },
   data() {
     return {
@@ -175,6 +177,9 @@ export default {
           message: ''
         }
       },
+
+      // registration status
+      courseRegistration: []
 
 
     }
@@ -278,13 +283,17 @@ export default {
 
       this.currentStep--
     },
-    selectJobRole() {
+    async selectJobRole() {
       console.log("== User has selected a job role ==");
       console.log(this.store.selectedJobRole)
       this.selectedJobRole = {
         ...this.store.selectedJobRole
       };
       this.getJobDetails()
+      const registrationRes = await this.store.getRegistrationStatus()
+        if (registrationRes.data.code === 200) {
+            this.courseRegistration = [...registrationRes.data.data]
+        }
       this.currentStep++
     },
     async getJobDetails() {
