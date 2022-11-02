@@ -3,7 +3,7 @@
 
 name: SPM FE CI
 
-on: [workflow_dispatch, workflow_call]
+on: [push, workflow_dispatch, workflow_call]
 
 jobs:
   e2e-workflow:
