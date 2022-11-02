@@ -7,9 +7,8 @@ jobs:
   e2e-workflow:
     uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
     secrets: inherit
-  build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-    needs: [e2e-workflow]
+  build-and-preview:
+    needs: e2e-workflow
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
