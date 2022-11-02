@@ -1,11 +1,18 @@
 # This workflow will install Python dependencies, setup MySQL test database and run pytest with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: SPM FE
+name: CI/CD Pipeline
 
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  call-e2e-workflow:
-    uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
+  ljps-e2e-workflow:
+    - uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
     secrets: inherit
+  firebase-cd:
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
+    - uses: ./.github/workflows/firebase-hosting-merge
+    needs: [ljps-e2e-workflow]
+    secrets: inherit
+    
+  
