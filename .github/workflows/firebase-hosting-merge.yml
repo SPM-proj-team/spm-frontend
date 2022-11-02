@@ -6,8 +6,13 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - main
+  workflow_dispatch:
 jobs:
+  e2e-workflow:
+    uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
+    secrets: inherit
   build_and_deploy:
+    needs: [e2e-workflow]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

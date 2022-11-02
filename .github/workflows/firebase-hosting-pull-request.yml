@@ -2,10 +2,14 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on PR
-'on': pull_request
+on: [pull_request, push, workflow_dispatch]
 jobs:
+  e2e-workflow:
+    uses: SPM-proj-team/spm-backend/.github/workflows/spm.yml@sprint-3
+    secrets: inherit
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    needs: [e2e-workflow]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
