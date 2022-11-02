@@ -5,7 +5,8 @@
             <div class="col-12 col-xl-4 order-2 order-xl-1">
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses"
                     :SelectedCourses="selectedCourses" :preSelectedCourses="preSelectedCourses"
-                    :formType="'createFromViewRole'" />
+                    :formType="'createFromViewRole'" 
+                    :courseRegistration='courseRegistration'/>
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -14,7 +15,7 @@
                     </div>
                     <div class="col-12">
                         <SkillsCard :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses" ref="skillsCardComponent"
-                            :preSelectedCourses='preSelectedCourses' v-if="jobRoleDetails.Skills" />
+                            :preSelectedCourses='preSelectedCourses' v-if="jobRoleDetails.Skills" :courseRegistration='courseRegistration'/>
                     </div>
                 </div>
             </div>
@@ -98,6 +99,7 @@ export default {
             selectedCourses: [],
             mappedCourses: [],
             preSelectedCourses: [],
+            courseRegistration: [],
             navObjects: [
                 { navLabel: "View Roles", path: "/JobRoles", isActive: false },
                 { navLabel: "Job Details", path: "", isActive: true }
@@ -129,8 +131,15 @@ export default {
             modalTitle: ''
         }
     },
-    mounted() {
+    async mounted() {
         this.getJobDetails()
+        const registrationRes = await this.store.getRegistrationStatus()
+        if (registrationRes.data.code === 200) {
+            this.courseRegistration = [...registrationRes.data.data]
+        }
+
+        
+        
     },
     methods: {
         // Get individual job details based on route params (JobRole_ID)
