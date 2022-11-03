@@ -5,7 +5,7 @@
 		:key="learningJourney.Learning_Journey_ID"
 	>
 		<div class="row g-0 w-100">
-			<div class="col">
+			<div class="col" v-motion-fade>
 				<!-- create <router-link> '/LearningJourney/:LJID' -->
 				<router-link
 					class="router-link"

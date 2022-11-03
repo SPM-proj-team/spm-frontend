@@ -4,7 +4,7 @@
     <StepProgress :steps="mySteps" :current-step="currentStep" active-color="#4F46E5" passive-color="#D1D5DB"
       :active-thickness="3" :passive-thickness="3" :line-thickness="3" icon-class="fa-solid fa-check" />
   </div>
-  <div class="container my-5">
+  <div class="container my-5" v-motion-fade>
     <LearningJourneyInfo formType="create" @nextBtnClick="nextBtnClick()" ref='ljInfo' v-if="currentStep==0" />
 
     <template v-if="currentStep==1">
@@ -69,11 +69,11 @@
 
       <div class="col-12">
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
-          <div class="col-12 col-xl-4 order-2 order-xl-1">
+          <div class="col-12 col-xl-4 order-2 order-xl-1" v-motion-slide-left>
             <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :SelectedCourses="selectedCourses"
               :preSelectedCourses="preSelectedCourses" :formType="'create'" @createLearningJourney="createLearningJourney" :courseRegistration='courseRegistration'/>
           </div>
-          <div class="col-12 col-xl-8 order-1 order-xl-2">
+          <div class="col-12 col-xl-8 order-1 order-xl-2" v-motion-slide-right>
             <div class="row justify-content-center align-items-center g-1 g-xl-0">
               <div class="col-12 mb-3 mb-lg-0">
                 <SelectedJobRole :SelectedJobRole="jobRoleDetails" />
@@ -88,9 +88,9 @@
       </div>
     </template>
 
-    <template v-if="currentStep==3">+
+    <template v-if="currentStep==3">
 
-      <div class="card p-5">
+      <div class="card p-5" v-motion-fade>
         <div class="card-body">
           <h5 class="card-title display-6 text-center">Learning Journey Created</h5>
           <div class="text-center my-5">

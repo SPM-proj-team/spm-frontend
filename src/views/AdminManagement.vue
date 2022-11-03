@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fuild bg-white mb-5">
+    <div class="container-fuild bg-white mb-5" v-motion-fade>
         <div class="container col-xl-10 col-xxl-8 px-4 py-3">
             <div class="row align-items-center py-5">
                 <div class="col-lg-7 text-center text-lg-start text-gray-500 justify-content-center">

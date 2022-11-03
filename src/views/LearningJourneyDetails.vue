@@ -17,7 +17,7 @@
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
             <div class="col-12 col-xl-4 order-2 order-xl-1">
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :formType="'update'"
-                    :SelectedCourses="selectedCourses" @updateLJbutton='updateLearningJourney' />
+                    :SelectedCourses="selectedCourses" @updateLJbutton='updateLearningJourney' :courseRegistration='courseRegistration'/>
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
                 <div class="row justify-content-center align-items-center g-1 g-xl-0">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-12">
                         <SkillsCard ref="skillsCardComponent" :Skills="jobRoleDetails.Skills" :mapCourses="mapCourses"
-                            :preSelectedCourses="selectedCourses" v-if="jobRoleDetails.Skills" />
+                            :preSelectedCourses="selectedCourses" v-if="jobRoleDetails.Skills" :courseRegistration='courseRegistration'/>
                     </div>
                 </div>
 
@@ -87,6 +87,7 @@ export default {
             },
 
             learningJourneyDetails: null,
+            courseRegistration: [],
 
             // Modal
             isModalVisible: false,
@@ -96,8 +97,12 @@ export default {
 
         }
     },
-    mounted() {
+    async mounted() {
         this.getLearningJourneyDetails(this.LJID)
+        const registrationRes = await this.store.getRegistrationStatus()
+        if (registrationRes.data.code === 200) {
+            this.courseRegistration = [...registrationRes.data.data]
+        }
 
     },
     methods: {

@@ -1,15 +1,15 @@
 <template>
-    <div class="container my-3">
+    <div class="container my-3" v-motion-fade>
         <Breadcrumbs :navObjects="navObjects" />
         <div class="row justify-content-center align-content-center g-1 g-xl-4">
-            <div class="col-12 col-xl-4 order-2 order-xl-1">
+            <div class="col-12 col-xl-4 order-2 order-xl-1"  v-motion-slide-left>
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses"
                     :SelectedCourses="selectedCourses" :preSelectedCourses="preSelectedCourses"
                     :formType="'createFromViewRole'" 
                     :courseRegistration='courseRegistration'/>
             </div>
             <div class="col-12 col-xl-8 order-1 order-xl-2">
-                <div class="row justify-content-center align-items-center g-1 g-xl-0">
+                <div class="row justify-content-center align-items-center g-1 g-xl-0" v-motion-slide-right>
                     <div class="col-12 mb-3 mb-lg-0">
                         <SelectedJobRole :SelectedJobRole="jobRoleDetails" />
                     </div>
@@ -23,7 +23,7 @@
 
         <!-- Lj Info Modal -->
         <div class="modal fade" data-bs-backdrop="static" id="ljInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Create Learning Journey</h1>

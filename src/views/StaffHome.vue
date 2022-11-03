@@ -1,6 +1,6 @@
 <template>
   <UserProfile :userInfo="userInfo" />
-  <div class="container mt-3">
+  <div class="container mt-3" v-motion-fade>
     <h2 class="text-gray-500 display-5 fw-bold mt-5 mb-2">
       <font-awesome-icon icon="fa-solid fa-list-check" /> My Learning Journey
     </h2>

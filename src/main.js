@@ -4,6 +4,7 @@ import './scss/main.scss'
 import "bootstrap/dist/js/bootstrap.js"
 import router from './router'
 import { createPinia } from "pinia"
+import { MotionPlugin } from '@vueuse/motion'
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -64,5 +65,6 @@ library.add(
 createApp(App)
 .use(createPinia())
 .use(router)
+.use(MotionPlugin)
 .component('font-awesome-icon', FontAwesomeIcon)
 .mount('#app')

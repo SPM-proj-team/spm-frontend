@@ -1,5 +1,5 @@
 <template>
-	<div class="card shadow">
+	<div class="card shadow" >
 		<div class="card-body">
 			<h5 class="card-title fw-bold mb-3">Skills Fulfillment</h5>
 			<div
