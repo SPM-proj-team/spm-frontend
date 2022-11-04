@@ -21,8 +21,12 @@
             </div>
         </div>
 
-        <!-- Lj Info Modal -->
-        <div class="modal fade" data-bs-backdrop="static" id="ljInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        
+
+    </div>
+
+    <!-- Lj Info Modal -->
+    <div class="modal fade"  id="ljInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -63,8 +67,6 @@
                 </div>
             </div>
         </div>
-
-    </div>
 
 
     <!-- Success Modal -->
