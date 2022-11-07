@@ -183,9 +183,6 @@ export default {
 			return Object.keys(skillsCounter).length;
 		},
 
-		openModalForLJInfo() {
-			this.$parent.openModalForLJInfo();
-		},
 
 		mapRegistration(courseID, type) {
 			if (type === "registration") {

@@ -35,13 +35,6 @@ export default {
         modalType: String
     },
 
-    methods: {
-        nextBtnClick() {
-            console.log("======> nextBtnClick on SuccessModal.vue ======")
-            this.$parent.nextBtnClick()
-        }
-    }
-
 }
 </script>
 
