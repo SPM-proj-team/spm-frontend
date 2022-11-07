@@ -1,7 +1,7 @@
 <template>
     <div class="container my-3">
         <Breadcrumbs :navObjects="navObjects" />
-        <div class="row mb-3">
+        <div class="row mb-3" v-motion-fade>
             <div class="col">
                 <LearningJourneyInfo ref="ljInfo" :ljName='this.ljName'
                     :ljDescription='learningJourneyDetails.Description' v-if="learningJourneyDetails" formType='update'
@@ -11,10 +11,10 @@
         <div v-if="this.errors.courses.state" class="alert alert-danger" role="alert">
             {{ this.errors.courses.message }} <b>{{ this.errors.courses.details }}</b>
         </div>
-        <div class="card text-bg-success mb-3 shadow">
+        <div class="card text-bg-success mb-3 shadow" v-motion-fade>
             <div class="card-header fw-semibold">Courses and Skills</div>
         </div>
-        <div class="row justify-content-center align-content-center g-1 g-xl-4">
+        <div class="row justify-content-center align-content-center g-1 g-xl-4" v-motion-fade>
             <div class="col-12 col-xl-4 order-2 order-xl-1">
                 <SkillsFulfillment :Skills="jobRoleSkills" :MappedCourses="mappedCourses" :formType="'update'"
                     :SelectedCourses="selectedCourses" @updateLJbutton='updateLearningJourney' :courseRegistration='courseRegistration'/>
