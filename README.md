@@ -1,5 +1,8 @@
 # Learning Journey Management System (LJPS)
-
+### use for testing
+```
+https://spm-frontend.web.app/Login
+```
 ## Project setup
 ```
 npm install
