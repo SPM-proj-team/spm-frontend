@@ -29,8 +29,18 @@ export default {
     if (this.store.staff_id === null){
       this.$router.push({name: 'Login'})
     }
-
-    
+  },
+  computed: {
+    isLoggedIn() {
+      return this.store.staff_id !== null
+    }
+  },
+  watch: {
+    isLoggedIn: function() {
+      if (this.store.staff_id === null){
+        this.$router.push({name: 'Login'})
+      }
+    }
   }
 
 }
